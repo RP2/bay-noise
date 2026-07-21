@@ -134,6 +134,50 @@ function cleanArtistName(name: string): string {
   return name.replace(/\s*\([^)]*\)\s*/g, "").trim();
 }
 
+/**
+ * Algorithmic name matching — determines whether two names refer to the same entity
+ * despite typos, abbreviations, or formatting differences.
+ *
+ * Strategy (in order):
+ * 1. Exact match after normalization (fast path)
+ * 2. One contains the other as a substring
+ * 3. All significant words in the shorter name appear in the longer name
+ * 4. Character-overlap ratio > 0.75 (shared chars / unique chars)
+ *
+ * No Levenshtein distance, no manual correction dictionary. Handles foopee's
+ * common typos ("suicidal tendecies" → "suicidal tendencies") via word/char overlap.
+ */
+function namesMatch(a: string, b: string): boolean {
+  const na = normalizeForMatching(a);
+  const nb = normalizeForMatching(b);
+
+  if (!na || !nb) return false;
+  if (na === nb) return true; // exact match
+
+  // Substring: one name fully contained in the other
+  if (na.includes(nb) || nb.includes(na)) return true;
+
+  // Word containment: all words of the shorter name appear in the longer
+  const wordsA = na.split(/\s+/).filter((w) => w.length > 1);
+  const wordsB = nb.split(/\s+/).filter((w) => w.length > 1);
+  if (wordsA.length > 0 && wordsB.length > 0) {
+    const [shorterWords, longerWords] = wordsA.length <= wordsB.length
+      ? [wordsA, wordsB]
+      : [wordsB, wordsA];
+    if (shorterWords.every((w) => longerWords.includes(w))) return true;
+  }
+
+  // Character-overlap ratio: count shared characters / total unique characters
+  const charsA = new Set(na.replace(/\s/g, ""));
+  const charsB = new Set(nb.replace(/\s/g, ""));
+  const shared = new Set([...charsA].filter((c) => charsB.has(c)));
+  const all = new Set([...charsA, ...charsB]);
+  const ratio = all.size > 0 ? shared.size / all.size : 0;
+  if (ratio > 0.75) return true;
+
+  return false;
+}
+
 // ──────────────────────────────────────────────
 // Date normalization (year-rollover aware)
 // ──────────────────────────────────────────────
@@ -265,10 +309,9 @@ function deduplicateVenue(
   // Step c: Normalize for lookup
   const normalized = normalizeText(stripped);
 
-  // Step d: Check aliases
+  // Step d: Check aliases (exact match)
   if (aliases.has(normalized)) {
     const entry = aliases.get(normalized)!;
-    // Add this raw name as an alias if not already present
     const rawLower = normalizeText(rawName);
     if (!entry.aliases.some((a) => normalizeText(a) === rawLower)) {
       entry.aliases.push(rawName);
@@ -276,7 +319,25 @@ function deduplicateVenue(
     return entry.canonical;
   }
 
-  // Step e: Create new entry
+  // Step e: Algorithmic fallback — check if the stripped name matches an
+  // existing entry via word/char overlap. Catches foopee venue typos without
+  // a manual corrections file.
+  for (const entry of aliases.values()) {
+    if (namesMatch(stripped, entry.canonical)) {
+      // Merge: alias this new name under the existing canonical
+      const rawLower = normalizeText(rawName);
+      if (!entry.aliases.some((a) => normalizeText(a) === rawLower)) {
+        entry.aliases.push(rawName);
+      }
+      // Also map the normalized key so next time it's an O(1) lookup
+      if (!aliases.has(normalized)) {
+        aliases.set(normalized, entry);
+      }
+      return entry.canonical;
+    }
+  }
+
+  // Step f: Create new entry
   aliases.set(normalized, { canonical: name, aliases: [rawName] });
   return name;
 }
@@ -353,11 +414,11 @@ async function spotifySearchArtist(
     if (items.length === 0) return null;
 
     const top = items[0];
-    const normalizedInput = normalizeForMatching(name);
-    const normalizedResult = normalizeForMatching(top.name);
 
-    // Only accept if names match after normalization
-    if (normalizedInput === normalizedResult) {
+    // Accept if the names match algorithmically (handles typos naturally —
+    // Spotify's search is already fuzzy, so "Mettalica" returns Metallica
+    // as the top result, and namesMatch confirms they're close enough).
+    if (namesMatch(name, top.name)) {
       return {
         name: top.name,
         genres: top.genres ?? [],
