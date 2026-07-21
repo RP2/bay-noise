@@ -1,0 +1,45 @@
+{
+  "$schema": "https://opencode.ai/schema/opencode.json",
+  "project": {
+    "name": "bay-noise",
+    "description": "Preact SPA — personal Bay Area show radar. Vite + Tailwind v4 + Cloudflare Pages."
+  },
+  "agents": {
+    "tier-1-coder": {
+      "model": "gemini-2.5-flash",
+      "enabled": true,
+      "budget": 10000
+    },
+    "tier-1.5-coder": {
+      "model": "gemini-2.5-flash",
+      "enabled": true,
+      "budget": 20000
+    },
+    "tier-2-coder": {
+      "model": "gemini-2.5-pro",
+      "enabled": true,
+      "budget": 40000
+    },
+    "tier-3-coder": {
+      "model": "gemini-2.5-pro",
+      "enabled": true,
+      "budget": 100000
+    }
+  },
+  "skills": [
+    {
+      "name": "adversarial-coding-loop",
+      "enabled": true
+    }
+  ],
+  "rules": [
+    "TypeScript everywhere. Frontend, functions, tests.",
+    "Preact, not React. import { h } from 'preact'.",
+    "Tailwind v4 utility classes only. No custom CSS.",
+    "Pure functions in src/lib/. Side effects only in prefs.ts (localStorage).",
+    "Tests beside source: genres.ts → genres.test.ts.",
+    "One useEffect for data fetch in app.tsx. No context/store/router.",
+    "Dark mode via class='dark' on <html>. System preference only.",
+    "TODO(port): for uncertainty. NOTE(port): for intentional oddities."
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "name": "bay-noise",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "displayName": "Bay Noise",
+  "description": "Your personal Bay Area show radar.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0",
+    "preact": "^10.26.0"
+  },
+  "devDependencies": {
+    "@preact/preset-vite": "^2.10.0",
+    "@tailwindcss/vite": "^4.1.0",
+    "@testing-library/preact": "^3.2.4",
+    "happy-dom": "^20.11.0",
+    "tailwindcss": "^4.1.0",
+    "typescript": "^7.0.2",
+    "vite": "^8.1.5",
+    "vitest": "^4.1.10"
+  }
+}
