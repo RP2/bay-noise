@@ -189,14 +189,6 @@
     ]
   },
   {
-    "name": "Castro Theater,",
-    "city": null,
-    "address": null,
-    "aliases": [
-      "Castro Theater,"
-    ]
-  },
-  {
     "name": "Castro Theater, S.F.",
     "city": "San Francisco",
     "address": null,
@@ -204,16 +196,9 @@
       "Castro Theater, S.F.",
       "the Castro Theater, S.F.",
       "Castro Theataer, S.F.",
-      "Castro Theater, S.f."
-    ]
-  },
-  {
-    "name": "Castro, S.F.",
-    "city": "San Francisco",
-    "address": null,
-    "aliases": [
-      "Castro, S.F.",
-      "Castro, S.f."
+      "Castro Theater, S.f.",
+      "Castro Theater,",
+      "Castro, S.F."
     ]
   },
   {
@@ -306,7 +291,7 @@
   },
   {
     "name": "Cow Palace, Daily City",
-    "city": "Daily City",
+    "city": "Daly City",
     "address": "2600 Geneva Avenue",
     "aliases": [
       "Cow Palace, Daily City",
@@ -574,7 +559,7 @@
   },
   {
     "name": "Guild Theater, Memlo Park",
-    "city": "Memlo Park",
+    "city": "Menlo Park",
     "address": null,
     "aliases": [
       "Guild Theater, Memlo Park"
@@ -735,20 +720,13 @@
     ]
   },
   {
-    "name": "Mabuhay Gardens and on Broadway, S.F.",
-    "city": "San Francisco",
-    "address": null,
-    "aliases": [
-      "Mabuhay Gardens and on Broadway, S.F."
-    ]
-  },
-  {
     "name": "Mabuhay Gardens, S.F.",
     "city": "San Francisco",
     "address": null,
     "aliases": [
       "Mabuhay Gardens, S.F.",
-      "Mabuhay Gardens, .F."
+      "Mabuhay Gardens, .F.",
+      "Mabuhay Gardens and on Broadway, S.F."
     ]
   },
   {
@@ -813,20 +791,13 @@
     ]
   },
   {
-    "name": "Music Hall, Napa",
-    "city": "Napa",
-    "address": null,
-    "aliases": [
-      "Music Hall, Napa"
-    ]
-  },
-  {
     "name": "Napa Music Hall, 1030 Main St, Napa",
     "city": "Napa",
     "address": "1030 Main St",
     "aliases": [
       "Napa Music Hall, 1030 Main St, Napa",
-      "Music Hall, 1030 Main St,, Napa"
+      "Music Hall, 1030 Main St,, Napa",
+      "Music Hall, Napa"
     ]
   },
   {
