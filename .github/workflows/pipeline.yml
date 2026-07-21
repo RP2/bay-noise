@@ -1,0 +1,61 @@
+name: Monthly data pipeline
+
+on:
+  schedule:
+    # First Monday of each month at 8am PT (15:00 UTC).
+    # Runs every Monday; early-exit when day-of-month > 7.
+    - cron: "0 15 * * 1"
+  workflow_dispatch:
+
+concurrency:
+  group: pipeline
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check first Monday of month
+        run: |
+          DAY=$(date +%d)
+          if [ "$DAY" -gt 7 ]; then
+            echo "Not first Monday (day $DAY > 7). Skipping."
+            exit 0
+          fi
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - run: npm ci
+
+      - name: Run data pipeline
+        run: npm run pipeline
+        env:
+          SPOTIFY_CLIENT_ID: ${{ secrets.SPOTIFY_CLIENT_ID }}
+          SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}
+
+      - name: Validate output
+        run: |
+          node -e "
+            const d = require('./public/shows.json');
+            if (!d.shows || !Array.isArray(d.shows)) throw new Error('missing shows array');
+            if (d.shows.length === 0) throw new Error('empty shows array — likely scrape failure');
+            console.log('✓ shows.json valid —', d.shows.length, 'days,',
+              d.shows.reduce((s, day) => s + day.venues.length, 0), 'events');
+          "
+
+      - name: Commit results
+        run: |
+          git config user.email "${{ github.actor }}@users.noreply.github.com"
+          git config user.name "${{ github.actor }}"
+          git add public/shows.json public/venue-aliases.json public/artist-cache.json
+          git diff --cached --quiet || git commit -m "pipeline: $(date +%Y-%m-%d) data update"
+          git pull --rebase origin main
+          git push
