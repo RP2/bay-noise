@@ -334,11 +334,6 @@ function parseExtra(raw: string): ParsedExtra {
 // Venue dedup (HD 3)
 // ──────────────────────────────────────────────
 
-interface VenueAliasEntry {
-  canonical: string;
-  aliases: string[];
-}
-
 interface KnownVenue {
   name: string;
   city: string | null;
@@ -350,6 +345,7 @@ interface DedupResult {
   canonicalName: string;
   city: string | null;
   address: string | null;
+  knownVenueIndex: number | null;
 }
 
 /** Clean venue name — strip noise words, age restrictions, city suffix. */
@@ -359,7 +355,8 @@ function cleanVenueName(name: string): string {
   // Strip age restrictions and event descriptors sometimes
   // appended to venue names (e.g., "Bottom of the Hill 21+")
   const noisePatterns = [
-    /\s+(18\+|21\+|all\s*ages|sold\s*out|cancelled|canceled|postponed)\s*$/i,
+    /\s+(?:18|21)(?:\+)?\s*$/i,
+    /\s+(all\s*ages|sold\s*out|cancelled|canceled|postponed)\s*$/i,
     /\s+presents?\s*$/i,
   ];
   for (const p of noisePatterns) {
@@ -378,112 +375,75 @@ function cleanVenueName(name: string): string {
   return result.trim();
 }
 
+function addAliasToKnownVenue(venue: KnownVenue, rawName: string): void {
+  const rawNormalized = normalizeText(rawName);
+  if (!venue.aliases.some((a) => normalizeText(a) === rawNormalized)) {
+    venue.aliases.push(rawName);
+  }
+}
+
 function deduplicateVenue(
   rawName: string,
-  aliases: Map<string, VenueAliasEntry>,
   knownVenues: KnownVenue[],
 ): DedupResult {
   let name = rawName.trim();
-  let address: string | null = null;
-  let city: string | null = null;
 
-  // Step a: Expand shorthand
+  // Expand shorthand
   const nameLower = name.toLowerCase().trim();
   if (VENUE_SHORTHAND[nameLower]) {
     name = VENUE_SHORTHAND[nameLower];
   }
 
-  // Step b: Clean venue name (strip suffixes, noise, age restrictions)
+  // Clean venue name (strip suffixes, noise, age restrictions)
   const stripped = cleanVenueName(name);
 
-  // Step c: Normalize for lookup
-  const normalized = normalizeText(stripped);
-
-  // Helper: merge raw name as alias
-  const addAlias = (entry: VenueAliasEntry) => {
-    const rawLower = normalizeText(rawName);
-    if (!entry.aliases.some((a) => normalizeText(a) === rawLower)) {
-      entry.aliases.push(rawName);
-    }
-  };
-
-  // Step d: Check known-venues FIRST (before session aliases).
-  // Known venues have canonical names and cities; session aliases may have
-  // stale scraped names from pre-known-venues runs.
-  // For multi-location venues (e.g. Hopmonk Tavern in Novato & Sebastopol),
-  // disambiguate by extracting city from the raw scraped name.
+  // Match against known venues
   const scrapedCity = extractCity(rawName);
-  const knownMatches: Array<{ kv: KnownVenue; matchType: string }> = [];
+  const matches: Array<{ kv: KnownVenue; index: number; matchType: string }> = [];
 
-  for (const kv of knownVenues) {
-    // Check canonical name
+  for (let i = 0; i < knownVenues.length; i++) {
+    const kv = knownVenues[i];
     if (namesMatch(stripped, kv.name)) {
-      knownMatches.push({ kv, matchType: "canonical" });
+      matches.push({ kv, index: i, matchType: "canonical" });
       continue;
     }
-    // Check known aliases
     for (const alias of kv.aliases ?? []) {
       if (namesMatch(stripped, alias)) {
-        knownMatches.push({ kv, matchType: "alias" });
+        matches.push({ kv, index: i, matchType: "alias" });
         break;
       }
     }
   }
 
-  if (knownMatches.length === 1) {
-    // Unique match — use it
-    const { kv } = knownMatches[0];
-    addAlias({ canonical: kv.name, aliases: [] });
-    if (!aliases.has(normalized)) {
-      aliases.set(normalized, { canonical: kv.name, aliases: [rawName] });
-    }
-    return { canonicalName: kv.name, city: kv.city, address: kv.address };
+  if (matches.length > 0) {
+    // Disambiguate multi-location venues by city from the raw name
+    const match = (scrapedCity
+      ? matches.find((m) => m.kv.city?.toLowerCase() === scrapedCity.toLowerCase())
+      : undefined) ?? matches[0];
+
+    addAliasToKnownVenue(knownVenues[match.index], rawName);
+    return {
+      canonicalName: match.kv.name,
+      city: match.kv.city,
+      address: match.kv.address,
+      knownVenueIndex: match.index,
+    };
   }
 
-  if (knownMatches.length > 1) {
-    // Multiple matches (e.g. Hopmonk Tavern in Novato & Sebastopol).
-    // Disambiguate by city extracted from the raw name.
-    if (scrapedCity) {
-      const sc = scrapedCity.toLowerCase();
-      const byCity = knownMatches.find((m) => m.kv.city?.toLowerCase() === sc);
-      if (byCity) {
-        addAlias({ canonical: byCity.kv.name, aliases: [] });
-        if (!aliases.has(normalized)) {
-          aliases.set(normalized, { canonical: byCity.kv.name, aliases: [rawName] });
-        }
-        return { canonicalName: byCity.kv.name, city: byCity.kv.city, address: byCity.kv.address };
-      }
-    }
-    // No city disambiguation — fall through to first match
-    const { kv } = knownMatches[0];
-    addAlias({ canonical: kv.name, aliases: [] });
-    if (!aliases.has(normalized)) {
-      aliases.set(normalized, { canonical: kv.name, aliases: [rawName] });
-    }
-    return { canonicalName: kv.name, city: kv.city, address: kv.address };
-  }
-
-  // Step e: Check session aliases (exact match)
-  if (aliases.has(normalized)) {
-    const entry = aliases.get(normalized)!;
-    addAlias(entry);
-    return { canonicalName: entry.canonical, city, address };
-  }
-
-  // Step f: Algorithmic fallback — check session aliases
-  for (const entry of aliases.values()) {
-    if (namesMatch(stripped, entry.canonical)) {
-      addAlias(entry);
-      if (!aliases.has(normalized)) {
-        aliases.set(normalized, entry);
-      }
-      return { canonicalName: entry.canonical, city, address };
-    }
-  }
-
-  // Step g: Create new entry
-  aliases.set(normalized, { canonical: name, aliases: [rawName] });
-  return { canonicalName: name, city, address };
+  // No match — create a new known-venue entry
+  const newVenue: KnownVenue = {
+    name: stripped,
+    city: scrapedCity,
+    address: null,
+    aliases: [rawName],
+  };
+  knownVenues.push(newVenue);
+  return {
+    canonicalName: newVenue.name,
+    city: newVenue.city,
+    address: newVenue.address,
+    knownVenueIndex: knownVenues.length - 1,
+  };
 }
 
 // ──────────────────────────────────────────────
@@ -598,6 +558,22 @@ async function loadJsonFile<T>(path: string, fallback: T): Promise<T> {
   }
 }
 
+function progressLine(message: string): void {
+  process.stdout.write(`\r${message.padEnd(90)}`);
+}
+
+function logArtistProgress(current: number, total: number, message: string): void {
+  if (total <= 50 || current % 50 === 0) {
+    progressLine(`  Artist ${current}/${total}: ${message}`);
+  }
+}
+
+function logVenueProgress(current: number, total: number, message: string): void {
+  if (total <= 20 || current % 20 === 0) {
+    progressLine(`  Venue ${current}/${total}: ${message}`);
+  }
+}
+
 // ──────────────────────────────────────────────
 // Extra cleanup (from old scrape logic)
 // ──────────────────────────────────────────────
@@ -635,19 +611,43 @@ async function fetchPage(url: string) {
 // ──────────────────────────────────────────────
 
 async function main(): Promise<void> {
+  // ── Load .env file if present ──
+  try {
+    const envText = await readFile(".env", "utf-8");
+    for (const rawLine of envText.split("\n")) {
+      let line = rawLine.trim();
+      if (!line || line.startsWith("#")) continue;
+      if (line.startsWith("export ")) line = line.slice("export ".length).trim();
+      const eqIdx = line.indexOf("=");
+      if (eqIdx === -1) continue;
+      const key = line.slice(0, eqIdx).trim();
+      if (!key) continue;
+      let value = line.slice(eqIdx + 1).trim();
+      if (value.length >= 2) {
+        const first = value[0];
+        const last = value[value.length - 1];
+        if ((first === '"' && last === '"') || (first === "'" && last === "'")) {
+          value = value.slice(1, -1);
+        }
+      }
+      if (value.includes("#")) {
+        const commentIdx = value.search(/\s#/);
+        if (commentIdx !== -1) value = value.slice(0, commentIdx).trimEnd();
+      }
+      if (!(key in process.env)) process.env[key] = value;
+    }
+  } catch (err) {
+    if ((err as NodeJS.ErrnoException).code !== "ENOENT") {
+      console.warn(`Warning: failed to read .env: ${err}`);
+    }
+  }
+
   console.log("=== Bay Noise Pipeline ===");
   console.log();
 
-  // ── Load cache files ──
-  const venueAliases = await loadJsonFile<Record<string, VenueAliasEntry>>(
-    "public/venue-aliases.json", {},
-  );
-  const venueAliasMap = new Map<string, VenueAliasEntry>(Object.entries(venueAliases));
-
-  // ── Load known venues (curated list from old bay-punks) ──
-  const knownVenuesRaw = await loadJsonFile<KnownVenue[]>("public/known-venues.json", []);
-  const knownVenuesMap: KnownVenue[] = knownVenuesRaw;
-  console.log(`✓ Loaded ${knownVenuesMap.length} known venues`);
+  // ── Load known venues (single source of truth) ──
+  const knownVenues = await loadJsonFile<KnownVenue[]>("public/known-venues.json", []);
+  console.log(`✓ Loaded ${knownVenues.length} known venues`);
 
   const artistCache = await loadJsonFile<Record<string, ArtistCacheEntry>>(
     "public/artist-cache.json", {},
@@ -772,9 +772,18 @@ async function main(): Promise<void> {
   console.log(`  Raw days: ${scrapedDays.length}, Unique days: ${uniqueDays.length}`);
 
   // ── Process each event ──
+  const totalVenues = uniqueDays.reduce((sum, d) => sum + d.events.length, 0);
+  const totalArtists = uniqueDays.reduce(
+    (sum, d) => sum + d.events.reduce((es, e) => es + e.bands.length, 0),
+    0,
+  );
+  console.log("\nProcessing events...");
+
   let enrichedCount = 0;
   let cachedCount = 0;
   let skipCount = 0;
+  let venueCounter = 0;
+  let artistCounter = 0;
 
   const outputDays: ShowDay[] = [];
 
@@ -782,11 +791,19 @@ async function main(): Promise<void> {
     const venues: VenueEvent[] = [];
 
     for (const evt of day.events) {
+      venueCounter++;
+
       // Venue dedup + known-venue validation
-      const dedup = deduplicateVenue(evt.venue.text, venueAliasMap, knownVenuesMap);
+      const dedup = deduplicateVenue(evt.venue.text, knownVenues);
       const venueName = dedup.canonicalName;
       // Use canonical city from known venues when available; fall back to extraction
       const city = dedup.city ?? extractCity(evt.venue.text);
+
+      logVenueProgress(
+        venueCounter,
+        totalVenues,
+        `"${venueName}" (${dedup.knownVenueIndex !== null ? "matched known venue" : "new venue"})`,
+      );
 
       // Parse extra
       const parsed = parseExtra(evt.extra);
@@ -794,6 +811,7 @@ async function main(): Promise<void> {
       // Artist enrichment
       const artists: Artist[] = [];
       for (const band of evt.bands) {
+        artistCounter++;
         const cacheKey = normalizeForMatching(band.text);
         const cached = artistCacheMap.get(cacheKey);
 
@@ -803,8 +821,14 @@ async function main(): Promise<void> {
           if (cached.spotifyUrl) entry.spotifyUrl = cached.spotifyUrl;
           artists.push(entry);
           cachedCount++;
+          logArtistProgress(
+            artistCounter,
+            totalArtists,
+            `✓ "${band.text}" → ${cached.genres.join(",") || "no genres"} (cached)`,
+          );
         } else if (token) {
           // Search Spotify
+          logArtistProgress(artistCounter, totalArtists, `Searching "${band.text}" on Spotify...`);
           await sleep(SPOTIFY_DELAY);
           const result = await spotifySearchArtist(band.text, token);
           if (result) {
@@ -819,16 +843,23 @@ async function main(): Promise<void> {
               spotifyUrl: result.spotifyUrl,
             });
             enrichedCount++;
+            logArtistProgress(
+              artistCounter,
+              totalArtists,
+              `✓ "${result.name}" → ${result.genres.join(",") || "no genres"}`,
+            );
           } else {
             // No match — cache as "no match" (empty genres, no spotifyUrl)
             artists.push({ name: band.text, genres: [] });
             artistCacheMap.set(cacheKey, { name: band.text, genres: [] });
             skipCount++;
+            logArtistProgress(artistCounter, totalArtists, `✗ "${band.text}" no match`);
           }
         } else {
           // No Spotify token — skip enrichment
           artists.push({ name: band.text, genres: [] });
           skipCount++;
+          logArtistProgress(artistCounter, totalArtists, `✗ "${band.text}" no Spotify token`);
         }
       }
 
@@ -850,6 +881,7 @@ async function main(): Promise<void> {
     });
   }
 
+  process.stdout.write("\n");
   console.log(`\n  Spotify: ${enrichedCount} enriched, ${cachedCount} cached, ${skipCount} skipped`);
 
   // ── Build output ──
@@ -865,13 +897,9 @@ async function main(): Promise<void> {
   await writeFile(`${outputDir}/shows.json`, JSON.stringify(output, null, 2));
   console.log(`\n✓ Wrote ${outputDir}/shows.json (${outputDays.length} days, ${venuesCount(outputDays)} venues)`);
 
-  // Write venue aliases back
-  const aliasObj: Record<string, VenueAliasEntry> = {};
-  for (const [key, val] of venueAliasMap) {
-    aliasObj[key] = val;
-  }
-  await writeFile(`${outputDir}/venue-aliases.json`, JSON.stringify(aliasObj, null, 2));
-  console.log(`✓ Wrote ${outputDir}/venue-aliases.json (${Object.keys(aliasObj).length} entries)`);
+  // Write known venues back (single source of truth)
+  await writeFile(`${outputDir}/known-venues.json`, JSON.stringify(knownVenues, null, 2));
+  console.log(`✓ Wrote ${outputDir}/known-venues.json (${knownVenues.length} entries)`);
 
   // Write artist cache back
   const cacheObj: Record<string, ArtistCacheEntry> = {};

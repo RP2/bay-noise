@@ -175,7 +175,7 @@ bay-noise/
 │   └── build-data.js               # Single pipeline script
 ├── public/
 │   ├── shows.json                  # Built by pipeline (tracked in git)
-│   ├── venue-aliases.json          # Accumulated venue aliases (tracked)
+│   ├── known-venues.json           # Curated venues + accumulated aliases (tracked)
 │   ├── artist-cache.json           # Spotify search cache (tracked)
 │   ├── manifest.json
 │   ├── icon-192.png

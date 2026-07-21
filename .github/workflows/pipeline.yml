@@ -55,7 +55,7 @@ jobs:
         run: |
           git config user.email "${{ github.actor }}@users.noreply.github.com"
           git config user.name "${{ github.actor }}"
-          git add public/shows.json public/venue-aliases.json public/artist-cache.json
+          git add public/shows.json public/known-venues.json public/artist-cache.json
           git diff --cached --quiet || git commit -m "pipeline: $(date +%Y-%m-%d) data update"
           git pull --rebase origin main
           git push

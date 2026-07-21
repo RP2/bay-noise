@@ -162,7 +162,7 @@ Types defined: `ShowsData`, `ShowDay`, `VenueEvent`, `Artist`, `UserPrefs`, `Sco
 | No hardcoded data lists | (a) Inline venue shorthand map (~15 entries) in pipeline | Spotify doesn't resolve venue name shorthand like "fillmore" → "The Fillmore". This map is the minimum viable patch and lives inline in `build-data.js`. |
 | No hardcoded data lists | (b) Inline city abbreviation map (~10 entries) in pipeline | No external API resolves "sf" → "San Francisco". Also inline in `build-data.js`. |
 | No hardcoded data lists | (c) Genre taxonomy map in `src/lib/genres.ts` | This is a classification system for recommendation, not a data patch. It maps Spotify genres to broad categories. |
-| No separate patch files | `public/venue-aliases.json` | Aliases accumulated across pipeline runs need persistent storage. This is the one tracked data file that is NOT a correction — it's accumulated state. Pipeline reads it, enriches it, writes it back. |
+| No separate patch files | `public/known-venues.json` | Curated venue list plus aliases accumulated across pipeline runs. This is the single source of truth for venue names; the pipeline reads it, enriches it, writes it back. |
 
 ---
 
@@ -200,8 +200,8 @@ Four-step process:
 a. Expand common venue shorthand from inline map (~15 entries inline in `build-data.js`)
 b. Strip trailing city/location suffix (", S.F.", ", San Francisco", ", Oakland", ", Berkeley", ", CA", etc.)
 c. Normalize (lowercase, strip punctuation, trim whitespace)
-d. Check against `public/venue-aliases.json` — a tracked file that maps normalized names → canonical venue names + alias list. If the normalized name matches an existing entry's alias, use the canonical name. If not, create a new entry.
-e. After processing all shows, write back `public/venue-aliases.json` with any new aliases accumulated.
+d. Check against `public/known-venues.json` — the single source of truth. Match canonical names and known aliases algorithmically. If the scraped name matches a known venue, use its canonical name and add the raw name as a new alias.
+e. After processing all shows, write back `public/known-venues.json` with any new aliases or venues accumulated.
 
 This file is the EXCEPTION to NEVER rule 12 — it's accumulated state, not a patch file.
 
@@ -212,7 +212,7 @@ Parse city from venue name suffix using inline abbreviation map (~10 entries inl
 Locked list in `src/lib/genres.ts`. Each Spotify genre string maps to exactly one broad category. No overlaps. ~13 broad categories. Artists with unmapped genres fall into `"other"` — shows still appear but are not boosted. Edge cases documented with comments in `genres.ts`.
 
 ### HD 6: Pipeline schedule
-GitHub Actions cron runs `node scripts/build-data.js` every first Monday of the month. Commits `public/shows.json`, `public/venue-aliases.json`, and `public/artist-cache.json` if changed. Deploy triggers automatically. The workflow must verify `public/shows.json` is non-empty and valid JSON before committing.
+GitHub Actions cron runs `node scripts/build-data.js` every first Monday of the month. Commits `public/shows.json`, `public/known-venues.json`, and `public/artist-cache.json` if changed. Deploy triggers automatically. The workflow must verify `public/shows.json` is non-empty and valid JSON before committing.
 
 ### HD 7: State management
 ```ts
@@ -317,7 +317,7 @@ parse with cheerio (extract venue + artist names)
     ├──▶ Venue dedup pipeline
     │       ├── apply inline shorthand map (~15 entries)
     │       ├── strip city suffix
-    │       ├── normalize + exact match against venue-aliases.json
+    │       ├── match canonical names + aliases against known-venues.json
     │       ├── match → use canonical name + accumulate new alias
     │       └── no match → create new venue entry
     │
@@ -325,7 +325,7 @@ parse with cheerio (extract venue + artist names)
     │
     ├──▶ Extract city from venue name suffix (inline abbrev map, ~10 entries)
     │
-    ├──▶ Write venue-aliases.json (updated with any new aliases)
+    ├──▶ Write known-venues.json (updated with any new aliases or venues)
     │
     ├──▶ Write artist-cache.json (updated with any new searches)
     │
@@ -359,4 +359,4 @@ Reviewers check for:
 
 10. **Data format divergence** — `shows.json` structure must match `ShowsData` exactly.
 
-11. **Corrections file creep** — any new `.json` file added to `src/data/` or `public/` beyond the allowed three: `shows.json`, `venue-aliases.json`, `artist-cache.json`. Also verify `spelling-corrections.json` does not exist.
+11. **Corrections file creep** — any new `.json` file added to `src/data/` or `public/` beyond the allowed three: `shows.json`, `known-venues.json`, `artist-cache.json`. Also verify `spelling-corrections.json` does not exist.

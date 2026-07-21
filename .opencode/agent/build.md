@@ -23,10 +23,10 @@
 - `scripts/build-data.js` — single file, clearly sectioned
 - `cheerio` for HTML parsing of foopee.com pages
 - Spotify Client Credentials flow with env vars `SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET`
-- Venue dedup: strip city suffix → normalize → exact match only
+- Venue dedup: strip city suffix → normalize → match against `public/known-venues.json` (canonical names + aliases)
 - Artist enrichment: normalize → Spotify search → cache in `public/artist-cache.json`
 
 ### Data files (tracked in git)
-- `public/shows.json` — single source of truth, produced by pipeline
-- `public/venue-aliases.json` — accumulated venue alias state
+- `public/shows.json` — produced by pipeline
+- `public/known-venues.json` — curated venue list + accumulated aliases, single source of truth
 - `public/artist-cache.json` — Spotify search cache
