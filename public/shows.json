@@ -122,7 +122,7 @@
           "age": null
         },
         {
-          "name": "at Open Gallery, 38 South Second Street",
+          "name": "at Open Gallery",
           "city": "San Jose",
           "artists": [
             {
@@ -941,7 +941,7 @@
           "age": "a/a"
         },
         {
-          "name": "Shanty Shack, 138 Fern Street",
+          "name": "Shanty Shack",
           "city": "Santa Cruz",
           "artists": [
             {
@@ -967,8 +967,8 @@
           "age": "a/a"
         },
         {
-          "name": "Siesta Valley Bowl, Orinda",
-          "city": null,
+          "name": "Siesta Valley Bowl",
+          "city": "Orinda",
           "artists": [
             {
               "name": "DakhaBrakha",
@@ -3121,8 +3121,8 @@
           "age": "a/a"
         },
         {
-          "name": "Siesta Valley Bowl, Orinda",
-          "city": null,
+          "name": "Siesta Valley Bowl",
+          "city": "Orinda",
           "artists": [
             {
               "name": "Stanley Clarke",
@@ -3141,7 +3141,7 @@
           "age": "a/a"
         },
         {
-          "name": "Siesta Valley Bowl, Orinda",
+          "name": "Spanky's Bar, 8201 Old Redwood Hwy., Cotati",
           "city": null,
           "artists": [
             {
@@ -4694,7 +4694,7 @@
           "age": null
         },
         {
-          "name": "Bric-A-Brac, 178 Leland Avenue",
+          "name": "Bric-A-Brac",
           "city": "San Francisco",
           "artists": [
             {
@@ -4753,7 +4753,7 @@
           "age": "a/a"
         },
         {
-          "name": "Carnalitos Customs, 905 Tennessee Street",
+          "name": "Carnalitos Customs",
           "city": "Vallejo",
           "artists": [
             {
@@ -5194,7 +5194,7 @@
           "age": "a/a"
         },
         {
-          "name": "Pocket Park, 540 South 1st Street",
+          "name": "Pocket Park",
           "city": "San Jose",
           "artists": [
             {
@@ -5224,7 +5224,7 @@
           "age": "a/a"
         },
         {
-          "name": "Pruma, 616 E Street",
+          "name": "Pruma",
           "city": "Union City",
           "artists": [
             {
@@ -5699,7 +5699,7 @@
           "age": "a/a"
         },
         {
-          "name": "Guitar Wars, 447 South 1st Street",
+          "name": "Guitar Wars",
           "city": "San Jose",
           "artists": [
             {
@@ -5901,7 +5901,7 @@
           "age": null
         },
         {
-          "name": "Long Haul, 3124 Shattuck Ave.",
+          "name": "Long Haul",
           "city": "Berkeley",
           "artists": [
             {
@@ -6006,7 +6006,7 @@
           "age": "a/a"
         },
         {
-          "name": "Purple House, 5716 Genoa Street",
+          "name": "Purple House",
           "city": "Oakland",
           "artists": [
             {
@@ -6347,7 +6347,7 @@
           "age": "a/a"
         },
         {
-          "name": "Bric-A-Brac, 178 Leland Avenue",
+          "name": "Bric-A-Brac",
           "city": "San Francisco",
           "artists": [
             {
@@ -7920,8 +7920,8 @@
           "age": "a/a"
         },
         {
-          "name": "Siesta Valley Bowl, Orinda",
-          "city": null,
+          "name": "Siesta Valley Bowl",
+          "city": "Orinda",
           "artists": [
             {
               "name": "Jake Shimabukuro",
@@ -8707,8 +8707,8 @@
           "age": "a/a"
         },
         {
-          "name": "Siesta Valley Bowl, Orinda",
-          "city": null,
+          "name": "Siesta Valley Bowl",
+          "city": "Orinda",
           "artists": [
             {
               "name": "Rebirth Brass Band",
@@ -9958,7 +9958,7 @@
           "age": null
         },
         {
-          "name": "Bric-A-Brac, 178 Leland Avenue",
+          "name": "Bric-A-Brac",
           "city": "San Francisco",
           "artists": [
             {
@@ -10067,7 +10067,7 @@
           "age": "a/a"
         },
         {
-          "name": "Sebastiani Theater, 476 1st Street E",
+          "name": "Sebastiani Theater",
           "city": "Sonoma",
           "artists": [
             {
@@ -11090,7 +11090,7 @@
           "age": "a/a"
         },
         {
-          "name": "Pizza Place, 3901 Noriega Street",
+          "name": "Pizza Place",
           "city": "San Francisco",
           "artists": [
             {
@@ -11744,7 +11744,7 @@
           "age": "a/a"
         },
         {
-          "name": "Oakland Pride, Broadway and Frank H. Ogawa Plaza",
+          "name": "Oakland Pride",
           "city": "Oakland",
           "artists": [
             {
@@ -13174,7 +13174,7 @@
           "age": "a/a"
         },
         {
-          "name": "S.F. Mass, 955 Market Street 6th Floor",
+          "name": "S.F. Mass",
           "city": "San Francisco",
           "artists": [
             {
@@ -13213,8 +13213,8 @@
           "age": "a/a"
         },
         {
-          "name": "Siesta Valley Bowl, Orinda",
-          "city": null,
+          "name": "Siesta Valley Bowl",
+          "city": "Orinda",
           "artists": [
             {
               "name": "Earthless",
@@ -13843,8 +13843,8 @@
           "age": "a/a"
         },
         {
-          "name": "Siesta Valley Bowl, Orinda",
-          "city": null,
+          "name": "Siesta Valley Bowl",
+          "city": "Orinda",
           "artists": [
             {
               "name": "Jimmy Dale, The Young Varons",
@@ -14044,7 +14044,7 @@
           "age": "a/a"
         },
         {
-          "name": "Victory Stables, 2328 San Pablo Avenue",
+          "name": "Victory Stables",
           "city": "Oakland",
           "artists": [
             {
@@ -14301,8 +14301,8 @@
           "age": "a/a"
         },
         {
-          "name": "Siesta Valley Bowl, Orinda",
-          "city": null,
+          "name": "Siesta Valley Bowl",
+          "city": "Orinda",
           "artists": [
             {
               "name": "Arrival From Sweden",
@@ -15304,7 +15304,7 @@
           "age": null
         },
         {
-          "name": "Mayes Oyster House, 1233 Polk Street",
+          "name": "Mayes Oyster House",
           "city": "San Francisco",
           "artists": [
             {
@@ -15359,7 +15359,7 @@
           "age": "a/a"
         },
         {
-          "name": "Siesta Valley Bowl, Orinda",
+          "name": "Spanky's Bar, 8201 Old Redwood Hwy., Cotati",
           "city": null,
           "artists": [
             {
@@ -15406,8 +15406,8 @@
           "age": "a/a"
         },
         {
-          "name": "Siesta Valley Bowl, Orinda",
-          "city": null,
+          "name": "Siesta Valley Bowl",
+          "city": "Orinda",
           "artists": [
             {
               "name": "Eric Benet",
@@ -15757,7 +15757,7 @@
           "age": "a/a"
         },
         {
-          "name": "Music Festival, 315 Montford Ave.",
+          "name": "Music Festival",
           "city": "Mill Valley",
           "artists": [
             {
@@ -18536,7 +18536,7 @@
           "age": null
         },
         {
-          "name": "Mountain Theater, East Ridgecrest Blvd., Mount Tamalpais",
+          "name": "Spanky's Bar, 8201 Old Redwood Hwy., Cotati",
           "city": null,
           "artists": [
             {
@@ -18621,8 +18621,8 @@
           "age": null
         },
         {
-          "name": "Siesta Valley Bowl, Orinda",
-          "city": null,
+          "name": "Siesta Valley Bowl",
+          "city": "Orinda",
           "artists": [
             {
               "name": "Beats Antique",
@@ -20102,8 +20102,8 @@
           "age": "a/a"
         },
         {
-          "name": "Siesta Valley Bowl, Orinda",
-          "city": null,
+          "name": "Siesta Valley Bowl",
+          "city": "Orinda",
           "artists": [
             {
               "name": "Jerry's Middle Finger",
@@ -20228,7 +20228,7 @@
           "age": null
         },
         {
-          "name": "Vets Hall, 549 Merchant St., Vacaville",
+          "name": "Vets Hall",
           "city": null,
           "artists": [
             {
@@ -20534,7 +20534,7 @@
           "age": "a/a"
         },
         {
-          "name": "Railroad Square, 523 4th Street",
+          "name": "Railroad Square",
           "city": "Santa Rosa",
           "artists": [
             {
@@ -20572,7 +20572,7 @@
           "age": "a/a"
         },
         {
-          "name": "Washington Park, 740 Central Avenue",
+          "name": "Washington Park",
           "city": "Alameda",
           "artists": [
             {
@@ -20889,8 +20889,8 @@
           "age": "a/a"
         },
         {
-          "name": "Siesta Valley Bowl, Orinda",
-          "city": null,
+          "name": "Siesta Valley Bowl",
+          "city": "Orinda",
           "artists": [
             {
               "name": "Cecile McLorin Salvant",
@@ -21374,7 +21374,7 @@
           "age": null
         },
         {
-          "name": "Curran Theater, 445 Geary Street",
+          "name": "Curran Theater",
           "city": "San Francisco",
           "artists": [
             {
@@ -22047,8 +22047,8 @@
           "age": "a/a"
         },
         {
-          "name": "Siesta Valley Bowl, Orinda",
-          "city": null,
+          "name": "Siesta Valley Bowl",
+          "city": "Orinda",
           "artists": [
             {
               "name": "Al Di Meola",
@@ -23746,8 +23746,8 @@
           "age": "a/a"
         },
         {
-          "name": "Siesta Valley Bowl, Orinda",
-          "city": null,
+          "name": "Siesta Valley Bowl",
+          "city": "Orinda",
           "artists": [
             {
               "name": "Eli Young Band",
@@ -27131,8 +27131,8 @@
           "age": "a/a"
         },
         {
-          "name": "Siesta Valley Bowl, Orinda",
-          "city": null,
+          "name": "Siesta Valley Bowl",
+          "city": "Orinda",
           "artists": [
             {
               "name": "Steep Canyon Rangers",
@@ -29026,7 +29026,7 @@
           "age": null
         },
         {
-          "name": "Napa Music Hall",
+          "name": "Music Hall",
           "city": "Napa",
           "artists": [
             {
@@ -29080,8 +29080,8 @@
           "age": null
         },
         {
-          "name": "Siesta Valley Bowl, Orinda",
-          "city": null,
+          "name": "Siesta Valley Bowl",
+          "city": "Orinda",
           "artists": [
             {
               "name": "Super Diamond",

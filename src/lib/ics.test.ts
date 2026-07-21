@@ -15,7 +15,7 @@ describe("generateIcs", () => {
   it("starts with VCALENDAR and ends with VCALENDAR", () => {
     const result = generateIcs([minimalShow], UPDATED);
     expect(result).toMatch(/^BEGIN:VCALENDAR\r\n/);
-    expect(result).toMatch(/\r\nEND:VCALENDAR$/);
+    expect(result).toMatch(/\r\nEND:VCALENDAR\r\n$/);
   });
 
   it("includes VERSION:2.0", () => {
@@ -215,7 +215,7 @@ describe("generateIcs", () => {
   it("returns a valid empty VCALENDAR for empty shows", () => {
     const result = generateIcs([], UPDATED);
     expect(result).toMatch(/^BEGIN:VCALENDAR\r\n/);
-    expect(result).toMatch(/\r\nEND:VCALENDAR$/);
+    expect(result).toMatch(/\r\nEND:VCALENDAR\r\n$/);
     expect(result).not.toContain("BEGIN:VEVENT");
     expect(result).toContain("VERSION:2.0");
     expect(result).toContain("PRODID:-//Bay Noise//shows.wtf//EN");
@@ -327,7 +327,7 @@ describe("generateSingleIcs", () => {
   it("returns valid VCALENDAR bookends", () => {
     const result = generateSingleIcs("2026-07-25", venue, "20260720T000000Z");
     expect(result).toMatch(/^BEGIN:VCALENDAR\r\n/);
-    expect(result).toMatch(/\r\nEND:VCALENDAR$/);
+    expect(result).toMatch(/\r\nEND:VCALENDAR\r\n$/);
   });
 
   it("uses provided DTSTAMP when given", () => {

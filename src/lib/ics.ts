@@ -1,5 +1,20 @@
 import type { ShowDay, VenueEvent } from "./types.js";
 
+const ENCODER = new TextEncoder();
+
+/**
+ * Compute a short, 8-character hex hash of a string using FNV-1a.
+ */
+function fnv1aHash(input: string): string {
+  const bytes = ENCODER.encode(input);
+  let hash = 0x811c9dc5;
+  for (const byte of bytes) {
+    hash ^= byte;
+    hash = Math.imul(hash, 0x01000193);
+  }
+  return (hash >>> 0).toString(16).padStart(8, "0");
+}
+
 /**
  * Escape text for ICS content lines.
  * Order matters: backslash first, then semicolon, comma, newlines.
@@ -28,19 +43,7 @@ function validateDate(date: string): void {
  * Compute the UTF-8 byte length of a string.
  */
 function utf8ByteLength(str: string): number {
-  let len = 0;
-  for (let i = 0; i < str.length; i++) {
-    const code = str.charCodeAt(i);
-    if (code < 0x80) len += 1;
-    else if (code < 0x800) len += 2;
-    else if (code < 0xd800 || code >= 0xe000) len += 3;
-    else {
-      // surrogate pair (charCodeAt gives only the high surrogate)
-      i++; // skip low surrogate
-      len += 4;
-    }
-  }
-  return len;
+  return ENCODER.encode(str).length;
 }
 
 /**
@@ -51,21 +54,21 @@ function utf8ByteLength(str: string): number {
  */
 function foldLine(line: string): string {
   const maxOctets = 75;
-  const encoder = new TextEncoder();
-  const bytes = encoder.encode(line);
+  const bytes = ENCODER.encode(line);
   if (bytes.length <= maxOctets) return line;
 
+  const chars = Array.from(line);
   const parts: string[] = [];
   let bytePos = 0;
   let start = 0;
 
-  for (let i = 0; i < line.length; i++) {
-    const charLen = utf8ByteLength(line[i]);
+  for (let i = 0; i < chars.length; i++) {
+    const charLen = utf8ByteLength(chars[i]);
     // Continuation lines have a 1-byte space prefix
     const budget = parts.length === 0 ? maxOctets : maxOctets - 1;
 
     if (bytePos + charLen > budget && i > start) {
-      const segment = line.slice(start, i);
+      const segment = chars.slice(start, i).join("");
       parts.push(parts.length === 0 ? segment : " " + segment);
       bytePos = 0;
       start = i;
@@ -74,7 +77,7 @@ function foldLine(line: string): string {
   }
 
   // Last segment
-  const last = line.slice(start);
+  const last = chars.slice(start).join("");
   parts.push(parts.length === 0 ? last : " " + last);
 
   return parts.join("\r\n");
@@ -121,11 +124,22 @@ function buildLocation(venue: VenueEvent): string {
  */
 function generateEvent(date: string, venue: VenueEvent, dtstamp: string): string[] {
   const dateValue = formatDate(date);
-  const uid = `${dateValue}-${venue.name
+  let slug = venue.name
     .replace(/[^a-z0-9]/gi, "-")
     .replace(/-+/g, "-")
     .replace(/^-|-$/g, "")
-    .toLowerCase()}-bay-noise`;
+    .toLowerCase();
+
+  // Avoid collisions for short or empty slugs (e.g. "Bar" vs "Bar!")
+  // by appending a hash of the original venue name.
+  if (slug.length < 4) {
+    slug = `${slug}-${fnv1aHash(venue.name)}`;
+  }
+
+  // Keep the UID from exceeding the fold limit before folding.
+  slug = slug.slice(0, 60);
+
+  const uid = `${dateValue}-${slug}-bay-noise`;
   const summary = buildSummary(venue);
   const location = buildLocation(venue);
 
@@ -166,7 +180,7 @@ function buildHeader(): string[] {
  * folding each line individually per RFC 5545.
  */
 function buildIcs(lines: string[]): string {
-  return lines.map(foldLine).join("\r\n");
+  return lines.map(foldLine).join("\r\n") + "\r\n";
 }
 
 /**
@@ -199,7 +213,9 @@ export function generateSingleIcs(
   venue: VenueEvent,
   dtstamp?: string,
 ): string {
-  const stamp = dtstamp ?? toIcsUtc(new Date().toISOString().slice(0, 10));
+  const stamp =
+    dtstamp ??
+    new Date().toISOString().replace(/[-:]/g, "").replace(/\.\d{3}Z$/, "Z");
 
   const vevent = generateEvent(date, venue, stamp);
 

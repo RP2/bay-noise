@@ -9,7 +9,7 @@
  */
 
 import { load } from "cheerio";
-import { readFile, writeFile } from "fs/promises";
+import { readFile, writeFile, rename, readdir, unlink } from "fs/promises";
 import type { ShowsData, ShowDay, VenueEvent, Artist } from "../src/lib/types.js";
 
 // ──────────────────────────────────────────────
@@ -347,6 +347,7 @@ interface DedupResult {
   address: string | null;
   knownVenueIndex: number | null;
   source: "known" | "unmatched";
+  ambiguousMessage?: string;
 }
 
 interface UnmatchedVenue {
@@ -536,12 +537,12 @@ function deduplicateVenue(
     if (hasAmbiguousSameCity) {
       // No city to disambiguate — safe to queue
       const kv = match.candidate as KnownVenue;
-      console.log(`  Ambiguous venue (${matches.length} matches) with no city — queueing: "${rawName}"`);
-      // Still use the best match but log it
+      // Still use the best match but log it after the progress loop
       addAliasToKnownVenue(knownVenues[match.index], rawName);
       return {
         canonicalName: kv.name, city: kv.city, address: kv.address,
         knownVenueIndex: match.index, source: "known",
+        ambiguousMessage: `  Ambiguous venue (${matches.length} matches) with no city — queueing: "${rawName}"`,
       };
     }
 
@@ -703,18 +704,25 @@ async function loadJsonFile<T>(path: string, fallback: T): Promise<T> {
   }
 }
 
+async function atomicWrite(path: string, data: string): Promise<void> {
+  const tmp = path + ".tmp";
+  await writeFile(tmp, data);
+  await rename(tmp, path);
+}
+
 function progressLine(message: string): void {
-  process.stdout.write(`\r${message.padEnd(90)}`);
+  const width = Math.min(process.stdout.columns ?? 200, 200);
+  process.stdout.write(`\r${message.padEnd(width)}`);
 }
 
 function logArtistProgress(current: number, total: number, message: string): void {
-  if (total <= 50 || current % 50 === 0) {
+  if (current === 1 || total <= 50 || current % 50 === 0) {
     progressLine(`  Artist ${current}/${total}: ${message}`);
   }
 }
 
 function logVenueProgress(current: number, total: number, message: string): void {
-  if (total <= 20 || current % 20 === 0) {
+  if (current === 1 || total <= 20 || current % 20 === 0) {
     progressLine(`  Venue ${current}/${total}: ${message}`);
   }
 }
@@ -756,6 +764,26 @@ async function fetchPage(url: string) {
 // ──────────────────────────────────────────────
 
 async function main(): Promise<void> {
+  let interrupted = false;
+  process.on("SIGINT", () => {
+    interrupted = true;
+    process.stdout.write("\nInterrupted — flushing cache...\n");
+  });
+
+  const outputDir = "public";
+
+  // Clean up any leftover atomic-write tmp files
+  try {
+    const entries = await readdir(outputDir);
+    for (const entry of entries) {
+      if (entry.endsWith(".tmp")) {
+        await unlink(`${outputDir}/${entry}`);
+      }
+    }
+  } catch {
+    // output dir may not exist yet
+  }
+
   // ── Load .env file if present ──
   try {
     const envText = await readFile(".env", "utf-8");
@@ -936,15 +964,19 @@ async function main(): Promise<void> {
   let artistCounter = 0;
 
   const outputDays: ShowDay[] = [];
+  const ambiguousMessages: string[] = [];
 
   for (const day of uniqueDays) {
+    if (interrupted) break;
     const venues: VenueEvent[] = [];
 
     for (const evt of day.events) {
+      if (interrupted) break;
       venueCounter++;
 
       // Venue dedup + known-venue validation
       const dedup = deduplicateVenue(evt.venue.text, knownVenues, unmatchedVenues, today);
+      if (dedup.ambiguousMessage) ambiguousMessages.push(dedup.ambiguousMessage);
       const venueName = dedup.canonicalName;
       // Use canonical city from known venues when available; fall back to extraction
       const city = dedup.city ?? extractCity(evt.venue.text);
@@ -966,6 +998,7 @@ async function main(): Promise<void> {
       // Artist enrichment
       const artists: Artist[] = [];
       for (const band of evt.bands) {
+        if (interrupted) break;
         artistCounter++;
         const cacheKey = normalizeForMatching(band.text);
         const cached = artistCacheMap.get(cacheKey);
@@ -1018,6 +1051,8 @@ async function main(): Promise<void> {
         }
       }
 
+      if (interrupted) break;
+
       venues.push({
         name: venueName,
         city,
@@ -1029,14 +1064,19 @@ async function main(): Promise<void> {
       });
     }
 
-    outputDays.push({
-      date: day.date,
-      day: day.day,
-      venues,
-    });
+    if (!interrupted) {
+      outputDays.push({
+        date: day.date,
+        day: day.day,
+        venues,
+      });
+    }
   }
 
   process.stdout.write("\n");
+  for (const msg of ambiguousMessages) {
+    console.log(msg);
+  }
   console.log(`\n  Spotify: ${enrichedCount} enriched, ${cachedCount} cached, ${skipCount} skipped`);
 
   // ── Build output ──
@@ -1046,17 +1086,16 @@ async function main(): Promise<void> {
   };
 
   // ── Write files ──
-  const outputDir = "public";
 
-  await writeFile(`${outputDir}/shows.json`, JSON.stringify(output, null, 2));
+  await atomicWrite(`${outputDir}/shows.json`, JSON.stringify(output, null, 2));
   console.log(`\n✓ Wrote ${outputDir}/shows.json (${outputDays.length} days, ${venuesCount(outputDays)} venues)`);
 
   // Write known venues back (single source of truth)
-  await writeFile(`${outputDir}/known-venues.json`, JSON.stringify(knownVenues, null, 2));
+  await atomicWrite(`${outputDir}/known-venues.json`, JSON.stringify(knownVenues, null, 2));
   console.log(`✓ Wrote ${outputDir}/known-venues.json (${knownVenues.length} entries)`);
 
   // Write unmatched-venues review queue
-  await writeFile(`${outputDir}/unmatched-venues.json`, JSON.stringify(unmatchedVenues, null, 2));
+  await atomicWrite(`${outputDir}/unmatched-venues.json`, JSON.stringify(unmatchedVenues, null, 2));
   console.log(`✓ Wrote ${outputDir}/unmatched-venues.json (${unmatchedVenues.length} entries)`);
   if (unmatchedVenues.length > 0) {
     console.log(`${unmatchedVenues.length} venues unmatched — check unmatched-venues.json`);
@@ -1067,7 +1106,7 @@ async function main(): Promise<void> {
   for (const [key, val] of artistCacheMap) {
     cacheObj[key] = val;
   }
-  await writeFile(`${outputDir}/artist-cache.json`, JSON.stringify(cacheObj, null, 2));
+  await atomicWrite(`${outputDir}/artist-cache.json`, JSON.stringify(cacheObj, null, 2));
   console.log(`✓ Wrote ${outputDir}/artist-cache.json (${Object.keys(cacheObj).length} entries)`);
 
   console.log("\n=== Pipeline complete ===");
