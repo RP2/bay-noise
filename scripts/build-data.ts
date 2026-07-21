@@ -149,13 +149,26 @@ function cleanArtistName(name: string): string {
  *
  * Strategy (in order):
  * 1. Exact match after normalization (fast path)
- * 2. One contains the other as a substring
- * 3. All significant words in the shorter name appear in the longer name
- * 4. Character-overlap ratio > 0.75 (shared chars / unique chars)
+ * 2. Word containment of SIGNIFICANT words (filters out common venue words)
+ * 3. Character-overlap ratio > 0.80 (shared chars / unique chars)
  *
- * No Levenshtein distance, no manual correction dictionary. Handles foopee's
- * common typos ("suicidal tendecies" → "suicidal tendencies") via word/char overlap.
+ * No Levenshtein distance, no manual correction dictionary. No naive substring
+ * check — that caused false matches on common words like "Shop" or "Club".
+ * Handles foopee's common typos ("suicidal tendecies" → "suicidal tendencies")
+ * via word/char overlap.
  */
+
+/** Common venue words that shouldn't be used as matching signals. */
+const STOP_WORDS = new Set([
+  "the", "a", "an", "and", "of", "in", "at", "on", "for", "to", "with",
+  "club", "bar", "hall", "house", "room", "lounge", "pub", "inn",
+  "cafe", "grill", "shop", "store", "music", "records",
+  "theater", "theatre", "center", "centre", "studio", "space",
+  "park", "street", "st", "avenue", "ave", "road", "rd", "drive", "dr", "way",
+  "sf", "s.f.", "san", "francisco", "oakland", "berkeley", "venue",
+  "tavern", "brewery", "brewing", "company", "co", "inc", "llc",
+]);
+
 function namesMatch(a: string, b: string): boolean {
   const na = normalizeForMatching(a);
   const nb = normalizeForMatching(b);
@@ -163,26 +176,37 @@ function namesMatch(a: string, b: string): boolean {
   if (!na || !nb) return false;
   if (na === nb) return true; // exact match
 
-  // Substring: one name fully contained in the other
-  if (na.includes(nb) || nb.includes(na)) return true;
+  // Space-agnostic match: handle cases like "no fx" ↔ "nofx",
+  // "blink 182" ↔ "blink182", "sum41" ↔ "sum 41"
+  if (na.replace(/\s/g, "") === nb.replace(/\s/g, "")) return true;
 
-  // Word containment: all words of the shorter name appear in the longer
-  const wordsA = na.split(/\s+/).filter((w) => w.length > 1);
-  const wordsB = nb.split(/\s+/).filter((w) => w.length > 1);
-  if (wordsA.length > 0 && wordsB.length > 0) {
-    const [shorterWords, longerWords] = wordsA.length <= wordsB.length
-      ? [wordsA, wordsB]
-      : [wordsB, wordsA];
-    if (shorterWords.every((w) => longerWords.includes(w))) return true;
+  // Word containment: all SIGNIFICANT words of the shorter name must
+  // appear in the longer name. Common venue words are filtered out to
+  // prevent false matches (e.g., "Shop" matching every venue with "Shop").
+  const sigWords = (s: string) =>
+    s.split(/\s+/).filter((w) => w.length > 2 && !STOP_WORDS.has(w));
+
+  const sigA = sigWords(na);
+  const sigB = sigWords(nb);
+
+  if (sigA.length > 0 && sigB.length > 0) {
+    const [shorterSig, longerSig] = sigA.length <= sigB.length
+      ? [sigA, sigB]
+      : [sigB, sigA];
+    if (shorterSig.every((w) => longerSig.includes(w))) return true;
   }
 
-  // Character-overlap ratio: count shared characters / total unique characters
+  // Character-overlap ratio: count shared characters / total unique characters.
+  // Only applies when both names are long enough to be meaningful (≥5 chars).
+  // Short names like "Bar" (3 chars) would get 100% overlap with anything
+  // containing b/a/r — far too many false positives.
+  if (na.length < 5 || nb.length < 5) return false;
   const charsA = new Set(na.replace(/\s/g, ""));
   const charsB = new Set(nb.replace(/\s/g, ""));
   const shared = new Set([...charsA].filter((c) => charsB.has(c)));
   const all = new Set([...charsA, ...charsB]);
   const ratio = all.size > 0 ? shared.size / all.size : 0;
-  if (ratio > 0.75) return true;
+  if (ratio > 0.8) return true;
 
   return false;
 }

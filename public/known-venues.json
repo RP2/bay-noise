@@ -85,7 +85,6 @@
     "address": "7000 Coliseum Way",
     "aliases": [
       "Arena, Oakland",
-      "Arlene Francis Center, Santa Rosa",
       "Arena, Oakand",
       "Warrior's Arena, S.F.",
       "Arena"
@@ -941,7 +940,7 @@
   {
     "name": "Outside Lands",
     "city": "San Francisco",
-    "address": "Golden Gate Park",
+    "address": null,
     "aliases": [
       "Outside Lands, Golden Gate Park, S.F.",
       "14th Avenue East Meadow, Golden Gate Park, S.F.",
@@ -1046,9 +1045,6 @@
     "aliases": [
       "Pt. San Pablo Harbor, 1900 Stenmark Dr., Richmond",
       "Point San Pablo Harbor, 1900 Stenmark Drive, Richmond",
-      "Knot Club, 1900 Stenmark Drive, Richmond",
-      "Sailing Goat, 1900 Stenmark Drive, Richmond",
-      "Knot Club, 1900 Stenmark Dr., Richmond",
       "Pt. San Pablo Harbor, 1900 Stenmark Dr.",
       "Pt. San Pablo Harbor"
     ]
