@@ -30,10 +30,30 @@ npm run build      # tsc + vite build
 # Scrape foopee.com, deduplicate venues, enrich via Spotify,
 # parse extra fields, then write public/shows.json
 npm run pipeline
-
-# Requires SPOTIFY_CLIENT_ID and SPOTIFY_CLIENT_SECRET env vars
-# (skips enrichment if missing — still produces shows.json)
 ```
+
+### Spotify setup (required for genre enrichment)
+
+The pipeline uses the Spotify API to look up artist genres. Without it,
+all artists get empty genres and the personalized feed won't work.
+
+1. Create an app at https://developer.spotify.com/dashboard
+2. Copy the **Client ID** and **Client Secret**
+3. Run the pipeline with these set:
+
+```bash
+SPOTIFY_CLIENT_ID=abc123 SPOTIFY_CLIENT_SECRET=xyz789 npm run pipeline
+```
+
+Or add them to a local `env.sh` file (gitignored):
+
+```bash
+export SPOTIFY_CLIENT_ID=abc123
+export SPOTIFY_CLIENT_SECRET=xyz789
+```
+
+For GitHub Actions, set `SPOTIFY_CLIENT_ID` and `SPOTIFY_CLIENT_SECRET`
+as repository secrets in Settings → Secrets and variables → Actions.
 
 ## Structure
 

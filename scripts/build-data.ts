@@ -71,6 +71,34 @@ const CITY_MAP: Record<string, string> = {
   "sacramento": "Sacramento",
   "sac": "Sacramento",
   "vallejo": "Vallejo",
+  "albany": "Albany",
+  "alameda": "Alameda",
+  "novato": "Novato",
+  "sebastopol": "Sebastopol",
+  "concord": "Concord",
+  "hayward": "Hayward",
+  "richmond": "Richmond",
+  "el cerrito": "El Cerrito",
+  "emeryville": "Emeryville",
+  "san rafael": "San Rafael",
+  "santa rosa": "Santa Rosa",
+  "half moon bay": "Half Moon Bay",
+  "pleasant hill": "Pleasant Hill",
+  "pleasanton": "Pleasanton",
+  "san mateo": "San Mateo",
+  "san leandro": "San Leandro",
+  "santa clara": "Santa Clara",
+  "menlo park": "Menlo Park",
+  "piedmont": "Piedmont",
+  "crockett": "Crockett",
+  "felton": "Felton",
+  "healdsburg": "Healdsburg",
+  "sonoma": "Sonoma",
+  "fairfield": "Fairfield",
+  "martinez": "Martinez",
+  "modesto": "Modesto",
+  "mill valley": "Mill Valley",
+  "union city": "Union City",
 };
 
 /** Month name → number map. */
@@ -340,7 +368,7 @@ function cleanVenueName(name: string): string {
 
   // Strip trailing city/location suffix
   const citySuffixes = [
-    /,\s*(?:sf|s\.f\.|san\s*francisco|oakland|oak|berkeley|berk|san\s*jose|sj|palo\s*alto|santa\s*cruz|sc|petaluma|sausalito|napa|sacramento|sac|vallejo)\s*$/i,
+    /,\s*(?:sf|s\.f\.|san\s*francisco|oakland|oak|berkeley|berk|san\s*jose|sj|palo\s*alto|santa\s*cruz|sc|petaluma|sausalito|napa|sacramento|sac|vallejo|albany|alameda|novato|sebastopol|concord|hayward|richmond|el\s*cerrito|emeryville|san\s*rafael|santa\s*rosa|half\s*moon\s*bay|pleasant\s*hill|pleasanton|san\s*leandro|san\s*mateo|santa\s*clara|menlo\s*park|piedmont|crockett|felton|healdsburg|sonoma|fairfield|martinez|modesto|mill\s*valley|union\s*city)\s*$/i,
     /,\s*(?:ca|california)\s*$/i,
   ];
   for (const s of citySuffixes) {
@@ -353,7 +381,7 @@ function cleanVenueName(name: string): string {
 function deduplicateVenue(
   rawName: string,
   aliases: Map<string, VenueAliasEntry>,
-  knownVenues: Map<string, KnownVenue>,
+  knownVenues: KnownVenue[],
 ): DedupResult {
   let name = rawName.trim();
   let address: string | null = null;
@@ -379,14 +407,70 @@ function deduplicateVenue(
     }
   };
 
-  // Step d: Check aliases (exact match)
+  // Step d: Check known-venues FIRST (before session aliases).
+  // Known venues have canonical names and cities; session aliases may have
+  // stale scraped names from pre-known-venues runs.
+  // For multi-location venues (e.g. Hopmonk Tavern in Novato & Sebastopol),
+  // disambiguate by extracting city from the raw scraped name.
+  const scrapedCity = extractCity(rawName);
+  const knownMatches: Array<{ kv: KnownVenue; matchType: string }> = [];
+
+  for (const kv of knownVenues) {
+    // Check canonical name
+    if (namesMatch(stripped, kv.name)) {
+      knownMatches.push({ kv, matchType: "canonical" });
+      continue;
+    }
+    // Check known aliases
+    for (const alias of kv.aliases ?? []) {
+      if (namesMatch(stripped, alias)) {
+        knownMatches.push({ kv, matchType: "alias" });
+        break;
+      }
+    }
+  }
+
+  if (knownMatches.length === 1) {
+    // Unique match — use it
+    const { kv } = knownMatches[0];
+    addAlias({ canonical: kv.name, aliases: [] });
+    if (!aliases.has(normalized)) {
+      aliases.set(normalized, { canonical: kv.name, aliases: [rawName] });
+    }
+    return { canonicalName: kv.name, city: kv.city, address: kv.address };
+  }
+
+  if (knownMatches.length > 1) {
+    // Multiple matches (e.g. Hopmonk Tavern in Novato & Sebastopol).
+    // Disambiguate by city extracted from the raw name.
+    if (scrapedCity) {
+      const sc = scrapedCity.toLowerCase();
+      const byCity = knownMatches.find((m) => m.kv.city?.toLowerCase() === sc);
+      if (byCity) {
+        addAlias({ canonical: byCity.kv.name, aliases: [] });
+        if (!aliases.has(normalized)) {
+          aliases.set(normalized, { canonical: byCity.kv.name, aliases: [rawName] });
+        }
+        return { canonicalName: byCity.kv.name, city: byCity.kv.city, address: byCity.kv.address };
+      }
+    }
+    // No city disambiguation — fall through to first match
+    const { kv } = knownMatches[0];
+    addAlias({ canonical: kv.name, aliases: [] });
+    if (!aliases.has(normalized)) {
+      aliases.set(normalized, { canonical: kv.name, aliases: [rawName] });
+    }
+    return { canonicalName: kv.name, city: kv.city, address: kv.address };
+  }
+
+  // Step e: Check session aliases (exact match)
   if (aliases.has(normalized)) {
     const entry = aliases.get(normalized)!;
     addAlias(entry);
     return { canonicalName: entry.canonical, city, address };
   }
 
-  // Step e: Algorithmic fallback — check session aliases
+  // Step f: Algorithmic fallback — check session aliases
   for (const entry of aliases.values()) {
     if (namesMatch(stripped, entry.canonical)) {
       addAlias(entry);
@@ -394,37 +478,6 @@ function deduplicateVenue(
         aliases.set(normalized, entry);
       }
       return { canonicalName: entry.canonical, city, address };
-    }
-  }
-
-  // Step f: Check against curated known-venues list
-  for (const kv of knownVenues.values()) {
-    // Check canonical name
-    if (namesMatch(stripped, kv.name)) {
-      // Merge into session aliases for O(1) next time
-      const merged: VenueAliasEntry = {
-        canonical: kv.name,
-        aliases: [...(kv.aliases ?? []), rawName],
-      };
-      aliases.set(normalizeText(kv.name), merged);
-      if (!aliases.has(normalized)) {
-        aliases.set(normalized, merged);
-      }
-      return { canonicalName: kv.name, city: kv.city, address: kv.address };
-    }
-    // Check known aliases
-    for (const alias of kv.aliases ?? []) {
-      if (namesMatch(stripped, alias)) {
-        const merged: VenueAliasEntry = {
-          canonical: kv.name,
-          aliases: [...(kv.aliases ?? []), rawName],
-        };
-        aliases.set(normalizeText(kv.name), merged);
-        if (!aliases.has(normalized)) {
-          aliases.set(normalized, merged);
-        }
-        return { canonicalName: kv.name, city: kv.city, address: kv.address };
-      }
     }
   }
 
@@ -593,11 +646,8 @@ async function main(): Promise<void> {
 
   // ── Load known venues (curated list from old bay-punks) ──
   const knownVenuesRaw = await loadJsonFile<KnownVenue[]>("public/known-venues.json", []);
-  const knownVenuesMap = new Map<string, KnownVenue>();
-  for (const kv of knownVenuesRaw) {
-    knownVenuesMap.set(normalizeText(kv.name), kv);
-  }
-  console.log(`✓ Loaded ${knownVenuesMap.size} known venues`);
+  const knownVenuesMap: KnownVenue[] = knownVenuesRaw;
+  console.log(`✓ Loaded ${knownVenuesMap.length} known venues`);
 
   const artistCache = await loadJsonFile<Record<string, ArtistCacheEntry>>(
     "public/artist-cache.json", {},
