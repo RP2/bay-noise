@@ -967,8 +967,8 @@
           "age": "a/a"
         },
         {
-          "name": "Veterans Memorial",
-          "city": "Hayward",
+          "name": "Siesta Valley Bowl, Orinda",
+          "city": null,
           "artists": [
             {
               "name": "DakhaBrakha",
@@ -1113,8 +1113,8 @@
           "age": null
         },
         {
-          "name": "X Bar, Cupertino",
-          "city": null,
+          "name": "X Bar",
+          "city": "Cupertino",
           "artists": [
             {
               "name": "Girl Dinner",
@@ -1185,7 +1185,7 @@
           "age": "a/a"
         },
         {
-          "name": "Arlene Francis Center, 99 6th Street",
+          "name": "Arlene Francis Center",
           "city": "Santa Rosa",
           "artists": [
             {
@@ -1458,7 +1458,7 @@
           "age": null
         },
         {
-          "name": "Jax Vineyards, 326 Brannan Street",
+          "name": "Jax Vineyards",
           "city": "San Francisco",
           "artists": [
             {
@@ -1789,8 +1789,8 @@
           "age": null
         },
         {
-          "name": "Town Hall Plaza, 525 San Anselmo Avenue, San Anselmo",
-          "city": null,
+          "name": "Town Hall Plaza",
+          "city": "San Anselmo",
           "artists": [
             {
               "name": "Treblemakers",
@@ -1859,7 +1859,7 @@
           "age": "a/a"
         },
         {
-          "name": "9 Lives Warehouse, 7650 Hawley Street",
+          "name": "9 Lives Warehouse",
           "city": "Oakland",
           "artists": [
             {
@@ -2412,7 +2412,7 @@
           "age": "a/a"
         },
         {
-          "name": "Hesher's Pizza, 206 Broadway",
+          "name": "Hesher's Pizza",
           "city": "Oakland",
           "artists": [
             {
@@ -3003,7 +3003,7 @@
           "age": "a/a"
         },
         {
-          "name": "Outside Lands",
+          "name": "Psyched Radio",
           "city": "San Francisco",
           "artists": [
             {
@@ -3121,8 +3121,8 @@
           "age": "a/a"
         },
         {
-          "name": "Veterans Memorial",
-          "city": "Hayward",
+          "name": "Siesta Valley Bowl, Orinda",
+          "city": null,
           "artists": [
             {
               "name": "Stanley Clarke",
@@ -3141,8 +3141,8 @@
           "age": "a/a"
         },
         {
-          "name": "Redwood Cafe",
-          "city": "Cotati",
+          "name": "Siesta Valley Bowl, Orinda",
+          "city": null,
           "artists": [
             {
               "name": "Band-Aid",
@@ -3204,8 +3204,8 @@
           "age": "a/a"
         },
         {
-          "name": "Town Hall Plaza, 525 San Anselmo Avenue, San Anselmo",
-          "city": null,
+          "name": "Town Hall Plaza",
+          "city": "San Anselmo",
           "artists": [
             {
               "name": "Secret Lives",
@@ -3240,7 +3240,7 @@
           "age": "a/a"
         },
         {
-          "name": "Vessel, 150 Felker Street, Ste H",
+          "name": "Vessel",
           "city": "Santa Cruz",
           "artists": [
             {
@@ -3280,7 +3280,7 @@
       "day": "Sun Jul 26",
       "venues": [
         {
-          "name": "9 Lives Warehouse, 7650 Hawley Street",
+          "name": "9 Lives Warehouse",
           "city": "Oakland",
           "artists": [
             {
@@ -3891,7 +3891,7 @@
           "age": "a/a"
         },
         {
-          "name": "Concord Skatepark, 1174 San Miguel Rd",
+          "name": "Concord Skatepark",
           "city": "Concord",
           "artists": [
             {
@@ -5348,8 +5348,8 @@
           "age": "a/a"
         },
         {
-          "name": "Town Hall Plaza, 525 San Anselmo Avenue, San Anselmo",
-          "city": null,
+          "name": "Town Hall Plaza",
+          "city": "San Anselmo",
           "artists": [
             {
               "name": "Matt Jaffe Band",
@@ -6109,8 +6109,8 @@
           "age": "a/a"
         },
         {
-          "name": "Town Hall Plaza, 525 San Anselmo Avenue, San Anselmo",
-          "city": null,
+          "name": "Town Hall Plaza",
+          "city": "San Anselmo",
           "artists": [
             {
               "name": "Koi",
@@ -6234,7 +6234,7 @@
       "day": "Sun Aug 2",
       "venues": [
         {
-          "name": "9 Lives Warehouse, 7650 Hawley Street",
+          "name": "9 Lives Warehouse",
           "city": "Oakland",
           "artists": [
             {
@@ -6616,7 +6616,7 @@
       "day": "Mon Aug 3",
       "venues": [
         {
-          "name": "9 Lives Warehouse, 7650 Hawley Street",
+          "name": "9 Lives Warehouse",
           "city": "Oakland",
           "artists": [
             {
@@ -7920,8 +7920,8 @@
           "age": "a/a"
         },
         {
-          "name": "Veterans Memorial",
-          "city": "Hayward",
+          "name": "Siesta Valley Bowl, Orinda",
+          "city": null,
           "artists": [
             {
               "name": "Jake Shimabukuro",
@@ -7964,8 +7964,8 @@
           "age": "a/a"
         },
         {
-          "name": "Town Hall Plaza, 525 San Anselmo Avenue, San Anselmo",
-          "city": null,
+          "name": "Town Hall Plaza",
+          "city": "San Anselmo",
           "artists": [
             {
               "name": "Mad Maggies",
@@ -8022,7 +8022,7 @@
           "age": null
         },
         {
-          "name": "Vessel, 150 Felker Street, Ste H",
+          "name": "Vessel",
           "city": "Santa Cruz",
           "artists": [
             {
@@ -8707,8 +8707,8 @@
           "age": "a/a"
         },
         {
-          "name": "Veterans Memorial",
-          "city": "Hayward",
+          "name": "Siesta Valley Bowl, Orinda",
+          "city": null,
           "artists": [
             {
               "name": "Rebirth Brass Band",
@@ -8761,8 +8761,8 @@
           "age": null
         },
         {
-          "name": "Streetlight Records",
-          "city": "Santa Cruz",
+          "name": "Thrillhouse Records",
+          "city": "San Francisco",
           "artists": [
             {
               "name": "Hello Mrs Wong",
@@ -8791,8 +8791,8 @@
           "age": "a/a"
         },
         {
-          "name": "Town Hall Plaza, 525 San Anselmo Avenue, San Anselmo",
-          "city": null,
+          "name": "Town Hall Plaza",
+          "city": "San Anselmo",
           "artists": [
             {
               "name": "Sunhunter Band",
@@ -9352,8 +9352,8 @@
           "age": "a/a"
         },
         {
-          "name": "Streetlight Records",
-          "city": "Santa Cruz",
+          "name": "Thrillhouse Records",
+          "city": "San Francisco",
           "artists": [
             {
               "name": "Futile Demise",
@@ -9602,7 +9602,7 @@
           "age": "a/a"
         },
         {
-          "name": "Outside Lands",
+          "name": "The Warfield",
           "city": "San Francisco",
           "artists": [
             {
@@ -9885,7 +9885,7 @@
           "age": null
         },
         {
-          "name": "Outside Lands",
+          "name": "The Warfield",
           "city": "San Francisco",
           "artists": [
             {
@@ -10125,7 +10125,7 @@
           "age": null
         },
         {
-          "name": "Outside Lands",
+          "name": "The Warfield",
           "city": "San Francisco",
           "artists": [
             {
@@ -10156,7 +10156,7 @@
       "day": "Fri Aug 14",
       "venues": [
         {
-          "name": "9 Lives Warehouse, 7650 Hawley Street",
+          "name": "9 Lives Warehouse",
           "city": "Oakland",
           "artists": [
             {
@@ -10541,8 +10541,8 @@
           "age": null
         },
         {
-          "name": "Town Hall Plaza, 525 San Anselmo Avenue, San Anselmo",
-          "city": null,
+          "name": "Town Hall Plaza",
+          "city": "San Anselmo",
           "artists": [
             {
               "name": "Dorian Mode",
@@ -10558,7 +10558,7 @@
           "age": "a/a"
         },
         {
-          "name": "Outside Lands",
+          "name": "The Warfield",
           "city": "San Francisco",
           "artists": [
             {
@@ -11262,8 +11262,8 @@
           "age": "a/a"
         },
         {
-          "name": "Streetlight Records",
-          "city": "Santa Cruz",
+          "name": "Thrillhouse Records",
+          "city": "San Francisco",
           "artists": [
             {
               "name": "Vespera",
@@ -11303,8 +11303,8 @@
           "age": "a/a"
         },
         {
-          "name": "Town Hall Plaza, 525 San Anselmo Avenue, San Anselmo",
-          "city": null,
+          "name": "Town Hall Plaza",
+          "city": "San Anselmo",
           "artists": [
             {
               "name": "Mitchwoods & His Rocket 88's",
@@ -13213,8 +13213,8 @@
           "age": "a/a"
         },
         {
-          "name": "Veterans Memorial",
-          "city": "Hayward",
+          "name": "Siesta Valley Bowl, Orinda",
+          "city": null,
           "artists": [
             {
               "name": "Earthless",
@@ -13270,8 +13270,8 @@
           "age": null
         },
         {
-          "name": "Town Hall Plaza, 525 San Anselmo Avenue, San Anselmo",
-          "city": null,
+          "name": "Town Hall Plaza",
+          "city": "San Anselmo",
           "artists": [
             {
               "name": "Blackcat Zydeco",
@@ -13284,7 +13284,7 @@
           "age": "a/a"
         },
         {
-          "name": "Outside Lands",
+          "name": "The Warfield",
           "city": "San Francisco",
           "artists": [
             {
@@ -13843,8 +13843,8 @@
           "age": "a/a"
         },
         {
-          "name": "Veterans Memorial",
-          "city": "Hayward",
+          "name": "Siesta Valley Bowl, Orinda",
+          "city": null,
           "artists": [
             {
               "name": "Jimmy Dale, The Young Varons",
@@ -14006,8 +14006,8 @@
           "age": "a/a"
         },
         {
-          "name": "Town Hall Plaza, 525 San Anselmo Avenue, San Anselmo",
-          "city": null,
+          "name": "Town Hall Plaza",
+          "city": "San Anselmo",
           "artists": [
             {
               "name": "Youth Bands Showcase Night",
@@ -14301,8 +14301,8 @@
           "age": "a/a"
         },
         {
-          "name": "Veterans Memorial",
-          "city": "Hayward",
+          "name": "Siesta Valley Bowl, Orinda",
+          "city": null,
           "artists": [
             {
               "name": "Arrival From Sweden",
@@ -15359,8 +15359,8 @@
           "age": "a/a"
         },
         {
-          "name": "Redwood Cafe",
-          "city": "Cotati",
+          "name": "Siesta Valley Bowl, Orinda",
+          "city": null,
           "artists": [
             {
               "name": "Wreckless Strangers",
@@ -15406,8 +15406,8 @@
           "age": "a/a"
         },
         {
-          "name": "Veterans Memorial",
-          "city": "Hayward",
+          "name": "Siesta Valley Bowl, Orinda",
+          "city": null,
           "artists": [
             {
               "name": "Eric Benet",
@@ -15425,8 +15425,8 @@
           "age": "a/a"
         },
         {
-          "name": "Town Hall Plaza, 525 San Anselmo Avenue, San Anselmo",
-          "city": null,
+          "name": "Town Hall Plaza",
+          "city": "San Anselmo",
           "artists": [
             {
               "name": "Soulbillies",
@@ -15981,8 +15981,8 @@
           "age": null
         },
         {
-          "name": "Town Hall Plaza, 525 San Anselmo Avenue, San Anselmo",
-          "city": null,
+          "name": "Town Hall Plaza",
+          "city": "San Anselmo",
           "artists": [
             {
               "name": "Swami 3",
@@ -16426,7 +16426,7 @@
           "age": "a/a"
         },
         {
-          "name": "Outside Lands",
+          "name": "The Warfield",
           "city": "San Francisco",
           "artists": [
             {
@@ -16846,8 +16846,8 @@
           "age": "a/a"
         },
         {
-          "name": "Town Hall Plaza, 525 San Anselmo Avenue, San Anselmo",
-          "city": null,
+          "name": "Town Hall Plaza",
+          "city": "San Anselmo",
           "artists": [
             {
               "name": "Jon Chi & The Pacific Syndicate",
@@ -17265,8 +17265,8 @@
           "age": null
         },
         {
-          "name": "Town Hall Plaza, 525 San Anselmo Avenue, San Anselmo",
-          "city": null,
+          "name": "Town Hall Plaza",
+          "city": "San Anselmo",
           "artists": [
             {
               "name": "Jinx Jones & The King Tones",
@@ -17789,7 +17789,7 @@
           "age": "a/a"
         },
         {
-          "name": "Outside Lands",
+          "name": "The Warfield",
           "city": "San Francisco",
           "artists": [
             {
@@ -17969,7 +17969,7 @@
           "age": null
         },
         {
-          "name": "Outside Lands",
+          "name": "The Warfield",
           "city": "San Francisco",
           "artists": [
             {
@@ -18338,8 +18338,8 @@
           "age": null
         },
         {
-          "name": "Town Hall Plaza, 525 San Anselmo Avenue, San Anselmo",
-          "city": null,
+          "name": "Town Hall Plaza",
+          "city": "San Anselmo",
           "artists": [
             {
               "name": "Talley Up",
@@ -18373,7 +18373,7 @@
           "age": "a/a"
         },
         {
-          "name": "Outside Lands",
+          "name": "The Warfield",
           "city": "San Francisco",
           "artists": [
             {
@@ -18621,8 +18621,8 @@
           "age": null
         },
         {
-          "name": "Veterans Memorial",
-          "city": "Hayward",
+          "name": "Siesta Valley Bowl, Orinda",
+          "city": null,
           "artists": [
             {
               "name": "Beats Antique",
@@ -18645,8 +18645,8 @@
           "age": "a/a"
         },
         {
-          "name": "Town Hall Plaza, 525 San Anselmo Avenue, San Anselmo",
-          "city": null,
+          "name": "Town Hall Plaza",
+          "city": "San Anselmo",
           "artists": [
             {
               "name": "F.A.T. Betty",
@@ -18659,7 +18659,7 @@
           "age": "a/a"
         },
         {
-          "name": "Outside Lands",
+          "name": "The Warfield",
           "city": "San Francisco",
           "artists": [
             {
@@ -19033,7 +19033,7 @@
           "age": "a/a"
         },
         {
-          "name": "Outside Lands",
+          "name": "The Warfield",
           "city": "San Francisco",
           "artists": [
             {
@@ -20102,8 +20102,8 @@
           "age": "a/a"
         },
         {
-          "name": "Veterans Memorial",
-          "city": "Hayward",
+          "name": "Siesta Valley Bowl, Orinda",
+          "city": null,
           "artists": [
             {
               "name": "Jerry's Middle Finger",
@@ -20269,7 +20269,7 @@
           "age": "a/a"
         },
         {
-          "name": "Outside Lands",
+          "name": "The Warfield",
           "city": "San Francisco",
           "artists": [
             {
@@ -20734,7 +20734,7 @@
           "age": null
         },
         {
-          "name": "Outside Lands",
+          "name": "The Warfield",
           "city": "San Francisco",
           "artists": [
             {
@@ -20889,8 +20889,8 @@
           "age": "a/a"
         },
         {
-          "name": "Veterans Memorial",
-          "city": "Hayward",
+          "name": "Siesta Valley Bowl, Orinda",
+          "city": null,
           "artists": [
             {
               "name": "Cecile McLorin Salvant",
@@ -20909,7 +20909,7 @@
           "age": "a/a"
         },
         {
-          "name": "Outside Lands",
+          "name": "The Warfield",
           "city": "San Francisco",
           "artists": [
             {
@@ -21295,7 +21295,7 @@
           "age": null
         },
         {
-          "name": "Outside Lands",
+          "name": "The Warfield",
           "city": "San Francisco",
           "artists": [
             {
@@ -21758,8 +21758,8 @@
           "age": "a/a"
         },
         {
-          "name": "Independent",
-          "city": "San Francisco",
+          "name": "Pacifica's Fogfist Parade",
+          "city": "Pacifica",
           "artists": [
             {
               "name": "Young Barons",
@@ -22047,8 +22047,8 @@
           "age": "a/a"
         },
         {
-          "name": "Veterans Memorial",
-          "city": "Hayward",
+          "name": "Siesta Valley Bowl, Orinda",
+          "city": null,
           "artists": [
             {
               "name": "Al Di Meola",
@@ -22065,7 +22065,7 @@
           "age": "a/a"
         },
         {
-          "name": "Outside Lands",
+          "name": "The Warfield",
           "city": "San Francisco",
           "artists": [
             {
@@ -22085,7 +22085,7 @@
           "age": null
         },
         {
-          "name": "Outside Lands",
+          "name": "The Warfield",
           "city": "San Francisco",
           "artists": [
             {
@@ -22464,7 +22464,7 @@
           "age": "a/a"
         },
         {
-          "name": "Outside Lands",
+          "name": "The Warfield",
           "city": "San Francisco",
           "artists": [
             {
@@ -22580,7 +22580,7 @@
           "age": "a/a"
         },
         {
-          "name": "Outside Lands",
+          "name": "The Warfield",
           "city": "San Francisco",
           "artists": [
             {
@@ -23080,7 +23080,7 @@
           "age": "a/a"
         },
         {
-          "name": "Outside Lands",
+          "name": "The Warfield",
           "city": "San Francisco",
           "artists": [
             {
@@ -23746,8 +23746,8 @@
           "age": "a/a"
         },
         {
-          "name": "Veterans Memorial",
-          "city": "Hayward",
+          "name": "Siesta Valley Bowl, Orinda",
+          "city": null,
           "artists": [
             {
               "name": "Eli Young Band",
@@ -25199,7 +25199,7 @@
           "age": "a/a"
         },
         {
-          "name": "Outside Lands",
+          "name": "The Warfield",
           "city": "San Francisco",
           "artists": [
             {
@@ -25470,7 +25470,7 @@
           "age": null
         },
         {
-          "name": "Outside Lands",
+          "name": "The Warfield",
           "city": "San Francisco",
           "artists": [
             {
@@ -26037,7 +26037,7 @@
           "age": "a/a"
         },
         {
-          "name": "Outside Lands",
+          "name": "The Warfield",
           "city": "San Francisco",
           "artists": [
             {
@@ -26592,7 +26592,7 @@
           "age": "a/a"
         },
         {
-          "name": "Outside Lands",
+          "name": "The Warfield",
           "city": "San Francisco",
           "artists": [
             {
@@ -27131,8 +27131,8 @@
           "age": "a/a"
         },
         {
-          "name": "Veterans Memorial",
-          "city": "Hayward",
+          "name": "Siesta Valley Bowl, Orinda",
+          "city": null,
           "artists": [
             {
               "name": "Steep Canyon Rangers",
@@ -27219,7 +27219,7 @@
           "age": "a/a"
         },
         {
-          "name": "Outside Lands",
+          "name": "The Warfield",
           "city": "San Francisco",
           "artists": [
             {
@@ -27439,7 +27439,7 @@
           "age": "a/a"
         },
         {
-          "name": "Outside Lands",
+          "name": "The Warfield",
           "city": "San Francisco",
           "artists": [
             {
@@ -27685,7 +27685,7 @@
           "age": null
         },
         {
-          "name": "Outside Lands",
+          "name": "The Warfield",
           "city": "San Francisco",
           "artists": [
             {
@@ -28733,7 +28733,7 @@
           "age": "a/a"
         },
         {
-          "name": "Outside Lands",
+          "name": "The Warfield",
           "city": "San Francisco",
           "artists": [
             {
@@ -29026,7 +29026,7 @@
           "age": null
         },
         {
-          "name": "Music Hall",
+          "name": "Napa Music Hall",
           "city": "Napa",
           "artists": [
             {
@@ -29080,8 +29080,8 @@
           "age": null
         },
         {
-          "name": "Veterans Memorial",
-          "city": "Hayward",
+          "name": "Siesta Valley Bowl, Orinda",
+          "city": null,
           "artists": [
             {
               "name": "Super Diamond",
@@ -30934,7 +30934,7 @@
           "age": "a/a"
         },
         {
-          "name": "Outside Lands",
+          "name": "The Warfield",
           "city": "San Francisco",
           "artists": [
             {
@@ -31852,7 +31852,7 @@
           "age": null
         },
         {
-          "name": "Outside Lands",
+          "name": "The Warfield",
           "city": "San Francisco",
           "artists": [
             {
@@ -32197,7 +32197,7 @@
           "age": "a/a"
         },
         {
-          "name": "Outside Lands",
+          "name": "The Warfield",
           "city": "San Francisco",
           "artists": [
             {
@@ -32301,7 +32301,7 @@
           "age": null
         },
         {
-          "name": "Outside Lands",
+          "name": "The Warfield",
           "city": "San Francisco",
           "artists": [
             {
@@ -32495,7 +32495,7 @@
           "age": "a/a"
         },
         {
-          "name": "Outside Lands",
+          "name": "The Warfield",
           "city": "San Francisco",
           "artists": [
             {

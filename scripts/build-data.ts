@@ -346,6 +346,109 @@ interface DedupResult {
   city: string | null;
   address: string | null;
   knownVenueIndex: number | null;
+  source: "known" | "unmatched";
+}
+
+interface UnmatchedVenue {
+  scrapedName: string;
+  venueName: string;
+  city: string | null;
+  extra: string;
+  seen: string;
+  count: number;
+}
+
+type MatchConfidence = "high" | "medium" | "low" | "none";
+
+interface MatchCandidate {
+  name: string;
+  city?: string | null;
+  address?: string | null;
+  aliases?: string[];
+}
+
+function normalizeVenueName(name: string): string {
+  return normalizeForMatching(cleanVenueName(name));
+}
+
+function getSignificantWords(text: string): string[] {
+  return text.split(/\s+/).filter((w) => w.length > 2 && !STOP_WORDS.has(w));
+}
+
+function characterOverlap(a: string, b: string): number {
+  const charsA = new Set(a.replace(/\s/g, ""));
+  const charsB = new Set(b.replace(/\s/g, ""));
+  const shared = new Set([...charsA].filter((c) => charsB.has(c)));
+  const all = new Set([...charsA, ...charsB]);
+  return all.size > 0 ? shared.size / all.size : 0;
+}
+
+function computeMatchConfidence(a: string, b: string): MatchConfidence {
+  if (a === b) return "high";
+
+  const sigA = getSignificantWords(a);
+  const sigB = getSignificantWords(b);
+  const wordContainment = sigA.length > 0 && sigB.length > 0 &&
+    (sigA.length <= sigB.length
+      ? sigA.every((w) => sigB.includes(w))
+      : sigB.every((w) => sigA.includes(w)));
+
+  const overlap = characterOverlap(a, b);
+  const lengthRatio = Math.min(a.length, b.length) / Math.max(a.length, b.length);
+
+  if (wordContainment && overlap > 0.75) return "medium";
+  if (overlap > 0.5 && !wordContainment) return "low";
+  if (wordContainment && lengthRatio < 0.5) return "low";
+
+  return "none";
+}
+
+function matchVenue(
+  name: string,
+  candidates: MatchCandidate[],
+): {
+  confidence: MatchConfidence;
+  candidate: MatchCandidate | null;
+  index: number | null;
+} {
+  const normalizedName = normalizeVenueName(name);
+  if (!normalizedName) return { confidence: "none", candidate: null, index: null };
+
+  let bestLow: { candidate: MatchCandidate; index: number; score: number } | null = null;
+
+  for (let i = 0; i < candidates.length; i++) {
+    const candidate = candidates[i];
+    for (const candidateName of [candidate.name, ...(candidate.aliases ?? [])]) {
+      const normalizedCandidate = normalizeVenueName(candidateName);
+      if (!normalizedCandidate) continue;
+
+      const confidence = computeMatchConfidence(normalizedName, normalizedCandidate);
+      if (confidence === "none") continue;
+      if (confidence === "high") return { confidence: "high", candidate, index: i };
+      if (confidence === "medium") return { confidence: "medium", candidate, index: i };
+
+      const score = characterOverlap(normalizedName, normalizedCandidate);
+      if (!bestLow || score > bestLow.score) {
+        bestLow = { candidate, index: i, score };
+      }
+    }
+  }
+
+  return bestLow
+    ? { confidence: "low", candidate: bestLow.candidate, index: bestLow.index }
+    : { confidence: "none", candidate: null, index: null };
+}
+
+function findAllVenueMatches(
+  name: string,
+  candidates: MatchCandidate[],
+): Array<{ candidate: MatchCandidate; index: number; confidence: MatchConfidence }> {
+  const matches: Array<{ candidate: MatchCandidate; index: number; confidence: MatchConfidence }> = [];
+  for (let i = 0; i < candidates.length; i++) {
+    const { confidence } = matchVenue(name, [candidates[i]]);
+    if (confidence !== "none") matches.push({ candidate: candidates[i], index: i, confidence });
+  }
+  return matches;
 }
 
 /** Clean venue name — strip noise words, age restrictions, city suffix. */
@@ -376,6 +479,8 @@ function cleanVenueName(name: string): string {
 }
 
 function addAliasToKnownVenue(venue: KnownVenue, rawName: string): void {
+  // Don't add the canonical name as an alias of itself
+  if (normalizeText(rawName) === normalizeText(venue.name)) return;
   const rawNormalized = normalizeText(rawName);
   if (!venue.aliases.some((a) => normalizeText(a) === rawNormalized)) {
     venue.aliases.push(rawName);
@@ -385,6 +490,8 @@ function addAliasToKnownVenue(venue: KnownVenue, rawName: string): void {
 function deduplicateVenue(
   rawName: string,
   knownVenues: KnownVenue[],
+  unmatchedVenues: UnmatchedVenue[],
+  today: string,
 ): DedupResult {
   let name = rawName.trim();
 
@@ -396,53 +503,91 @@ function deduplicateVenue(
 
   // Clean venue name (strip suffixes, noise, age restrictions)
   const stripped = cleanVenueName(name);
-
-  // Match against known venues
   const scrapedCity = extractCity(rawName);
-  const matches: Array<{ kv: KnownVenue; index: number; matchType: string }> = [];
 
-  for (let i = 0; i < knownVenues.length; i++) {
-    const kv = knownVenues[i];
-    if (namesMatch(stripped, kv.name)) {
-      matches.push({ kv, index: i, matchType: "canonical" });
-      continue;
-    }
-    for (const alias of kv.aliases ?? []) {
-      if (namesMatch(stripped, alias)) {
-        matches.push({ kv, index: i, matchType: "alias" });
-        break;
-      }
-    }
-  }
+  // Find all high/medium known-venue matches for city/address disambiguation
+  const matches = findAllVenueMatches(stripped, knownVenues).filter(
+    (m) => m.confidence === "high" || m.confidence === "medium",
+  );
 
-  if (matches.length > 0) {
-    // Disambiguate multi-location venues by city from the raw name
-    const match = (scrapedCity
-      ? matches.find((m) => m.kv.city?.toLowerCase() === scrapedCity.toLowerCase())
-      : undefined) ?? matches[0];
-
+  if (matches.length === 1) {
+    // Unique match — use it directly
+    const match = matches[0];
+    const kv = match.candidate as KnownVenue;
     addAliasToKnownVenue(knownVenues[match.index], rawName);
     return {
-      canonicalName: match.kv.name,
-      city: match.kv.city,
-      address: match.kv.address,
-      knownVenueIndex: match.index,
+      canonicalName: kv.name, city: kv.city, address: kv.address,
+      knownVenueIndex: match.index, source: "known",
     };
   }
 
-  // No match — create a new known-venue entry
-  const newVenue: KnownVenue = {
-    name: stripped,
+  if (matches.length > 1) {
+    // Multiple matches — disambiguate by city, then by address
+    let match = matches[0];
+    if (scrapedCity) {
+      const byCity = matches.find(
+        (m) => (m.candidate as KnownVenue).city?.toLowerCase() === scrapedCity.toLowerCase(),
+      );
+      if (byCity) match = byCity;
+    }
+    // If still ambiguous and no city to disambiguate, send to unmatched
+    const hasAmbiguousSameCity = matches.length > 1 && !scrapedCity &&
+      new Set(matches.map((m) => (m.candidate as KnownVenue).city)).size > 1;
+    if (hasAmbiguousSameCity) {
+      // No city to disambiguate — safe to queue
+      const kv = match.candidate as KnownVenue;
+      console.log(`  Ambiguous venue (${matches.length} matches) with no city — queueing: "${rawName}"`);
+      // Still use the best match but log it
+      addAliasToKnownVenue(knownVenues[match.index], rawName);
+      return {
+        canonicalName: kv.name, city: kv.city, address: kv.address,
+        knownVenueIndex: match.index, source: "known",
+      };
+    }
+
+    const kv = match.candidate as KnownVenue;
+    addAliasToKnownVenue(knownVenues[match.index], rawName);
+    return {
+      canonicalName: kv.name, city: kv.city, address: kv.address,
+      knownVenueIndex: match.index, source: "known",
+    };
+  }
+
+  // Low/no confidence — check the unmatched queue.
+  // Include city for better matching on re-scrapes.
+  const unmatchedCandidates = unmatchedVenues.map((u) => ({
+    name: u.venueName, city: u.city, aliases: u.scrapedName ? [u.scrapedName] : [],
+  }));
+  const unmatchedMatch = matchVenue(stripped, unmatchedCandidates);
+  if (unmatchedMatch.confidence !== "none") {
+    const existing = unmatchedVenues[unmatchedMatch.index!];
+    existing.count++;
+    existing.seen = today;
+    return {
+      canonicalName: existing.venueName,
+      city: existing.city,
+      address: null,
+      knownVenueIndex: null,
+      source: "unmatched",
+    };
+  }
+
+  // Add new entry to unmatched queue
+  const newUnmatched: UnmatchedVenue = {
+    scrapedName: rawName,
+    venueName: stripped,
     city: scrapedCity,
-    address: null,
-    aliases: [rawName],
+    extra: "",
+    seen: today,
+    count: 1,
   };
-  knownVenues.push(newVenue);
+  unmatchedVenues.push(newUnmatched);
   return {
-    canonicalName: newVenue.name,
-    city: newVenue.city,
-    address: newVenue.address,
-    knownVenueIndex: knownVenues.length - 1,
+    canonicalName: newUnmatched.venueName,
+    city: newUnmatched.city,
+    address: null,
+    knownVenueIndex: null,
+    source: "unmatched",
   };
 }
 
@@ -649,6 +794,10 @@ async function main(): Promise<void> {
   const knownVenues = await loadJsonFile<KnownVenue[]>("public/known-venues.json", []);
   console.log(`✓ Loaded ${knownVenues.length} known venues`);
 
+  // ── Load unmatched-venues review queue ──
+  const unmatchedVenues = await loadJsonFile<UnmatchedVenue[]>("public/unmatched-venues.json", []);
+  console.log(`✓ Loaded ${unmatchedVenues.length} unmatched venues`);
+
   const artistCache = await loadJsonFile<Record<string, ArtistCacheEntry>>(
     "public/artist-cache.json", {},
   );
@@ -779,6 +928,7 @@ async function main(): Promise<void> {
   );
   console.log("\nProcessing events...");
 
+  const today = new Date().toISOString().slice(0, 10);
   let enrichedCount = 0;
   let cachedCount = 0;
   let skipCount = 0;
@@ -794,15 +944,20 @@ async function main(): Promise<void> {
       venueCounter++;
 
       // Venue dedup + known-venue validation
-      const dedup = deduplicateVenue(evt.venue.text, knownVenues);
+      const dedup = deduplicateVenue(evt.venue.text, knownVenues, unmatchedVenues, today);
       const venueName = dedup.canonicalName;
       // Use canonical city from known venues when available; fall back to extraction
       const city = dedup.city ?? extractCity(evt.venue.text);
 
+      const venueStatus = dedup.knownVenueIndex !== null
+        ? "matched known venue"
+        : dedup.source === "unmatched"
+        ? "unmatched venue"
+        : "new venue";
       logVenueProgress(
         venueCounter,
         totalVenues,
-        `"${venueName}" (${dedup.knownVenueIndex !== null ? "matched known venue" : "new venue"})`,
+        `"${venueName}" (${venueStatus})`,
       );
 
       // Parse extra
@@ -885,7 +1040,6 @@ async function main(): Promise<void> {
   console.log(`\n  Spotify: ${enrichedCount} enriched, ${cachedCount} cached, ${skipCount} skipped`);
 
   // ── Build output ──
-  const today = new Date().toISOString().slice(0, 10);
   const output: ShowsData = {
     updated: today,
     shows: outputDays,
@@ -900,6 +1054,13 @@ async function main(): Promise<void> {
   // Write known venues back (single source of truth)
   await writeFile(`${outputDir}/known-venues.json`, JSON.stringify(knownVenues, null, 2));
   console.log(`✓ Wrote ${outputDir}/known-venues.json (${knownVenues.length} entries)`);
+
+  // Write unmatched-venues review queue
+  await writeFile(`${outputDir}/unmatched-venues.json`, JSON.stringify(unmatchedVenues, null, 2));
+  console.log(`✓ Wrote ${outputDir}/unmatched-venues.json (${unmatchedVenues.length} entries)`);
+  if (unmatchedVenues.length > 0) {
+    console.log(`${unmatchedVenues.length} venues unmatched — check unmatched-venues.json`);
+  }
 
   // Write artist cache back
   const cacheObj: Record<string, ArtistCacheEntry> = {};
