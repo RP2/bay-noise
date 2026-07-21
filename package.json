@@ -9,8 +9,8 @@
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
-    "test": "vitest run",
-    "test:watch": "vitest"
+    "test": "NODE_OPTIONS='--localstorage-file=/tmp/vitest-ls.json' vitest run",
+    "test:watch": "NODE_OPTIONS='--localstorage-file=/tmp/vitest-ls.json' vitest"
   },
   "dependencies": {
     "cheerio": "^1.0.0",
