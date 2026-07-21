@@ -16,7 +16,8 @@ function slugify(text: string): string {
 }
 
 export function AddToCalendar({ date, venue }: AddToCalendarProps) {
-  const filename = `${date}-${slugify(venue.name)}.ics`;
+  const slug = slugify(venue.name) || "event";
+  const filename = `${date}-${slug}.ics`;
 
   const handleDownload = () => {
     const ics = generateSingleIcs(date, venue);

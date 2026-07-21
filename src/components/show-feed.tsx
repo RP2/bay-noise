@@ -6,21 +6,26 @@ interface ShowFeedProps {
   filter: FilterState;
   onFilterChange: (filter: Partial<FilterState>) => void;
   hasBelowFold: boolean;
+  dataEmpty?: boolean;
 }
 
-export function ShowFeed({ shows, filter, onFilterChange, hasBelowFold }: ShowFeedProps) {
-  // Group shows by date
+export function ShowFeed({ shows, filter, onFilterChange, hasBelowFold, dataEmpty = false }: ShowFeedProps) {
   const grouped = groupByDate(shows);
+  const hasAnyFilter = filter.query || filter.venue || filter.artist;
 
-  // Show empty state if no shows match
+  // HD 17: distinct empty states for no-data vs no-search-match
   if (shows.length === 0) {
     return (
       <div class="py-12 text-center">
-        <p class="text-gray-500 dark:text-gray-400">No shows match your search.</p>
-        {(filter.query || filter.venue || filter.artist) && (
+        <p class="text-gray-500 dark:text-gray-400">
+          {dataEmpty
+            ? "No upcoming shows right now. Check back later."
+            : "No shows match your search."}
+        </p>
+        {hasAnyFilter && (
           <button
             type="button"
-            onClick={() => onFilterChange({ query: "", venue: null, artist: null })}
+            onClick={() => onFilterChange({ query: "", venue: null, artist: null, showAll: false })}
             class="mt-2 text-sm text-blue-600 underline hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
           >
             Clear all filters
@@ -32,10 +37,13 @@ export function ShowFeed({ shows, filter, onFilterChange, hasBelowFold }: ShowFe
 
   return (
     <div class="space-y-6">
-      {/* Active filters */}
-      {(filter.venue || filter.artist) && (
+      {/* Active filters — includes search query */}
+      {(filter.venue || filter.artist || filter.query) && (
         <div class="flex flex-wrap items-center gap-2">
           <span class="text-xs font-medium text-gray-500 dark:text-gray-400">Filters:</span>
+          {filter.query && (
+            <FilterChip label={`"${filter.query}"`} onClear={() => onFilterChange({ query: "" })} />
+          )}
           {filter.venue && (
             <FilterChip label={filter.venue} onClear={() => onFilterChange({ venue: null })} />
           )}
@@ -55,12 +63,12 @@ export function ShowFeed({ shows, filter, onFilterChange, hasBelowFold }: ShowFe
       {grouped.map(({ date, day, items }) => (
         <section key={date}>
           <h2 class="mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
-            {day || formatDate(date)}
+            {day}
           </h2>
           <div class="space-y-3">
             {items.map((show, i) => (
               <ShowCard
-                key={`${show.venueName}-${i}`}
+                key={`${show.date}-${show.venueName}-${i}`}
                 show={show}
                 onVenueClick={(v) => onFilterChange({ venue: v })}
                 onArtistClick={(a) => onFilterChange({ artist: a })}
@@ -111,7 +119,7 @@ function FilterChip({ label, onClear }: FilterChipProps) {
 
 interface DayGroup {
   date: string;
-  day: string | null;
+  day: string;
   items: ScoredShow[];
 }
 
@@ -128,10 +136,4 @@ function groupByDate(shows: ScoredShow[]): DayGroup[] {
   }
 
   return groups;
-}
-
-function formatDate(dateStr: string): string {
-  // YYYY-MM-DD → "Jul 25" or "Sat Jul 25"
-  const d = new Date(dateStr + "T12:00:00");
-  return d.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" });
 }

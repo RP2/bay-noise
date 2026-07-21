@@ -14,6 +14,7 @@ export function SearchBar({ value, onChange }: SearchBarProps) {
         value={value}
         onInput={(e) => onChange((e.target as HTMLInputElement).value)}
         placeholder="Search artists, venues..."
+        aria-label="Search shows"
         class="w-full rounded-lg border border-gray-300 bg-white py-2 pl-10 pr-8 text-sm
                placeholder-gray-400 focus:border-blue-500 focus:outline-none
                dark:border-gray-600 dark:bg-gray-800 dark:text-white

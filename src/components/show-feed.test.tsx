@@ -137,7 +137,7 @@ describe("ShowFeed", () => {
       <ShowFeed shows={[]} filter={{ ...defaultFilter, query: "zzz" }} onFilterChange={onFilterChange} hasBelowFold={false} />,
     );
     fireEvent.click(getByText("Clear all filters"));
-    expect(onFilterChange).toHaveBeenCalledWith({ query: "", venue: null, artist: null });
+    expect(onFilterChange).toHaveBeenCalledWith({ query: "", venue: null, artist: null, showAll: false });
   });
 
   it("allows tapping venue name to set venue filter", () => {

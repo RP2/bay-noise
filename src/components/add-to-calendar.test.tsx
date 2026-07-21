@@ -1,10 +1,15 @@
 // @vitest-environment happy-dom
-import { describe, it, expect, vi, afterEach } from "vitest";
+import { describe, it, expect, vi, afterEach, beforeEach } from "vitest";
 import { render, fireEvent, cleanup } from "@testing-library/preact";
 import { AddToCalendar } from "./add-to-calendar.js";
 import type { VenueEvent } from "../lib/types.js";
 
 afterEach(cleanup);
+
+beforeEach(() => {
+  vi.restoreAllMocks();
+  vi.unstubAllGlobals();
+});
 
 const venue: VenueEvent = {
   name: "Bottom of the Hill, S.F.",

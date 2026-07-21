@@ -14,6 +14,7 @@ export function GenrePill({ name, active = false, onClick }: GenrePillProps) {
       class={`${base} ${active ? activeClass : inactiveClass}`}
       onClick={onClick}
       role={onClick ? "button" : undefined}
+      aria-pressed={onClick ? active : undefined}
       tabIndex={onClick ? 0 : undefined}
       onKeyDown={onClick ? (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onClick(); } } : undefined}
     >

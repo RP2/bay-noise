@@ -8,6 +8,19 @@ interface ShowCardProps {
   onArtistClick?: (artist: string) => void;
 }
 
+/** Stable venue object for AddToCalendar — avoids unnecessary re-renders. */
+function venueFromShow(show: ScoredShow) {
+  return {
+    name: show.venueName,
+    city: show.city,
+    artists: show.artists,
+    extra: show.extra,
+    time: show.time,
+    price: show.price,
+    age: show.age,
+  };
+}
+
 export function ShowCard({ show, onVenueClick, onArtistClick }: ShowCardProps) {
   return (
     <div class="rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-900">
@@ -45,15 +58,7 @@ export function ShowCard({ show, onVenueClick, onArtistClick }: ShowCardProps) {
 
       {/* Actions row */}
       <div class="flex items-center gap-3">
-        <AddToCalendar date={show.date} venue={{
-          name: show.venueName,
-          city: show.city,
-          artists: show.artists,
-          extra: show.extra,
-          time: show.time,
-          price: show.price,
-          age: show.age,
-        }} />
+        <AddToCalendar date={show.date} venue={venueFromShow(show)} />
       </div>
     </div>
   );
@@ -86,8 +91,8 @@ function ArtistRow({ artist, onArtistClick }: ArtistRowProps) {
         </a>
       )}
       <div class="flex flex-wrap gap-1">
-        {artist.genres.slice(0, 2).map((g) => (
-          <GenrePill key={g} name={g} />
+        {[...new Set(artist.genres)].slice(0, 2).map((g, gi) => (
+          <GenrePill key={`${artist.name}-${g}-${gi}`} name={g} />
         ))}
       </div>
     </div>
