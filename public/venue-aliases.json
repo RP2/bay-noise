@@ -1,1 +1,1247 @@
-{}
+{
+  "august hall": {
+    "canonical": "August Hall",
+    "aliases": [
+      "August Hall, S.F."
+    ]
+  },
+  "ivy room albany": {
+    "canonical": "Ivy Room, Albany",
+    "aliases": [
+      "Ivy Room, Albany"
+    ]
+  },
+  "kilowatt": {
+    "canonical": "Kilowatt",
+    "aliases": [
+      "Kilowatt, S.F."
+    ]
+  },
+  "mountain winery saratoga": {
+    "canonical": "Mountain Winery, Saratoga",
+    "aliases": [
+      "Mountain Winery, Saratoga"
+    ]
+  },
+  "thee stork club": {
+    "canonical": "Thee Stork Club",
+    "aliases": [
+      "Thee Stork Club, Oakland"
+    ]
+  },
+  "at open gallery 38 south second street": {
+    "canonical": "at Open Gallery, 38 South Second Street",
+    "aliases": [
+      "at Open Gallery, 38 South Second Street, San Jose"
+    ]
+  },
+  "black cat": {
+    "canonical": "Black Cat",
+    "aliases": [
+      "Black Cat, S.F."
+    ]
+  },
+  "bottom of the hill": {
+    "canonical": "Bottom of the Hill",
+    "aliases": [
+      "Bottom of the Hill, S.F."
+    ]
+  },
+  "castro theater": {
+    "canonical": "Castro Theater",
+    "aliases": [
+      "Castro Theater, S.F."
+    ]
+  },
+  "catalyst santa cruz": {
+    "canonical": "Catalyst, Santa Cruz",
+    "aliases": []
+  },
+  "chapel": {
+    "canonical": "Chapel",
+    "aliases": [
+      "Chapel, S.F."
+    ]
+  },
+  "hopmonk sebastopol": {
+    "canonical": "Hopmonk, Sebastopol",
+    "aliases": [
+      "Hopmonk, Sebastopol"
+    ]
+  },
+  "neck of the woods": {
+    "canonical": "Neck of the Woods",
+    "aliases": [
+      "Neck of the Woods, S.F."
+    ]
+  },
+  "924 gilman street": {
+    "canonical": "924 Gilman Street",
+    "aliases": [
+      "924 Gilman Street, Berkeley"
+    ]
+  },
+  "blue lagoon santa cruz": {
+    "canonical": "Blue Lagoon, Santa Cruz",
+    "aliases": []
+  },
+  "eagle": {
+    "canonical": "Eagle",
+    "aliases": [
+      "Eagle, S.F."
+    ]
+  },
+  "greek theater uc berkeley campus": {
+    "canonical": "Greek Theater, UC Berkeley Campus",
+    "aliases": [
+      "Greek Theater, UC Berkeley Campus"
+    ]
+  },
+  "hotel utah": {
+    "canonical": "Hotel Utah",
+    "aliases": [
+      "Hotel Utah, S.F."
+    ]
+  },
+  "independent": {
+    "canonical": "Independent",
+    "aliases": [
+      "Independent, S.F."
+    ]
+  },
+  "knockout": {
+    "canonical": "Knockout",
+    "aliases": [
+      "Knockout, S.F.",
+      "Knockout,"
+    ]
+  },
+  "mabuhay gardens and on broadway": {
+    "canonical": "Mabuhay Gardens and On Broadway",
+    "aliases": [
+      "Mabuhay Gardens and On Broadway, S.F."
+    ]
+  },
+  "shanty shack 138 fern street santa cruz": {
+    "canonical": "Shanty Shack, 138 Fern Street, Santa Cruz",
+    "aliases": []
+  },
+  "siesta valley bowl orinda": {
+    "canonical": "Siesta Valley Bowl, Orinda",
+    "aliases": [
+      "Siesta Valley Bowl, Orinda"
+    ]
+  },
+  "spats": {
+    "canonical": "Spats",
+    "aliases": [
+      "Spats, Berkeley"
+    ]
+  },
+  "stay gold deli": {
+    "canonical": "Stay Gold Deli",
+    "aliases": [
+      "Stay Gold Deli, Oakland"
+    ]
+  },
+  "sweetwater music hall mill valley": {
+    "canonical": "Sweetwater Music Hall, Mill Valley",
+    "aliases": [
+      "Sweetwater Music Hall, Mill Valley"
+    ]
+  },
+  "x bar cupertino": {
+    "canonical": "X Bar, Cupertino",
+    "aliases": [
+      "X Bar, Cupertino"
+    ]
+  },
+  "924 gilman": {
+    "canonical": "924 Gilman",
+    "aliases": [
+      "924 Gilman, Berkeley"
+    ]
+  },
+  "arlene francis center 99 6th street santa rosa": {
+    "canonical": "Arlene Francis Center, 99 6th Street, Santa Rosa",
+    "aliases": [
+      "Arlene Francis Center, 99 6th Street, Santa Rosa"
+    ]
+  },
+  "brick and mortar": {
+    "canonical": "Brick and Mortar",
+    "aliases": [
+      "Brick and Mortar, S.F."
+    ]
+  },
+  "caravan lounge": {
+    "canonical": "Caravan Lounge",
+    "aliases": [
+      "Caravan Lounge, San Jose"
+    ]
+  },
+  "creek park 634 sir francis drake blvd san anselmo": {
+    "canonical": "Creek Park, 634 Sir Francis Drake Blvd., San Anselmo",
+    "aliases": [
+      "Creek Park, 634 Sir Francis Drake Blvd., San Anselmo"
+    ]
+  },
+  "fillmore": {
+    "canonical": "Fillmore",
+    "aliases": [
+      "Fillmore, S.F."
+    ]
+  },
+  "forest meadows 890 bell ave san rafael": {
+    "canonical": "Forest Meadows, 890 Bell Ave., San Rafael",
+    "aliases": [
+      "Forest Meadows, 890 Bell Ave., San Rafael"
+    ]
+  },
+  "great american music hall": {
+    "canonical": "Great American Music Hall",
+    "aliases": [
+      "Great American Music Hall, S.F.",
+      "Great American Music Hall, S.f."
+    ]
+  },
+  "jax vineyards 326 brannan street": {
+    "canonical": "Jax Vineyards, 326 Brannan Street",
+    "aliases": [
+      "Jax Vineyards, 326 Brannan Street, S.F."
+    ]
+  },
+  "makeout room": {
+    "canonical": "Make-Out Room",
+    "aliases": [
+      "Make-Out Room, S.F."
+    ]
+  },
+  "pavilion concord": {
+    "canonical": "Pavilion, Concord",
+    "aliases": [
+      "Pavilion, Concord"
+    ]
+  },
+  "phoenix theater petaluma": {
+    "canonical": "Phoenix Theater, Petaluma",
+    "aliases": []
+  },
+  "planetarium richmond": {
+    "canonical": "Planetarium, Richmond",
+    "aliases": [
+      "Planetarium, Richmond"
+    ]
+  },
+  "rickshaw stop": {
+    "canonical": "Rickshaw Stop",
+    "aliases": [
+      "Rickshaw Stop, S.F."
+    ]
+  },
+  "town hall plaza 525 san anselmo avenue san anselmo": {
+    "canonical": "Town Hall Plaza, 525 San Anselmo Avenue, San Anselmo",
+    "aliases": [
+      "Town Hall Plaza, 525 San Anselmo Avenue, San Anselmo"
+    ]
+  },
+  "4 star theater": {
+    "canonical": "4 Star Theater",
+    "aliases": [
+      "4 Star Theater, S.F."
+    ]
+  },
+  "49ers stadium santa clara": {
+    "canonical": "49'ers Stadium, Santa Clara",
+    "aliases": [
+      "49er's Stadium, Santa Clara"
+    ]
+  },
+  "9 lives warehouse 7650 hawley street": {
+    "canonical": "9 Lives Warehouse, 7650 Hawley Street",
+    "aliases": [
+      "9 Lives Warehouse, 7650 Hawley Street, Oakland"
+    ]
+  },
+  "danny murrys san leandro": {
+    "canonical": "Danny Murry's, San Leandro",
+    "aliases": [
+      "Danny Murry's, San Leandro"
+    ]
+  },
+  "faction brewing alameda": {
+    "canonical": "Faction Brewing, Alameda",
+    "aliases": [
+      "Faction Brewing, Alameda"
+    ]
+  },
+  "fairgrounds 175 fairgrounds drive petaluma": {
+    "canonical": "Fairgrounds, 175 Fairgrounds Drive, Petaluma",
+    "aliases": []
+  },
+  "freight": {
+    "canonical": "Freight",
+    "aliases": [
+      "Freight, Berkeley"
+    ]
+  },
+  "heshers pizza 206 broadway": {
+    "canonical": "Hesher's Pizza, 206 Broadway",
+    "aliases": [
+      "Hesher's Pizza, 206 Broadway, Oakland"
+    ]
+  },
+  "hopmonk tavern novato": {
+    "canonical": "Hopmonk Tavern, Novato",
+    "aliases": [
+      "Hopmonk Tavern Novato"
+    ]
+  },
+  "jury room santa cruz": {
+    "canonical": "Jury Room, Santa Cruz",
+    "aliases": []
+  },
+  "mabuhay gardens": {
+    "canonical": "Mabuhay Gardens",
+    "aliases": [
+      "Mabuhay Gardens, S.F.",
+      "Mabuhay Gardens"
+    ]
+  },
+  "natural batting cage": {
+    "canonical": "Natural Batting Cage",
+    "aliases": [
+      "Natural Batting Cage, S.F."
+    ]
+  },
+  "psyched radio warfield building 988 market st": {
+    "canonical": "Psyched Radio, Warfield Building 988 Market St.",
+    "aliases": [
+      "Psyched Radio, Warfield Building 988 Market St., S.F."
+    ]
+  },
+  "rats backwards": {
+    "canonical": "Rats Backwards",
+    "aliases": [
+      "Rats Backwards, Berkeley"
+    ]
+  },
+  "roxie theater 3117 16th street": {
+    "canonical": "Roxie Theater, 3117 16th Street",
+    "aliases": [
+      "Roxie Theater, 3117 16th Street, S.F."
+    ]
+  },
+  "spankys bar 8201 old redwood hwy cotati": {
+    "canonical": "Spanky's Bar, 8201 Old Redwood Hwy., Cotati",
+    "aliases": [
+      "Spanky's Bar, 8201 Old Redwood Hwy., Cotati"
+    ]
+  },
+  "uc theater": {
+    "canonical": "UC Theater",
+    "aliases": [
+      "UC Theater, Berkeley"
+    ]
+  },
+  "vessel 150 felker street ste h santa cruz": {
+    "canonical": "Vessel, 150 Felker Street, Ste H, Santa Cruz",
+    "aliases": []
+  },
+  "keys jazz bistro 498 broadway": {
+    "canonical": "Keys Jazz Bistro, 498 Broadway",
+    "aliases": [
+      "Keys Jazz Bistro, 498 Broadway, S.F."
+    ]
+  },
+  "stern grove festival": {
+    "canonical": "Stern Grove Festival",
+    "aliases": [
+      "Stern Grove Festival, S.F."
+    ]
+  },
+  "streetlight records santa cruz": {
+    "canonical": "Streetlight Records, Santa Cruz",
+    "aliases": []
+  },
+  "a house piedmont": {
+    "canonical": "a House, Piedmont",
+    "aliases": [
+      "a House, Piedmont"
+    ]
+  },
+  "subrosa community space santa cruz": {
+    "canonical": "Subrosa Community Space, Santa Cruz",
+    "aliases": []
+  },
+  "arena": {
+    "canonical": "Arena",
+    "aliases": [
+      "Arena, Oakland"
+    ]
+  },
+  "concord skatepark 1174 san miguel rd concord": {
+    "canonical": "Concord Skatepark, 1174 San Miguel Rd, Concord",
+    "aliases": [
+      "Concord Skatepark, 1174 San Miguel Rd, Concord"
+    ]
+  },
+  "cornerstone": {
+    "canonical": "Cornerstone",
+    "aliases": [
+      "Cornerstone, Berkeley"
+    ]
+  },
+  "san jose civic center": {
+    "canonical": "San Jose Civic Center",
+    "aliases": [
+      "San Jose Civic Center, San Jose"
+    ]
+  },
+  "castro": {
+    "canonical": "Castro",
+    "aliases": [
+      "Castro, S.F.",
+      "Castro, S.f."
+    ]
+  },
+  "catalyst atrium santa cruz": {
+    "canonical": "Catalyst Atrium, Santa Cruz",
+    "aliases": []
+  },
+  "moes alley santa cruz": {
+    "canonical": "Moe's Alley, Santa Cruz",
+    "aliases": []
+  },
+  "crepe place santa cruz": {
+    "canonical": "Crepe Place, Santa Cruz",
+    "aliases": []
+  },
+  "bricabrac 178 leland avenue": {
+    "canonical": "Bric-A-Brac, 178 Leland Avenue",
+    "aliases": [
+      "Bric-A-Brac, 178 Leland Avenue, S.F."
+    ]
+  },
+  "carnalitos customs 905 tennessee street vallejo": {
+    "canonical": "Carnalitos Customs, 905 Tennessee Street, Vallejo",
+    "aliases": []
+  },
+  "lesher center 1601 civic center drive walnut creek": {
+    "canonical": "Lesher Center, 1601 Civic Center Drive, Walnut Creek",
+    "aliases": [
+      "Lesher Center, 1601 Civic Center Drive, Walnut Creek"
+    ]
+  },
+  "luther burbank center santa rosa": {
+    "canonical": "Luther Burbank Center, Santa Rosa",
+    "aliases": [
+      "Luther Burbank Center, Santa Rosa"
+    ]
+  },
+  "pocket park 540 south 1st street": {
+    "canonical": "Pocket Park, 540 South 1st Street",
+    "aliases": [
+      "Pocket Park, 540 South 1st Street, San Jose"
+    ]
+  },
+  "pruma 616 e street union city": {
+    "canonical": "Pruma, 616 E Street, Union City",
+    "aliases": [
+      "Pruma, 616 E Street, Union City"
+    ]
+  },
+  "ritz": {
+    "canonical": "Ritz",
+    "aliases": [
+      "Ritz, San Jose"
+    ]
+  },
+  "starry plough": {
+    "canonical": "Starry Plough",
+    "aliases": [
+      "Starry Plough, Berkeley"
+    ]
+  },
+  "tamarack": {
+    "canonical": "Tamarack",
+    "aliases": [
+      "Tamarack, Oakland"
+    ]
+  },
+  "up the creek records walnut creek": {
+    "canonical": "Up the Creek Records, Walnut Creek",
+    "aliases": [
+      "Up the Creek Records, Walnut Creek"
+    ]
+  },
+  "uptown theater napa": {
+    "canonical": "Uptown Theater, Napa",
+    "aliases": []
+  },
+  "black": {
+    "canonical": "Black",
+    "aliases": [
+      "Black"
+    ]
+  },
+  "guild theater memlo park": {
+    "canonical": "Guild Theater, Memlo Park",
+    "aliases": [
+      "Guild Theater, Memlo Park"
+    ]
+  },
+  "guitar wars 447 south 1st street": {
+    "canonical": "Guitar Wars, 447 South 1st Street",
+    "aliases": [
+      "Guitar Wars, 447 South 1st Street, San Jose"
+    ]
+  },
+  "hopmonk tavern sebastopol": {
+    "canonical": "Hopmonk Tavern, Sebastopol",
+    "aliases": [
+      "Hopmonk Tavern, Sebastopol"
+    ]
+  },
+  "knot club richmond": {
+    "canonical": "Knot Club, Richmond",
+    "aliases": [
+      "Knot Club, Richmond"
+    ]
+  },
+  "little hill lounge el cerrito": {
+    "canonical": "Little Hill Lounge, El Cerrito",
+    "aliases": [
+      "Little Hill Lounge, El Cerrito"
+    ]
+  },
+  "long haul 3124 shattuck ave": {
+    "canonical": "Long Haul, 3124 Shattuck Ave.",
+    "aliases": [
+      "Long Haul, 3124 Shattuck Ave., Berkeley"
+    ]
+  },
+  "purple house 5716 genoa street": {
+    "canonical": "Purple House, 5716 Genoa Street",
+    "aliases": [
+      "Purple House, 5716 Genoa Street, Oakland"
+    ]
+  },
+  "quarry amphitheater santa cruz": {
+    "canonical": "Quarry Amphitheater, Santa Cruz",
+    "aliases": []
+  },
+  "regency ballroom": {
+    "canonical": "Regency Ballroom",
+    "aliases": [
+      "Regency Ballroom, S.F."
+    ]
+  },
+  "winters tavern pacifica": {
+    "canonical": "Winters Tavern, Pacifica",
+    "aliases": [
+      "Winters Tavern, Pacifica"
+    ]
+  },
+  "city hall 100 gregory lane pleasant hill": {
+    "canonical": "City Hall, 100 Gregory Lane, Pleasant Hill",
+    "aliases": [
+      "City Hall, 100 Gregory Lane, Pleasant Hill"
+    ]
+  },
+  "meritage resort napa": {
+    "canonical": "Meritage Resort, Napa",
+    "aliases": []
+  },
+  "9 lives warehouse": {
+    "canonical": "9 Lives Warehouse",
+    "aliases": [
+      "9 Lives Warehouse, Oakland"
+    ]
+  },
+  "fox theater": {
+    "canonical": "Fox Theater",
+    "aliases": [
+      "Fox Theater, Oakland"
+    ]
+  },
+  "thee stork club oakland 21": {
+    "canonical": "Thee Stork Club, Oakland 21_",
+    "aliases": [
+      "Thee Stork Club, Oakland 21_"
+    ]
+  },
+  "1015 folsom": {
+    "canonical": "1015 Folsom",
+    "aliases": [
+      "1015 Folsom, S.F."
+    ]
+  },
+  "bimbos 365 club": {
+    "canonical": "Bimbo's 365 Club",
+    "aliases": [
+      "Bimbo's 365 Club, S.F."
+    ]
+  },
+  "el rio": {
+    "canonical": "El Rio",
+    "aliases": [
+      "El Rio, S.F."
+    ]
+  },
+  "peacock lounge": {
+    "canonical": "Peacock Lounge",
+    "aliases": [
+      "Peacock Lounge, S.F."
+    ]
+  },
+  "warriors stadium": {
+    "canonical": "Warriors Stadium",
+    "aliases": [
+      "Warriors Stadium, S.F."
+    ]
+  },
+  "outside lands golden gate park": {
+    "canonical": "Outside Lands, Golden Gate Park",
+    "aliases": [
+      "Outside Lands, Golden Gate Park, SF"
+    ]
+  },
+  "shark tank": {
+    "canonical": "Shark Tank",
+    "aliases": [
+      "Shark Tank, San Jose"
+    ]
+  },
+  "vessel santa cruz": {
+    "canonical": "Vessel, Santa Cruz",
+    "aliases": []
+  },
+  "napa county fair 575 third st napa": {
+    "canonical": "Napa County Fair, 575 Third St., Napa",
+    "aliases": []
+  },
+  "outside lands golden gate par": {
+    "canonical": "Outside Lands, Golden Gate Par",
+    "aliases": [
+      "Outside Lands, Golden Gate Par, SF"
+    ]
+  },
+  "thrillhouse records": {
+    "canonical": "Thrillhouse Records",
+    "aliases": [
+      "Thrillhouse Records, S.F."
+    ]
+  },
+  "warriros stadium": {
+    "canonical": "Warriros Stadium",
+    "aliases": [
+      "Warriros Stadium, S.F."
+    ]
+  },
+  "san jose civic": {
+    "canonical": "San Jose Civic",
+    "aliases": [
+      "San Jose Civic, San Jose"
+    ]
+  },
+  "warfield": {
+    "canonical": "Warfield",
+    "aliases": [
+      "Warfield, S.F."
+    ]
+  },
+  "above dna lounge": {
+    "canonical": "Above DNA Lounge",
+    "aliases": [
+      "Above DNA Lounge, S.F."
+    ]
+  },
+  "gundlach bundschu winery sonoma": {
+    "canonical": "Gundlach Bundschu Winery, Sonoma",
+    "aliases": [
+      "Gundlach Bundschu Winery, Sonoma"
+    ]
+  },
+  "kuumbwa jazz center santa cruz": {
+    "canonical": "Kuumbwa Jazz Center, Santa Cruz",
+    "aliases": []
+  },
+  "masonic": {
+    "canonical": "Masonic",
+    "aliases": [
+      "Masonic, S.F."
+    ]
+  },
+  "shoreline amphitheater mountain view": {
+    "canonical": "Shoreline Amphitheater, Mountain View",
+    "aliases": [
+      "Shoreline Amphitheater, Mountain View"
+    ]
+  },
+  "sebastiani theater 476 1st street e sonoma": {
+    "canonical": "Sebastiani Theater, 476 1st Street E, Sonoma",
+    "aliases": [
+      "Sebastiani Theater, 476 1st Street E, Sonoma"
+    ]
+  },
+  "felton music hall felton": {
+    "canonical": "Felton Music Hall, Felton",
+    "aliases": [
+      "Felton Music Hall, Felton"
+    ]
+  },
+  "first church of the buzzard": {
+    "canonical": "First Church of the Buzzard",
+    "aliases": [
+      "First Church of the Buzzard, Oakland"
+    ]
+  },
+  "the knockout": {
+    "canonical": "The Knockout",
+    "aliases": [
+      "Knockout,"
+    ]
+  },
+  "elis mile high club": {
+    "canonical": "Eli's Mile High Club",
+    "aliases": [
+      "Eli's Mile High Club, Oakland"
+    ]
+  },
+  "frost amphitheater stanford university": {
+    "canonical": "Frost Amphitheater, Stanford University",
+    "aliases": [
+      "Frost Amphitheater, Stanford University"
+    ]
+  },
+  "oreillys pub": {
+    "canonical": "O'Reillys Pub",
+    "aliases": [
+      "O'Reillys Pub, S.F."
+    ]
+  },
+  "pizza place 3901 noriega street": {
+    "canonical": "Pizza Place, 3901 Noriega Street",
+    "aliases": [
+      "Pizza Place, 3901 Noriega Street, S.F."
+    ]
+  },
+  "chapel outdoor state": {
+    "canonical": "Chapel Outdoor State",
+    "aliases": [
+      "Chapel Outdoor State, S.F."
+    ]
+  },
+  "city hall 100 gregory ln pleasant hill": {
+    "canonical": "City Hall, 100 Gregory Ln, Pleasant Hill",
+    "aliases": [
+      "City Hall, 100 Gregory Ln, Pleasant Hill"
+    ]
+  },
+  "oakland pride broadway and frank h ogawa plaza": {
+    "canonical": "Oakland Pride, Broadway and Frank H. Ogawa Plaza",
+    "aliases": [
+      "Oakland Pride, Broadway and Frank H. Ogawa Plaza, Oakland"
+    ]
+  },
+  "davies symphony hall 201 van ness ave": {
+    "canonical": "Davies Symphony Hall, 201 Van Ness Ave.",
+    "aliases": [
+      "Davies Symphony Hall, 201 Van Ness Ave., S.F."
+    ]
+  },
+  "lost church": {
+    "canonical": "Lost Church",
+    "aliases": [
+      "Lost Church, S.F."
+    ]
+  },
+  "924 gilman st": {
+    "canonical": "924 Gilman St.",
+    "aliases": [
+      "924 Gilman St., Berkeley"
+    ]
+  },
+  "bistro hayward": {
+    "canonical": "Bistro, Hayward",
+    "aliases": [
+      "Bistro, Hayward"
+    ]
+  },
+  "fruit yard amphitheater 7948 yosemite blvd modesto": {
+    "canonical": "Fruit Yard Amphitheater, 7948 Yosemite Blvd, Modesto",
+    "aliases": [
+      "Fruit Yard Amphitheater, 7948 Yosemite Blvd, Modesto"
+    ]
+  },
+  "giants ball park": {
+    "canonical": "Giant's Ball Park",
+    "aliases": [
+      "Giant's Ball Park, S.F."
+    ]
+  },
+  "rooftop park 425 mission street": {
+    "canonical": "Rooftop Park, 425 Mission Street",
+    "aliases": [
+      "Rooftop Park, 425 Mission Street, S.F."
+    ]
+  },
+  "sf mass 955 market street 6th floor": {
+    "canonical": "S.F. Mass, 955 Market Street 6th Floor",
+    "aliases": [
+      "S.F. Mass, 955 Market Street 6th Floor, S.F."
+    ]
+  },
+  "blue note napa": {
+    "canonical": "Blue Note, Napa",
+    "aliases": []
+  },
+  "creek park 634 san anselmo avenue san anselmo": {
+    "canonical": "Creek Park, 634 San Anselmo Avenue, San Anselmo",
+    "aliases": [
+      "Creek Park, 634 San Anselmo Avenue, San Anselmo"
+    ]
+  },
+  "snow park 1999 harrison street": {
+    "canonical": "Snow Park, 1999 Harrison Street",
+    "aliases": [
+      "Snow Park, 1999 Harrison Street, Oakland"
+    ]
+  },
+  "victory stables 2328 san pablo avenue": {
+    "canonical": "Victory Stables, 2328 San Pablo Avenue",
+    "aliases": [
+      "Victory Stables, 2328 San Pablo Avenue, Oakland"
+    ]
+  },
+  "rio theater santa cruz": {
+    "canonical": "Rio Theater, Santa Cruz",
+    "aliases": []
+  },
+  "mayes oyster house 1233 polk street": {
+    "canonical": "Mayes Oyster House, 1233 Polk Street",
+    "aliases": [
+      "Mayes Oyster House, 1233 Polk Street, S.F."
+    ]
+  },
+  "old princeton landing half moon bay": {
+    "canonical": "Old Princeton Landing, Half Moon Bay",
+    "aliases": [
+      "Old Princeton Landing, Half Moon Bay"
+    ]
+  },
+  "old western saloon 11201 state ca1 point reyes station": {
+    "canonical": "Old Western Saloon, 11201 State CA-1, Point Reyes Station",
+    "aliases": [
+      "Old Western Saloon, 11201 State CA-1, Point Reyes Station"
+    ]
+  },
+  "caravan lounge san": {
+    "canonical": "Caravan Lounge, San",
+    "aliases": [
+      "Caravan Lounge, San"
+    ]
+  },
+  "dna lounge": {
+    "canonical": "DNA Lounge",
+    "aliases": [
+      "DNA Lounge, S.F."
+    ]
+  },
+  "music festival 315 montford ave mill valley": {
+    "canonical": "Music Festival, 315 Montford Ave., Mill Valley",
+    "aliases": [
+      "Music Festival, 315 Montford Ave., Mill Valley"
+    ]
+  },
+  "shoreline amphitheater mountain veiw": {
+    "canonical": "Shoreline Amphitheater, Mountain Veiw",
+    "aliases": [
+      "Shoreline Amphitheater, Mountain Veiw"
+    ]
+  },
+  "rio nido roadhouse 14540 canyon 2 road rio nido": {
+    "canonical": "Rio Nido Roadhouse, 14540 Canyon 2 Road, Rio Nido",
+    "aliases": [
+      "Rio Nido Roadhouse, 14540 Canyon 2 Road, Rio Nido"
+    ]
+  },
+  "hub 2650 broadway redwood city": {
+    "canonical": "Hub, 2650 Broadway, Redwood City",
+    "aliases": [
+      "Hub, 2650 Broadway, Redwood City"
+    ]
+  },
+  "revolution cafe": {
+    "canonical": "Revolution Cafe",
+    "aliases": [
+      "Revolution Cafe, Oakland"
+    ]
+  },
+  "hopmon sebastopol": {
+    "canonical": "Hopmon, Sebastopol",
+    "aliases": [
+      "Hopmon, Sebastopol"
+    ]
+  },
+  "mountain theater east ridgecrest blvd mount tamalpais": {
+    "canonical": "Mountain Theater, East Ridgecrest Blvd., Mount Tamalpais",
+    "aliases": [
+      "Mountain Theater, East Ridgecrest Blvd., Mount Tamalpais"
+    ]
+  },
+  "point san pablo harbor richmond": {
+    "canonical": "Point San Pablo Harbor, Richmond",
+    "aliases": [
+      "Point San Pablo Harbor, Richmond"
+    ]
+  },
+  "cafe du nord": {
+    "canonical": "Cafe Du Nord",
+    "aliases": [
+      "Cafe Du Nord, S.F."
+    ]
+  },
+  "shoreline ampheater mountain view": {
+    "canonical": "Shoreline Ampheater, Mountain View",
+    "aliases": [
+      "Shoreline Ampheater, Mountain View"
+    ]
+  },
+  "crybaby": {
+    "canonical": "Crybaby",
+    "aliases": [
+      "Crybaby, Oakland"
+    ]
+  },
+  "paramount theater": {
+    "canonical": "Paramount Theater",
+    "aliases": [
+      "Paramount Theater, Oakland"
+    ]
+  },
+  "civic auditorium": {
+    "canonical": "Civic Auditorium",
+    "aliases": [
+      "Civic Auditorium, S.F."
+    ]
+  },
+  "discovery meadow 180 woz way": {
+    "canonical": "Discovery Meadow, 180 Woz Way",
+    "aliases": [
+      "Discovery Meadow, 180 Woz Way, San Jose"
+    ]
+  },
+  "frost amphitheater stanford campus": {
+    "canonical": "Frost Amphitheater, Stanford Campus",
+    "aliases": [
+      "Frost Amphitheater, Stanford Campus"
+    ]
+  },
+  "vets hall 549 merchant st vacaville": {
+    "canonical": "Vets Hall, 549 Merchant St., Vacaville",
+    "aliases": [
+      "Vets Hall, 549 Merchant St., Vacaville"
+    ]
+  },
+  "discovery museum 180 woz way": {
+    "canonical": "Discovery Museum, 180 Woz Way",
+    "aliases": [
+      "Discovery Museum, 180 Woz Way, San Jose"
+    ]
+  },
+  "haight ashbury street fair": {
+    "canonical": "Haight Ashbury Street Fair",
+    "aliases": [
+      "Haight Ashbury Street Fair, S.F."
+    ]
+  },
+  "porchfest teen stage san rafael": {
+    "canonical": "Porchfest, Teen Stage, San Rafael",
+    "aliases": [
+      "Porchfest, Teen Stage, San Rafael"
+    ]
+  },
+  "railroad square 523 4th street santa rosa": {
+    "canonical": "Railroad Square, 523 4th Street, Santa Rosa",
+    "aliases": [
+      "Railroad Square, 523 4th Street, Santa Rosa"
+    ]
+  },
+  "washington park 740 central avenue alameda": {
+    "canonical": "Washington Park, 740 Central Avenue, Alameda",
+    "aliases": [
+      "Washington Park, 740 Central Avenue, Alameda"
+    ]
+  },
+  "indpendent": {
+    "canonical": "Indpendent",
+    "aliases": [
+      "Indpendent, S.F."
+    ]
+  },
+  "shoreline amphteater mountain view": {
+    "canonical": "Shoreline Amphteater, Mountain View",
+    "aliases": [
+      "Shoreline Amphteater, Mountain View"
+    ]
+  },
+  "bvottom of the hill": {
+    "canonical": "BVottom of the Hill",
+    "aliases": [
+      "BVottom of the Hill, S.F."
+    ]
+  },
+  "curran theater 445 geary street": {
+    "canonical": "Curran Theater, 445 Geary Street",
+    "aliases": [
+      "Curran Theater, 445 Geary Street, S.F."
+    ]
+  },
+  "pacificas fogfist parade pacifica": {
+    "canonical": "Pacifica's Fogfist Parade, Pacifica",
+    "aliases": [
+      "Pacifica's Fogfist Parade, Pacifica"
+    ]
+  },
+  "pier 80": {
+    "canonical": "Pier 80",
+    "aliases": [
+      "Pier 80, S.F."
+    ]
+  },
+  "shoreline theater mountain view": {
+    "canonical": "Shoreline Theater, Mountain View",
+    "aliases": [
+      "Shoreline Theater, Mountain View"
+    ]
+  },
+  "ivy room albanu": {
+    "canonical": "Ivy Room, Albanu",
+    "aliases": [
+      "Ivy Room, Albanu"
+    ]
+  },
+  "point emery emeryville": {
+    "canonical": "Point Emery, Emeryville",
+    "aliases": [
+      "Point Emery, Emeryville"
+    ]
+  },
+  "swedish american hall": {
+    "canonical": "Swedish American Hall",
+    "aliases": [
+      "Swedish American Hall, S.F."
+    ]
+  },
+  "gray area": {
+    "canonical": "Gray Area",
+    "aliases": [
+      "Gray Area, S.F."
+    ]
+  },
+  "hopmonk novato": {
+    "canonical": "Hopmonk, Novato",
+    "aliases": [
+      "Hopmonk, Novato"
+    ]
+  },
+  "49er stadium santa clara": {
+    "canonical": "49'er Stadium, Santa Clara",
+    "aliases": [
+      "49'er Stadium, Santa Clara"
+    ]
+  },
+  "civic 135 san carlos st": {
+    "canonical": "Civic, 135 San Carlos St.",
+    "aliases": [
+      "Civic, 135 San Carlos St., San Jose"
+    ]
+  },
+  "midway": {
+    "canonical": "Midway",
+    "aliases": [
+      "Midway, S.F."
+    ]
+  },
+  "point san pablo harbor 1900 stenmark drive richmond": {
+    "canonical": "Point San Pablo Harbor, 1900 Stenmark Drive, Richmond",
+    "aliases": [
+      "Point San Pablo Harbor, 1900 Stenmark Drive, Richmond"
+    ]
+  },
+  "gilman brewing co 912 gilman street": {
+    "canonical": "Gilman Brewing Co., 912 Gilman Street",
+    "aliases": [
+      "Gilman Brewing Co., 912 Gilman Street, Berkeley"
+    ]
+  },
+  "warriors stadiom": {
+    "canonical": "Warriors Stadiom",
+    "aliases": [
+      "Warriors Stadiom, S.F."
+    ]
+  },
+  "cow palace daily city": {
+    "canonical": "Cow Palace, Daily City",
+    "aliases": [
+      "Cow Palace, Daily City"
+    ]
+  },
+  "henry j kaiser center": {
+    "canonical": "Henry J Kaiser Center",
+    "aliases": [
+      "Henry J Kaiser Center, Oakland",
+      "Henry J. Kaiser Center, Oakland"
+    ]
+  },
+  "music hall napa": {
+    "canonical": "Music Hall, Napa",
+    "aliases": []
+  },
+  "palace of fine arts": {
+    "canonical": "Palace of Fine Arts",
+    "aliases": [
+      "Palace of Fine Arts, S.F."
+    ]
+  },
+  "civic center": {
+    "canonical": "Civic Center",
+    "aliases": [
+      "Civic Center, San Jose"
+    ]
+  },
+  "catalyst": {
+    "canonical": "Catalyst, Santa Cruz",
+    "aliases": [
+      "Catalyst, Santa Cruz"
+    ]
+  },
+  "blue lagoon": {
+    "canonical": "Blue Lagoon, Santa Cruz",
+    "aliases": [
+      "Blue Lagoon, Santa Cruz"
+    ]
+  },
+  "shanty shack 138 fern street": {
+    "canonical": "Shanty Shack, 138 Fern Street, Santa Cruz",
+    "aliases": [
+      "Shanty Shack, 138 Fern Street, Santa Cruz"
+    ]
+  },
+  "phoenix theater": {
+    "canonical": "Phoenix Theater, Petaluma",
+    "aliases": [
+      "Phoenix Theater, Petaluma"
+    ]
+  },
+  "fairgrounds 175 fairgrounds drive": {
+    "canonical": "Fairgrounds, 175 Fairgrounds Drive, Petaluma",
+    "aliases": [
+      "Fairgrounds, 175 Fairgrounds Drive, Petaluma"
+    ]
+  },
+  "jury room": {
+    "canonical": "Jury Room, Santa Cruz",
+    "aliases": [
+      "Jury Room, Santa Cruz"
+    ]
+  },
+  "vessel 150 felker street ste h": {
+    "canonical": "Vessel, 150 Felker Street, Ste H, Santa Cruz",
+    "aliases": [
+      "Vessel, 150 Felker Street, Ste H, Santa Cruz"
+    ]
+  },
+  "streetlight records": {
+    "canonical": "Streetlight Records, Santa Cruz",
+    "aliases": [
+      "Streetlight Records, Santa Cruz"
+    ]
+  },
+  "subrosa community space": {
+    "canonical": "Subrosa Community Space, Santa Cruz",
+    "aliases": [
+      "Subrosa Community Space, Santa Cruz"
+    ]
+  },
+  "catalyst atrium": {
+    "canonical": "Catalyst Atrium, Santa Cruz",
+    "aliases": [
+      "Catalyst Atrium, Santa Cruz"
+    ]
+  },
+  "moes alley": {
+    "canonical": "Moe's Alley, Santa Cruz",
+    "aliases": [
+      "Moe's Alley, Santa Cruz"
+    ]
+  },
+  "crepe place": {
+    "canonical": "Crepe Place, Santa Cruz",
+    "aliases": [
+      "Crepe Place, Santa Cruz"
+    ]
+  },
+  "carnalitos customs 905 tennessee street": {
+    "canonical": "Carnalitos Customs, 905 Tennessee Street, Vallejo",
+    "aliases": [
+      "Carnalitos Customs, 905 Tennessee Street, Vallejo"
+    ]
+  },
+  "uptown theater": {
+    "canonical": "Uptown Theater, Napa",
+    "aliases": [
+      "Uptown Theater, Napa"
+    ]
+  },
+  "quarry amphitheater": {
+    "canonical": "Quarry Amphitheater, Santa Cruz",
+    "aliases": [
+      "Quarry Amphitheater, Santa Cruz"
+    ]
+  },
+  "meritage resort": {
+    "canonical": "Meritage Resort, Napa",
+    "aliases": [
+      "Meritage Resort, Napa"
+    ]
+  },
+  "vessel": {
+    "canonical": "Vessel, Santa Cruz",
+    "aliases": [
+      "Vessel, Santa Cruz"
+    ]
+  },
+  "napa county fair 575 third st": {
+    "canonical": "Napa County Fair, 575 Third St., Napa",
+    "aliases": [
+      "Napa County Fair, 575 Third St., Napa"
+    ]
+  },
+  "kuumbwa jazz center": {
+    "canonical": "Kuumbwa Jazz Center, Santa Cruz",
+    "aliases": [
+      "Kuumbwa Jazz Center, Santa Cruz"
+    ]
+  },
+  "blue note": {
+    "canonical": "Blue Note, Napa",
+    "aliases": [
+      "Blue Note, Napa"
+    ]
+  },
+  "rio theater": {
+    "canonical": "Rio Theater, Santa Cruz",
+    "aliases": [
+      "Rio Theater, Santa Cruz"
+    ]
+  },
+  "music hall": {
+    "canonical": "Music Hall, Napa",
+    "aliases": [
+      "Music Hall, Napa"
+    ]
+  }
+}
