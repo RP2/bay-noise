@@ -28,6 +28,7 @@ const VENUE_SHORTHAND: Record<string, string> = {
   "fillmore": "The Fillmore",
   "great american music hall": "Great American Music Hall",
   "gamm": "Great American Music Hall",
+  "gamh": "Great American Music Hall",
   "independent": "The Independent",
   "the independent": "The Independent",
   "slims": "Slim's",
@@ -42,6 +43,12 @@ const VENUE_SHORTHAND: Record<string, string> = {
   "roxy": "Roxy Theatre",
   "sweetwater": "Sweetwater Music Hall",
   "freight and salvage": "Freight & Salvage",
+  "amoeba music sf": "Amoeba, S.F.",
+  "amoeba music san francisco": "Amoeba, S.F.",
+  "amoeba records sf": "Amoeba, S.F.",
+  "amoeba records berkeley": "Amoeba Records, Berkeley",
+  "thee stork club": "Stork Club",
+  "stork club oakland": "Stork Club",
 };
 
 /** City abbreviation map (~10 entries). */
@@ -104,7 +111,9 @@ const NON_ARTIST_PATTERNS = [
   /open\s+mic(\s+night)?$/i, /comedy\s+(show|night)$/i,
   /trivia\s+night$/i, /^dj\s+night$/i, /^karaoke$/i,
   /birthday bash/i, /birthday celebration/i, /birthday party/i,
-  /\d+(?:st|nd|rd|th)\s+birthday/i,
+  /'?s\s+\d+(?:st|nd|rd|th)?\s+birthday/i, // "Carmela's 60th Birthday"
+  /\d+(?:st|nd|rd|th)\s+birthday/i, // "60th Birthday"
+  /^birthday\s+/, // "Birthday Bash", "Birthday Party" (standalone)
   /^\d{1,2}(:\d{2})?\s*(am|pm|a\.?m\.?|p\.?m\.?)?\s*$/i,
   /^\$\d+(\.\d{2})?(\s*-\s*\$\d+(\.\d{2})?)?$/,
 ];
@@ -278,24 +287,53 @@ interface VenueAliasEntry {
   aliases: string[];
 }
 
-/** Strip trailing city suffix from venue name. */
-function stripCitySuffix(name: string): string {
-  const suffixes = [
+interface KnownVenue {
+  name: string;
+  city: string | null;
+  address: string | null;
+  aliases: string[];
+}
+
+interface DedupResult {
+  canonicalName: string;
+  city: string | null;
+  address: string | null;
+}
+
+/** Clean venue name — strip noise words, age restrictions, city suffix. */
+function cleanVenueName(name: string): string {
+  let result = name.trim();
+
+  // Strip age restrictions and event descriptors sometimes
+  // appended to venue names (e.g., "Bottom of the Hill 21+")
+  const noisePatterns = [
+    /\s+(18\+|21\+|all\s*ages|sold\s*out|cancelled|canceled|postponed)\s*$/i,
+    /\s+presents?\s*$/i,
+  ];
+  for (const p of noisePatterns) {
+    result = result.replace(p, "");
+  }
+
+  // Strip trailing city/location suffix
+  const citySuffixes = [
     /,\s*(?:sf|s\.f\.|san\s*francisco|oakland|oak|berkeley|berk|san\s*jose|sj|palo\s*alto|santa\s*cruz|sc|petaluma|sausalito|napa|sacramento|sac|vallejo)\s*$/i,
     /,\s*(?:ca|california)\s*$/i,
   ];
-  let result = name.trim();
-  for (const s of suffixes) {
+  for (const s of citySuffixes) {
     result = result.replace(s, "");
   }
+
   return result.trim();
 }
 
 function deduplicateVenue(
   rawName: string,
   aliases: Map<string, VenueAliasEntry>,
-): string {
+  knownVenues: Map<string, KnownVenue>,
+): DedupResult {
   let name = rawName.trim();
+  let address: string | null = null;
+  let city: string | null = null;
 
   // Step a: Expand shorthand
   const nameLower = name.toLowerCase().trim();
@@ -303,43 +341,72 @@ function deduplicateVenue(
     name = VENUE_SHORTHAND[nameLower];
   }
 
-  // Step b: Strip city suffix
-  const stripped = stripCitySuffix(name);
+  // Step b: Clean venue name (strip suffixes, noise, age restrictions)
+  const stripped = cleanVenueName(name);
 
   // Step c: Normalize for lookup
   const normalized = normalizeText(stripped);
 
-  // Step d: Check aliases (exact match)
-  if (aliases.has(normalized)) {
-    const entry = aliases.get(normalized)!;
+  // Helper: merge raw name as alias
+  const addAlias = (entry: VenueAliasEntry) => {
     const rawLower = normalizeText(rawName);
     if (!entry.aliases.some((a) => normalizeText(a) === rawLower)) {
       entry.aliases.push(rawName);
     }
-    return entry.canonical;
+  };
+
+  // Step d: Check aliases (exact match)
+  if (aliases.has(normalized)) {
+    const entry = aliases.get(normalized)!;
+    addAlias(entry);
+    return { canonicalName: entry.canonical, city, address };
   }
 
-  // Step e: Algorithmic fallback — check if the stripped name matches an
-  // existing entry via word/char overlap. Catches foopee venue typos without
-  // a manual corrections file.
+  // Step e: Algorithmic fallback — check session aliases
   for (const entry of aliases.values()) {
     if (namesMatch(stripped, entry.canonical)) {
-      // Merge: alias this new name under the existing canonical
-      const rawLower = normalizeText(rawName);
-      if (!entry.aliases.some((a) => normalizeText(a) === rawLower)) {
-        entry.aliases.push(rawName);
-      }
-      // Also map the normalized key so next time it's an O(1) lookup
+      addAlias(entry);
       if (!aliases.has(normalized)) {
         aliases.set(normalized, entry);
       }
-      return entry.canonical;
+      return { canonicalName: entry.canonical, city, address };
     }
   }
 
-  // Step f: Create new entry
+  // Step f: Check against curated known-venues list
+  for (const kv of knownVenues.values()) {
+    // Check canonical name
+    if (namesMatch(stripped, kv.name)) {
+      // Merge into session aliases for O(1) next time
+      const merged: VenueAliasEntry = {
+        canonical: kv.name,
+        aliases: [...(kv.aliases ?? []), rawName],
+      };
+      aliases.set(normalizeText(kv.name), merged);
+      if (!aliases.has(normalized)) {
+        aliases.set(normalized, merged);
+      }
+      return { canonicalName: kv.name, city: kv.city, address: kv.address };
+    }
+    // Check known aliases
+    for (const alias of kv.aliases ?? []) {
+      if (namesMatch(stripped, alias)) {
+        const merged: VenueAliasEntry = {
+          canonical: kv.name,
+          aliases: [...(kv.aliases ?? []), rawName],
+        };
+        aliases.set(normalizeText(kv.name), merged);
+        if (!aliases.has(normalized)) {
+          aliases.set(normalized, merged);
+        }
+        return { canonicalName: kv.name, city: kv.city, address: kv.address };
+      }
+    }
+  }
+
+  // Step g: Create new entry
   aliases.set(normalized, { canonical: name, aliases: [rawName] });
-  return name;
+  return { canonicalName: name, city, address };
 }
 
 // ──────────────────────────────────────────────
@@ -500,6 +567,14 @@ async function main(): Promise<void> {
   );
   const venueAliasMap = new Map<string, VenueAliasEntry>(Object.entries(venueAliases));
 
+  // ── Load known venues (curated list from old bay-punks) ──
+  const knownVenuesRaw = await loadJsonFile<KnownVenue[]>("public/known-venues.json", []);
+  const knownVenuesMap = new Map<string, KnownVenue>();
+  for (const kv of knownVenuesRaw) {
+    knownVenuesMap.set(normalizeText(kv.name), kv);
+  }
+  console.log(`✓ Loaded ${knownVenuesMap.size} known venues`);
+
   const artistCache = await loadJsonFile<Record<string, ArtistCacheEntry>>(
     "public/artist-cache.json", {},
   );
@@ -633,9 +708,11 @@ async function main(): Promise<void> {
     const venues: VenueEvent[] = [];
 
     for (const evt of day.events) {
-      // Venue dedup
-      const venueName = deduplicateVenue(evt.venue.text, venueAliasMap);
-      const city = extractCity(evt.venue.text);
+      // Venue dedup + known-venue validation
+      const dedup = deduplicateVenue(evt.venue.text, venueAliasMap, knownVenuesMap);
+      const venueName = dedup.canonicalName;
+      // Use canonical city from known venues when available; fall back to extraction
+      const city = dedup.city ?? extractCity(evt.venue.text);
 
       // Parse extra
       const parsed = parseExtra(evt.extra);
