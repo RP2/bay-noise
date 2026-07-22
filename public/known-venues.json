@@ -1414,6 +1414,14 @@
     ]
   },
   {
+    "name": "Spanky's Bar",
+    "city": "Cotati",
+    "address": "8201 Old Redwood Hwy.",
+    "aliases": [
+      "Spanky's Bar, 8201 Old Redwood Hwy., Cotati"
+    ]
+  },
+  {
     "name": "Spats",
     "city": "Berkeley",
     "address": "1974 Shattuck Avenue",
