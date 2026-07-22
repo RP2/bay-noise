@@ -10,6 +10,7 @@
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
     "pipeline": "npx tsx scripts/build-data.ts",
+    "promote": "node scripts/promote-unmatched.js",
     "test": "NODE_OPTIONS='--localstorage-file=/tmp/vitest-ls.json' vitest run",
     "test:watch": "NODE_OPTIONS='--localstorage-file=/tmp/vitest-ls.json' vitest"
   },

@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-21",
+  "updated": "2026-07-22",
   "shows": [
     {
       "date": "2026-07-21",
@@ -3141,8 +3141,8 @@
           "age": "a/a"
         },
         {
-          "name": "Spanky's Bar, 8201 Old Redwood Hwy., Cotati",
-          "city": null,
+          "name": "Spanky's Bar",
+          "city": "Cotati",
           "artists": [
             {
               "name": "Band-Aid",
@@ -15359,7 +15359,7 @@
           "age": "a/a"
         },
         {
-          "name": "Spanky's Bar, 8201 Old Redwood Hwy., Cotati",
+          "name": "Old Western Saloon, 11201 State CA-1, Point Reyes Station",
           "city": null,
           "artists": [
             {
@@ -18536,7 +18536,7 @@
           "age": null
         },
         {
-          "name": "Spanky's Bar, 8201 Old Redwood Hwy., Cotati",
+          "name": "Old Western Saloon, 11201 State CA-1, Point Reyes Station",
           "city": null,
           "artists": [
             {
