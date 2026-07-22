@@ -1,0 +1,7 @@
+# Security policy for shows.wtf / Bay Noise
+# https://shows.wtf/.well-known/security.txt
+
+Contact: mailto:security@rileyperalta.com
+Expires: 2027-07-22T00:00:00.000Z
+Preferred-Languages: en
+Canonical: https://shows.wtf/.well-known/security.txt
