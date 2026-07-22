@@ -6,42 +6,36 @@ import { FeedSubscribe } from "./feed-subscribe.js";
 afterEach(cleanup);
 
 beforeEach(() => {
-  // Set a stable origin for testing
-  Object.defineProperty(window, "location", {
-    value: { origin: "https://bay-noise.pages.dev" },
-    writable: true,
+  vi.stubGlobal("navigator", {
+    clipboard: { writeText: vi.fn().mockResolvedValue(undefined) },
   });
 });
 
 describe("FeedSubscribe", () => {
-  it("renders summary text", () => {
-    const { getByText } = render(<FeedSubscribe />);
-    expect(getByText("Subscribe via iCal")).toBeDefined();
-  });
-
-  it("shows the calendar URL when expanded", () => {
-    const { getByText } = render(<FeedSubscribe />);
-    fireEvent.click(getByText("Subscribe via iCal"));
-    expect(getByText("https://bay-noise.pages.dev/calendar.ics")).toBeDefined();
+  it("renders the calendar URL", () => {
+    const { getByText } = render(<FeedSubscribe url="https://example.com/calendar.ics" />);
+    expect(getByText("https://example.com/calendar.ics")).toBeDefined();
   });
 
   it("renders a copy button", () => {
-    const { getByText } = render(<FeedSubscribe />);
-    fireEvent.click(getByText("Subscribe via iCal"));
+    const { getByText } = render(<FeedSubscribe url="https://example.com/calendar.ics" />);
     expect(getByText("Copy")).toBeDefined();
   });
 
-  it("copies URL to clipboard when copy is clicked", async () => {
-    const writeText = vi.fn().mockResolvedValue(undefined);
-    Object.defineProperty(navigator, "clipboard", {
-      value: { writeText },
-      writable: true,
-    });
-
-    const { getByText } = render(<FeedSubscribe />);
-    fireEvent.click(getByText("Subscribe via iCal"));
+  it("copies URL when copy button is clicked", async () => {
+    const { getByText } = render(<FeedSubscribe url="https://example.com/calendar.ics" />);
     fireEvent.click(getByText("Copy"));
+    expect(navigator.clipboard.writeText).toHaveBeenCalledWith(
+      "https://example.com/calendar.ics",
+    );
+  });
 
-    expect(writeText).toHaveBeenCalledWith("https://bay-noise.pages.dev/calendar.ics");
+  it("fires onClose when × is clicked", () => {
+    const onClose = vi.fn();
+    const { getByLabelText } = render(
+      <FeedSubscribe url="https://example.com/calendar.ics" onClose={onClose} />,
+    );
+    fireEvent.click(getByLabelText("Close"));
+    expect(onClose).toHaveBeenCalledTimes(1);
   });
 });

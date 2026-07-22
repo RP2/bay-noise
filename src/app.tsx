@@ -68,22 +68,25 @@ export function App() {
     setFilter(DEFAULT_FILTER);
   };
 
-  // Handle search submit: Enter converts genre/artist/venue matches to chips
-  const handleSearchSubmit = (query: string) => {
-    const q = query.toLowerCase().trim();
-    // Check if query matches a broad genre category — if so, add as genre chip
+  // Handle search input change — converts genre matches to chips in real time
+  const handleSearchChange = (q: string) => {
+    const trimmed = q.toLowerCase().trim();
     const categories = getBroadCategories();
-    const matching = categories.find((c) => c.toLowerCase() === q);
-    if (matching) {
-      if (!prefs.preferredGenres.includes(matching)) {
-        const updated = [...prefs.preferredGenres, matching];
-        const newPrefs: UserPrefs = { ...prefs, preferredGenres: updated };
-        setPrefs(newPrefs);
-        setPrefsState(newPrefs);
-      }
+    const matching = categories.find((c) => c.toLowerCase() === trimmed);
+    if (matching && !prefs.preferredGenres.includes(matching)) {
+      const updated = [...prefs.preferredGenres, matching];
+      const newPrefs: UserPrefs = { ...prefs, preferredGenres: updated };
+      setPrefs(newPrefs);
+      setPrefsState(newPrefs);
       setFilter((prev) => ({ ...prev, query: "" }));
+    } else {
+      setFilter((prev) => ({ ...prev, query: q }));
     }
-    // Otherwise keep as text search (don't clear)
+  };
+
+  // Handle search submit: Enter key — same logic as onChange
+  const handleSearchSubmit = (query: string) => {
+    handleSearchChange(query);
   };
 
   // Handle filter changes (partial updates)
@@ -151,7 +154,7 @@ export function App() {
             onClick={() => setShowIcal((s) => !s)}
             class="cursor-pointer text-xs text-neutral-400 underline-offset-2 hover:underline dark:text-neutral-500 dark:hover:text-white"
           >
-            {showIcal ? "Hide iCal" : "iCal"}
+            {showIcal ? "Hide" : "Add to Calendar"}
           </button>
           <button
             type="button"
@@ -169,7 +172,7 @@ export function App() {
       {/* iCal subscription panel (personalized to preferred genres) */}
       {showIcal && (
         <div class="mb-6">
-          <FeedSubscribe url={icalUrl} />
+          <FeedSubscribe url={icalUrl} onClose={() => setShowIcal(false)} />
         </div>
       )}
 
