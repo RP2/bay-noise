@@ -14,13 +14,13 @@ describe("GenrePill", () => {
   it("applies active styling when active is true", () => {
     const { container } = render(<GenrePill name="punk" active />);
     const pill = container.firstChild as HTMLElement;
-    expect(pill.className).toContain("bg-black");
+    expect(pill.className).toContain("bg-neutral-900");
   });
 
   it("applies inactive styling when active is false", () => {
     const { container } = render(<GenrePill name="punk" />);
     const pill = container.firstChild as HTMLElement;
-    expect(pill.className).toContain("bg-gray-100");
+    expect(pill.className).toContain("bg-neutral-100");
   });
 
   it("fires onClick when clicked", () => {

@@ -60,6 +60,14 @@ export function App() {
     setFilter((prev) => ({ ...prev, ...patch }));
   };
 
+  // Handle removing a single genre from preferred list
+  const handleGenreRemove = (genre: string) => {
+    const updated = prefs.preferredGenres.filter((g) => g !== genre);
+    const newPrefs: UserPrefs = { ...prefs, preferredGenres: updated };
+    setPrefs(newPrefs);
+    setPrefsState(newPrefs);
+  };
+
   // Determine app state
   if (!prefs.onboarded) {
     return <Greeter onSubmit={handleGreeterSubmit} />;
@@ -68,7 +76,7 @@ export function App() {
   if (view.status === "loading") {
     return (
       <div class="mx-auto max-w-2xl px-4 py-12 text-center">
-        <p class="text-gray-500 dark:text-gray-400">Loading shows...</p>
+        <p class="text-neutral-500 dark:text-neutral-400">Loading shows...</p>
       </div>
     );
   }
@@ -76,12 +84,12 @@ export function App() {
   if (view.status === "error") {
     return (
       <div class="mx-auto max-w-2xl px-4 py-12 text-center">
-        <p class="mb-4 text-red-500 dark:text-red-400">Failed to load shows.</p>
-        <p class="mb-4 text-sm text-gray-500 dark:text-gray-400">{view.message}</p>
+        <p class="mb-4 text-neutral-600 dark:text-neutral-400">Failed to load shows.</p>
+        <p class="mb-4 text-sm text-neutral-500 dark:text-neutral-400">{view.message}</p>
         <button
           type="button"
           onClick={() => setRetryKey((k) => k + 1)}
-          class="text-sm text-blue-600 underline hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+          class="cursor-pointer text-sm text-neutral-600 underline-offset-2 hover:underline dark:text-neutral-400 dark:hover:text-white"
         >
           Try again
         </button>
@@ -112,7 +120,7 @@ export function App() {
             setPrefs({ preferredGenres: [], onboarded: false });
             setPrefsState({ preferredGenres: [], onboarded: false });
           }}
-          class="text-xs text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300"
+          class="cursor-pointer text-xs text-neutral-400 underline-offset-2 hover:underline dark:text-neutral-500 dark:hover:text-white"
         >
           Change genres
         </button>
@@ -132,10 +140,12 @@ export function App() {
         filter={effectiveFilter}
         onFilterChange={handleFilterChange}
         hasBelowFold={belowFold}
+        preferredGenres={prefs.preferredGenres}
+        onGenreRemove={handleGenreRemove}
       />
 
       {/* Footer */}
-      <div class="mt-8 border-t border-gray-200 pt-4 dark:border-gray-700">
+      <div class="mt-8 border-t border-neutral-200 pt-4 dark:border-neutral-800">
         <FeedSubscribe />
       </div>
     </div>

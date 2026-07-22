@@ -23,18 +23,18 @@ function venueFromShow(show: ScoredShow) {
 
 export function ShowCard({ show, onVenueClick, onArtistClick }: ShowCardProps) {
   return (
-    <div class="rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-900">
+    <div class="border border-neutral-200 bg-white p-4 text-neutral-900 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100">
       {/* Venue name and city */}
       <div class="mb-2">
         <button
           type="button"
-          class="text-left font-semibold text-blue-700 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300"
+          class="cursor-pointer text-left font-semibold underline-offset-2 hover:underline"
           onClick={() => onVenueClick?.(show.venueName)}
         >
           {show.venueName}
         </button>
         {show.city && (
-          <span class="ml-1 text-sm text-gray-500 dark:text-gray-400">
+          <span class="ml-1 text-sm text-neutral-500 dark:text-neutral-400">
             {show.city}
           </span>
         )}
@@ -42,7 +42,7 @@ export function ShowCard({ show, onVenueClick, onArtistClick }: ShowCardProps) {
 
       {/* Event info: time, price, age */}
       {show.extra && (
-        <p class="mb-3 text-sm text-gray-600 dark:text-gray-400">
+        <p class="mb-3 text-sm text-neutral-500 dark:text-neutral-400">
           {show.extra}
         </p>
       )}
@@ -74,7 +74,7 @@ function ArtistRow({ artist, onArtistClick }: ArtistRowProps) {
     <div class="flex flex-wrap items-center gap-1">
       <button
         type="button"
-        class="text-sm font-medium text-gray-900 hover:text-blue-700 dark:text-gray-100 dark:hover:text-blue-400"
+        class="cursor-pointer text-sm font-medium underline-offset-2 hover:underline"
         onClick={() => onArtistClick?.(artist.name)}
       >
         {artist.name}
@@ -84,7 +84,7 @@ function ArtistRow({ artist, onArtistClick }: ArtistRowProps) {
           href={artist.spotifyUrl}
           target="_blank"
           rel="noopener noreferrer"
-          class="text-xs text-green-600 hover:text-green-800 dark:text-green-400 dark:hover:text-green-300"
+          class="text-xs text-neutral-500 underline underline-offset-2 hover:text-black dark:hover:text-white"
           title="Open in Spotify"
         >
           &#9835; Spotify

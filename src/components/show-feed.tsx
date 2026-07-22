@@ -7,9 +7,11 @@ interface ShowFeedProps {
   onFilterChange: (filter: Partial<FilterState>) => void;
   hasBelowFold: boolean;
   dataEmpty?: boolean;
+  preferredGenres?: string[];
+  onGenreRemove?: (genre: string) => void;
 }
 
-export function ShowFeed({ shows, filter, onFilterChange, hasBelowFold, dataEmpty = false }: ShowFeedProps) {
+export function ShowFeed({ shows, filter, onFilterChange, hasBelowFold, dataEmpty = false, preferredGenres = [], onGenreRemove }: ShowFeedProps) {
   const grouped = groupByDate(shows);
   const hasAnyFilter = filter.query || filter.venue || filter.artist;
 
@@ -17,7 +19,7 @@ export function ShowFeed({ shows, filter, onFilterChange, hasBelowFold, dataEmpt
   if (shows.length === 0) {
     return (
       <div class="py-12 text-center">
-        <p class="text-gray-500 dark:text-gray-400">
+        <p class="text-neutral-500 dark:text-neutral-400">
           {dataEmpty
             ? "No upcoming shows right now. Check back later."
             : "No shows match your search."}
@@ -26,7 +28,7 @@ export function ShowFeed({ shows, filter, onFilterChange, hasBelowFold, dataEmpt
           <button
             type="button"
             onClick={() => onFilterChange({ query: "", venue: null, artist: null, showAll: false })}
-            class="mt-2 text-sm text-blue-600 underline hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+            class="mt-2 inline-flex min-h-11 cursor-pointer items-center text-sm text-neutral-600 underline-offset-2 hover:underline dark:text-neutral-400 dark:hover:text-white"
           >
             Clear all filters
           </button>
@@ -37,10 +39,13 @@ export function ShowFeed({ shows, filter, onFilterChange, hasBelowFold, dataEmpt
 
   return (
     <div class="space-y-6">
-      {/* Active filters — includes search query */}
-      {(filter.venue || filter.artist || filter.query) && (
+      {/* Active filters — search query, genre, venue, artist */}
+      {(filter.query || filter.venue || filter.artist || preferredGenres.length > 0) && (
         <div class="flex flex-wrap items-center gap-2">
-          <span class="text-xs font-medium text-gray-500 dark:text-gray-400">Filters:</span>
+          <span class="text-xs font-medium text-neutral-500 dark:text-neutral-400">Filters:</span>
+          {preferredGenres.map((g) => (
+            <FilterChip key={g} label={g} onClear={() => onGenreRemove?.(g)} />
+          ))}
           {filter.query && (
             <FilterChip label={`"${filter.query}"`} onClear={() => onFilterChange({ query: "" })} />
           )}
@@ -54,7 +59,7 @@ export function ShowFeed({ shows, filter, onFilterChange, hasBelowFold, dataEmpt
       )}
 
       {/* Show count */}
-      <p class="text-xs text-gray-400 dark:text-gray-500">
+      <p class="text-xs text-neutral-400 dark:text-neutral-500">
         {shows.length} {shows.length === 1 ? "show" : "shows"}
         {filter.showAll ? " (all)" : " (personalized)"}
       </p>
@@ -62,7 +67,7 @@ export function ShowFeed({ shows, filter, onFilterChange, hasBelowFold, dataEmpt
       {/* Shows grouped by date */}
       {grouped.map(({ date, day, items }) => (
         <section key={date}>
-          <h2 class="mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
+          <h2 class="mb-2 text-sm font-semibold text-neutral-800 dark:text-neutral-200">
             {day}
           </h2>
           <div class="space-y-3">
@@ -84,7 +89,7 @@ export function ShowFeed({ shows, filter, onFilterChange, hasBelowFold, dataEmpt
           <button
             type="button"
             onClick={() => onFilterChange({ showAll: true })}
-            class="text-sm text-blue-600 underline hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+            class="inline-flex min-h-11 cursor-pointer items-center text-sm text-neutral-600 underline-offset-2 hover:underline dark:text-neutral-400 dark:hover:text-white"
           >
             Show all upcoming shows
           </button>
@@ -101,12 +106,12 @@ interface FilterChipProps {
 
 function FilterChip({ label, onClear }: FilterChipProps) {
   return (
-    <span class="inline-flex items-center gap-1 rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-200">
+    <span class="inline-flex items-center gap-1 border border-neutral-300 bg-neutral-100 px-2 py-1 text-xs dark:border-neutral-600 dark:bg-neutral-800">
       {label}
       <button
         type="button"
         onClick={onClear}
-        class="ml-0.5 text-blue-600 hover:text-blue-800 dark:text-blue-300 dark:hover:text-blue-100"
+        class="inline-flex h-7 w-7 cursor-pointer items-center justify-center leading-none text-neutral-500 hover:text-black dark:text-neutral-400 dark:hover:text-white"
         aria-label={`Remove ${label} filter`}
       >
         &times;

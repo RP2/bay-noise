@@ -105,9 +105,12 @@ export function filterByQuery(
     if (show.city && show.city.toLowerCase().includes(q)) return true;
     // Search extra
     if (show.extra.toLowerCase().includes(q)) return true;
-    // Search artist names
+    // Search artist names + genres
     for (const artist of show.artists) {
       if (artist.name.toLowerCase().includes(q)) return true;
+      for (const genre of artist.genres) {
+        if (genre.toLowerCase().includes(q)) return true;
+      }
     }
     return false;
   });

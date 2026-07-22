@@ -36,7 +36,7 @@ export function AddToCalendar({ date, venue }: AddToCalendarProps) {
     <button
       type="button"
       onClick={handleDownload}
-      class="text-sm text-blue-600 underline hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-200"
+      class="cursor-pointer text-sm text-neutral-600 underline-offset-2 hover:underline dark:text-neutral-400 dark:hover:text-white"
     >
       + Add to Calendar
     </button>

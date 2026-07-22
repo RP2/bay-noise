@@ -79,7 +79,7 @@ describe("ShowCard", () => {
     const noCity = { ...show, city: null };
     const { container } = render(<ShowCard show={noCity} />);
     // Should still render without city span
-    const city = container.querySelector("span.text-gray-500");
+    const city = container.querySelector("span.text-neutral-500");
     expect(city).toBeNull();
   });
 });

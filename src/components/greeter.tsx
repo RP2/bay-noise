@@ -29,7 +29,7 @@ export function Greeter({ onSubmit }: GreeterProps) {
       <h1 class="mb-2 text-3xl font-bold text-black dark:text-white">
         Bay Noise
       </h1>
-      <p class="mb-8 text-gray-500 dark:text-gray-400">
+      <p class="mb-8 text-neutral-500 dark:text-neutral-400">
         Pick your genres. We'll find your shows.
       </p>
 
@@ -47,14 +47,15 @@ export function Greeter({ onSubmit }: GreeterProps) {
       <button
         type="button"
         onClick={handleSubmit}
-        class="rounded-lg bg-black px-6 py-2.5 text-sm font-medium text-white
-               transition-opacity hover:opacity-80
-               dark:bg-white dark:text-black"
+        class="cursor-pointer border border-black bg-black px-8 py-3 text-sm font-medium text-white
+               hover:bg-white hover:text-black
+               dark:border-white dark:bg-white dark:text-black
+               dark:hover:bg-black dark:hover:text-white"
       >
         Show me what's on
       </button>
 
-      <p class="mt-3 text-xs text-gray-400 dark:text-gray-500">
+      <p class="mt-3 text-xs text-neutral-400 dark:text-neutral-500">
         {selected.size === 0
           ? "No genres? We'll show you everything."
           : `${selected.size} selected`}

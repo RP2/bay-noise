@@ -17,21 +17,21 @@ export function FeedSubscribe() {
 
   return (
     <details class="group text-sm">
-      <summary class="cursor-pointer text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+      <summary class="cursor-pointer text-xs text-neutral-500 hover:text-black dark:text-neutral-400 dark:hover:text-white">
         Subscribe via iCal
       </summary>
-      <div class="mt-2 rounded border border-gray-200 bg-gray-50 p-3 dark:border-gray-700 dark:bg-gray-800">
-        <p class="mb-1 text-gray-600 dark:text-gray-400">
+      <div class="mt-2 border border-neutral-200 bg-neutral-50 p-3 dark:border-neutral-800 dark:bg-neutral-900">
+        <p class="mb-1 text-neutral-600 dark:text-neutral-400">
           Add this URL to your calendar app (Apple Calendar, Google Calendar, etc.):
         </p>
         <div class="flex items-center gap-2">
-          <code class="flex-1 break-all rounded bg-white px-2 py-1 text-xs text-gray-800 dark:bg-gray-900 dark:text-gray-200">
+          <code class="flex-1 break-all bg-white px-2 py-1 font-mono text-xs text-neutral-800 dark:bg-neutral-950 dark:text-neutral-200">
             {icalUrl}
           </code>
           <button
             type="button"
             onClick={copyToClipboard}
-            class="shrink-0 rounded bg-gray-200 px-2 py-1 text-xs text-gray-700 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
+             class="shrink-0 cursor-pointer border border-neutral-300 bg-white px-2 py-1 text-xs text-neutral-700 hover:bg-black hover:text-white dark:border-neutral-600 dark:bg-neutral-900 dark:text-neutral-200 dark:hover:bg-white dark:hover:text-black"
           >
             Copy
           </button>

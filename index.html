@@ -6,22 +6,10 @@
     <meta name="theme-color" content="#000000" />
     <meta name="description" content="Your personal Bay Area show radar." />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="manifest" href="/manifest.webmanifest" />
     <title>Bay Noise</title>
-    <script>
-      // Detect system dark mode preference before first render to prevent flash
-      if (matchMedia("(prefers-color-scheme: dark)").matches) {
-        document.documentElement.classList.add("dark");
-      }
-      // Store preference for service worker / PWA usage
-      try {
-        localStorage.setItem(
-          "bay-noise-theme",
-          matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light",
-        );
-      } catch (_) {}
-    </script>
   </head>
-  <body class="bg-white text-black dark:bg-black dark:text-white">
+  <body class="bg-white text-black dark:bg-neutral-950 dark:text-neutral-100">
     <div id="app"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

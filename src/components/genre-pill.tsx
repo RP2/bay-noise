@@ -5,13 +5,13 @@ interface GenrePillProps {
 }
 
 export function GenrePill({ name, active = false, onClick }: GenrePillProps) {
-  const base = "inline-block rounded-full px-3 py-1 text-sm font-medium transition-colors cursor-pointer select-none";
-  const activeClass = "bg-black text-white dark:bg-white dark:text-black";
-  const inactiveClass = "bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700";
-
   return (
     <span
-      class={`${base} ${active ? activeClass : inactiveClass}`}
+      class={`inline-block cursor-pointer select-none px-2.5 py-1 text-sm font-medium transition-colors ${
+        active
+          ? "bg-neutral-900 text-white dark:bg-neutral-100 dark:text-neutral-900"
+          : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-400 dark:hover:bg-neutral-700"
+      }`}
       onClick={onClick}
       role={onClick ? "button" : undefined}
       aria-pressed={onClick ? active : undefined}
