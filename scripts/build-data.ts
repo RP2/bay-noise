@@ -354,6 +354,7 @@ interface UnmatchedVenue {
   scrapedName: string;
   venueName: string;
   city: string | null;
+  address: string | null;
   extra: string;
   seen: string;
   count: number;
@@ -573,11 +574,15 @@ function deduplicateVenue(
     };
   }
 
+  // Extract address from scraped name for the unmatched queue
+  const extractedAddr = extractAddress(rawName);
+
   // Add new entry to unmatched queue
   const newUnmatched: UnmatchedVenue = {
     scrapedName: rawName,
     venueName: stripped,
     city: scrapedCity,
+    address: extractedAddr,
     extra: "",
     seen: today,
     count: 1,
@@ -601,6 +606,16 @@ function extractCity(venueName: string): string | null {
   if (!match) return null;
   const suffix = match[1].toLowerCase().trim();
   return CITY_MAP[suffix] ?? null;
+}
+
+/** Extract a street address from a venue name string, if present. */
+function extractAddress(venueName: string): string | null {
+  const addrMatch = venueName.match(/,\s*(\d+\s+[A-Za-z0-9\s.]+?)(?:,\s*[A-Za-z\s.]+)?\s*$/);
+  if (!addrMatch) return null;
+  const addr = addrMatch[1].trim();
+  // Skip if the matched segment is obviously a city, not a street address
+  if (CITY_MAP[addr.toLowerCase()]) return null;
+  return addr;
 }
 
 // ──────────────────────────────────────────────
