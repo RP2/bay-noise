@@ -40,9 +40,11 @@ describe("generateIcs", () => {
     expect(result).toContain("END:VEVENT");
   });
 
-  it("uses all-day DTSTART format (VALUE=DATE)", () => {
+  it("uses timed DTSTART with TZID when venue has a parseable time", () => {
     const result = generateIcs([minimalShow], UPDATED);
-    expect(result).toContain("DTSTART;VALUE=DATE:20260725");
+    // Bottom of the Hill: time "9pm" → 21:00, 2h duration
+    expect(result).toContain("DTSTART;TZID=America/Los_Angeles:20260725T210000");
+    expect(result).toContain("DTEND;TZID=America/Los_Angeles:20260725T230000");
   });
 
   it("includes venue name in SUMMARY (ICS-escaped)", () => {
@@ -313,9 +315,11 @@ describe("generateSingleIcs", () => {
     expect(veventCount).toBe(1);
   });
 
-  it("uses the correct date for DTSTART", () => {
+  it("uses the correct date and time for DTSTART when venue has time", () => {
     const result = generateSingleIcs("2026-07-25", venue, "20260720T000000Z");
-    expect(result).toContain("DTSTART;VALUE=DATE:20260725");
+    // venue.time = "9pm" → 21:00 in America/Los_Angeles, 2h duration
+    expect(result).toContain("DTSTART;TZID=America/Los_Angeles:20260725T210000");
+    expect(result).toContain("DTEND;TZID=America/Los_Angeles:20260725T230000");
   });
 
   it("includes both artist names in SUMMARY", () => {
@@ -333,5 +337,135 @@ describe("generateSingleIcs", () => {
   it("uses provided DTSTAMP when given", () => {
     const result = generateSingleIcs("2026-07-25", venue, "20260720T000000Z");
     expect(result).toContain("DTSTAMP:20260720T000000Z");
+  });
+});
+
+describe("time parsing", () => {
+  const baseVenue: VenueEvent = {
+    name: "The Venue",
+    city: "San Francisco",
+    artists: [{ name: "Band", genres: ["rock"] }],
+    extra: "",
+    time: "9pm",
+    price: null,
+    age: null,
+  };
+
+  function makeIcs(time: string | null): string {
+    return generateSingleIcs(
+      "2026-07-25",
+      { ...baseVenue, time },
+      "20260720T000000Z",
+    );
+  }
+
+  it("parses 9pm as 21:00 with 2h duration", () => {
+    const result = makeIcs("9pm");
+    expect(result).toContain("DTSTART;TZID=America/Los_Angeles:20260725T210000");
+    expect(result).toContain("DTEND;TZID=America/Los_Angeles:20260725T230000");
+  });
+
+  it("parses 9:00pm as 21:00", () => {
+    expect(makeIcs("9:00pm")).toContain("DTSTART;TZID=America/Los_Angeles:20260725T210000");
+  });
+
+  it("parses 9:30pm as 21:30", () => {
+    expect(makeIcs("9:30pm")).toContain("DTSTART;TZID=America/Los_Angeles:20260725T213000");
+  });
+
+  it("parses 9am as 09:00", () => {
+    expect(makeIcs("9am")).toContain("DTSTART;TZID=America/Los_Angeles:20260725T090000");
+  });
+
+  it("parses 21:00 (24h) as 21:00", () => {
+    expect(makeIcs("21:00")).toContain("DTSTART;TZID=America/Los_Angeles:20260725T210000");
+  });
+
+  it("uses the second time for complex '7pm/8pm' doors/show format", () => {
+    // 8pm = 20:00, ≥ 20 → 2h duration
+    const result = makeIcs("7pm/8pm");
+    expect(result).toContain("DTSTART;TZID=America/Los_Angeles:20260725T200000");
+    expect(result).toContain("DTEND;TZID=America/Los_Angeles:20260725T220000");
+  });
+
+  it("uses 3h duration for shows starting before 8pm", () => {
+    // 7:30pm = 19:30, < 20 → 3h duration
+    const result = makeIcs("7:30pm");
+    expect(result).toContain("DTSTART;TZID=America/Los_Angeles:20260725T193000");
+    expect(result).toContain("DTEND;TZID=America/Los_Angeles:20260725T223000");
+  });
+
+  it("uses 2h duration for shows starting at 8pm exactly", () => {
+    const result = makeIcs("8pm");
+    expect(result).toContain("DTSTART;TZID=America/Los_Angeles:20260725T200000");
+    expect(result).toContain("DTEND;TZID=America/Los_Angeles:20260725T220000");
+  });
+
+  it("uses 2h duration for late shows and rolls DTEND to the next day", () => {
+    // 10pm + 2h = midnight
+    const result = makeIcs("10pm");
+    expect(result).toContain("DTSTART;TZID=America/Los_Angeles:20260725T220000");
+    expect(result).toContain("DTEND;TZID=America/Los_Angeles:20260726T000000");
+  });
+
+  it("falls back to all-day when time is null", () => {
+    const result = makeIcs(null);
+    expect(result).toContain("DTSTART;VALUE=DATE:20260725");
+    expect(result).not.toContain("DTSTART;TZID");
+    expect(result).not.toContain("DTEND");
+  });
+
+  it("falls back to all-day when time is an empty string", () => {
+    const result = makeIcs("");
+    expect(result).toContain("DTSTART;VALUE=DATE:20260725");
+    expect(result).not.toContain("DTSTART;TZID");
+  });
+
+  it("falls back to all-day when time is unparseable", () => {
+    const result = makeIcs("TBA");
+    expect(result).toContain("DTSTART;VALUE=DATE:20260725");
+    expect(result).not.toContain("DTSTART;TZID");
+  });
+
+  it("falls back to all-day for a bare hour without meridiem", () => {
+    // "9" alone is ambiguous (9am vs 9pm); require explicit am/pm or 24h colon form.
+    const result = makeIcs("9");
+    expect(result).toContain("DTSTART;VALUE=DATE:20260725");
+  });
+
+  it("uses TZID=America/Los_Angeles for timed events", () => {
+    expect(makeIcs("9pm")).toContain("DTSTART;TZID=America/Los_Angeles:");
+  });
+});
+
+describe("generateIcs with mixed timed and all-day events", () => {
+  it("emits DTSTART;VALUE=DATE for null-time venues and DTSTART;TZID for timed venues", () => {
+    const mixedDay: ShowDay = {
+      date: "2026-07-25",
+      day: "Sat Jul 25",
+      venues: [
+        {
+          name: "Timed Venue",
+          city: "San Francisco",
+          artists: [{ name: "Band A", genres: ["rock"] }],
+          extra: "9pm",
+          time: "9pm",
+          price: null,
+          age: null,
+        },
+        {
+          name: "All Day Venue",
+          city: "Oakland",
+          artists: [{ name: "Band B", genres: ["rock"] }],
+          extra: "",
+          time: null,
+          price: null,
+          age: null,
+        },
+      ],
+    };
+    const result = generateIcs([mixedDay], "2026-07-20");
+    expect(result).toContain("DTSTART;TZID=America/Los_Angeles:20260725T210000");
+    expect(result).toContain("DTSTART;VALUE=DATE:20260725");
   });
 });

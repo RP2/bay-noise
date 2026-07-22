@@ -8,17 +8,17 @@
  */
 
 export const GENRE_MAP: Record<string, string[]> = {
-  punk: ["punk", "pop punk", "skate punk", "anarcho punk", "crust punk", "celtic punk"],
-  indie: ["indie", "indie rock", "indie pop", "indie folk", "indie punk"],
-  metal: ["metal", "death metal", "black metal", "doom", "sludge", "thrash", "heavy metal", "nu metal"],
-  hiphop: ["hip hop", "rap", "trap", "underground hip hop", "boom bap", "drill"],
-  electronic: ["electronic", "techno", "house", "drum and bass", "ambient", "idm", "edm"],
+  punk: ["punk", "pop punk", "skate punk", "anarcho punk", "crust punk", "celtic punk", "folk punk", "ska punk", "cowpunk", "horror punk"],
+  indie: ["indie", "indie rock", "indie pop", "indie folk", "indie punk", "indie sleaze", "twee pop", "chillwave"],
+  metal: ["metal", "death metal", "black metal", "doom", "sludge", "thrash", "heavy metal", "nu metal", "metalcore", "deathcore", "metalcore punk", "djent", "groove metal", "progressive metal"],
+  hiphop: ["hip hop", "rap", "trap", "underground hip hop", "boom bap", "drill", "cloud rap", "pluggnb", "rage"],
+  electronic: ["electronic", "techno", "house", "drum and bass", "ambient", "idm", "edm", "hyperpop", "witch house", "footwork", "breakcore", "dubstep", "future bass", "synthwave", "vaporwave", "chiptune"],
   folk: ["folk", "singer-songwriter", "americana", "bluegrass", "country", "folk rock"],
   jazz: ["jazz", "free jazz", "jazz fusion", "bebop", "smooth jazz"],
-  hardcore: ["hardcore", "hardcore punk", "powerviolence", "beatdown", "metallic hardcore", "youth crew"],
-  shoegaze: ["shoegaze", "dream pop", "noise pop", "ethereal", "shoegaze punk"],
-  noise: ["noise", "noise rock", "industrial", "industrial rock"],
-  experimental: ["experimental", "avant-garde", "drone", "minimal", "free improvisation"],
+  hardcore: ["hardcore", "hardcore punk", "powerviolence", "beatdown", "metallic hardcore", "youth crew", "melodic hardcore", "easycore", "beatdown hardcore", "sasscore"],
+  shoegaze: ["shoegaze", "dream pop", "noise pop", "ethereal", "shoegaze punk", "blackgaze", "nu gaze"],
+  noise: ["noise", "noise rock", "industrial", "industrial rock", "power electronics", "harsh noise", "death industrial"],
+  experimental: ["experimental", "avant-garde", "drone", "minimal", "free improvisation", "deconstructed club", "glitch", "plunderphonics"],
   soul: ["soul", "r&b", "funk", "neo soul", "funk rock"],
   hipster: ["art rock", "post-rock", "math rock", "chamber pop", "post-punk"],
 };

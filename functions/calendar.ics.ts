@@ -1,10 +1,19 @@
 /**
  * Cloudflare Pages Function — iCal feed subscription endpoint.
- * Serves the full calendar at GET /calendar.ics.
- * Reads the static shows.json and generates ICS using the shared lib.
+ * Accepts ?preferred=genre1,genre2 to filter by genre (URL-encoded, comma-separated).
+ * Defaults to all shows when no preferred param is given.
  */
 import { generateIcs } from "../src/lib/ics.js";
-import type { ShowsData } from "../src/lib/types.js";
+import { classifyGenre } from "../src/lib/genres.js";
+import type { ShowsData, ShowDay } from "../src/lib/types.js";
+
+function todayLocal(): string {
+  const d = new Date();
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${y}-${m}-${day}`;
+}
 
 export async function onRequest(context: { request: Request }): Promise<Response> {
   if (context.request.method !== "GET") {
@@ -13,9 +22,13 @@ export async function onRequest(context: { request: Request }): Promise<Response
 
   try {
     const url = new URL(context.request.url);
+    const raw = url.searchParams.get("preferred") || "";
+    const preferred = raw
+      .toLowerCase()
+      .split(",")
+      .map((s) => s.trim())
+      .filter(Boolean);
 
-    // Fetch the static shows.json deployed alongside the function.
-    // Pages Functions have access to the static assets at the same origin.
     const resp = await fetch(new URL("/shows.json", url).toString());
     if (!resp.ok) {
       console.error(`shows.json fetch failed: HTTP ${resp.status}`);
@@ -26,7 +39,7 @@ export async function onRequest(context: { request: Request }): Promise<Response
     try {
       data = (await resp.json()) as ShowsData;
     } catch {
-      console.error("shows.json parse failed — likely a partial pipeline write");
+      console.error("shows.json parse failed");
       return new Response("Calendar temporarily unavailable.", { status: 502 });
     }
 
@@ -35,7 +48,25 @@ export async function onRequest(context: { request: Request }): Promise<Response
       return new Response("Calendar temporarily unavailable.", { status: 502 });
     }
 
-    const ics = generateIcs(data.shows, data.updated || new Date().toISOString().slice(0, 10));
+    const cutoff = todayLocal();
+
+    // Filter: future shows only + optional genre preference
+    let shows: ShowDay[] = data.shows
+      .filter((day) => day.date >= cutoff)
+      .map((day) => {
+        if (preferred.length === 0) return day;
+        return {
+          ...day,
+          venues: day.venues.filter((venue) =>
+            venue.artists.some((artist) =>
+              artist.genres.some((g) => preferred.includes(classifyGenre(g))),
+            ),
+          ),
+        };
+      })
+      .filter((day) => day.venues.length > 0);
+
+    const ics = generateIcs(shows, data.updated || new Date().toISOString().slice(0, 10));
 
     return new Response(ics, {
       headers: {

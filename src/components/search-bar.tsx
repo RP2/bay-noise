@@ -17,7 +17,7 @@ export function SearchBar({ value, onChange, onSubmit }: SearchBarProps) {
         onKeyDown={(e) => { if (e.key === "Enter" && !e.isComposing && value.trim()) onSubmit?.(value.trim()); }}
         placeholder="Search artists, venues..."
         aria-label="Search shows"
-        class="w-full min-h-11 border border-neutral-300 bg-white px-3 py-2 pl-9 text-sm
+        class="w-full min-h-11 border border-neutral-300 bg-white px-3 py-2 pl-9 text-base
                placeholder-neutral-400 focus:border-black focus:outline-none
                dark:border-neutral-600 dark:bg-neutral-900 dark:text-white
                dark:placeholder-neutral-500 dark:focus:border-white"

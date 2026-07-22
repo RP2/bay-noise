@@ -25,6 +25,18 @@ export function App() {
   const [view, setView] = useState<ViewState>({ status: "loading" });
   const [filter, setFilter] = useState<FilterState>(DEFAULT_FILTER);
   const [retryKey, setRetryKey] = useState(0);
+  const [showIcal, setShowIcal] = useState(false);
+
+  // Personalized iCal subscription URL. When the user has preferred genres,
+  // append ?preferred=... so the Cloudflare function filters the feed to
+  // just matching shows. Without prefs, the URL returns the full feed.
+  // NOTE(port): origin is read from window at render time — this app is
+  // client-only, but the guard keeps TS happy under non-DOM test shims.
+  const icalUrl = typeof window === "undefined"
+    ? "/calendar.ics"
+    : (prefs.preferredGenres.length > 0
+      ? `${window.location.origin}/calendar.ics?preferred=${encodeURIComponent(prefs.preferredGenres.map((g) => g.toLowerCase()).join(","))}`
+      : `${window.location.origin}/calendar.ics`);
 
   // Fetch data — re-runs when onboarded changes OR when retry is triggered
   useEffect(() => {
@@ -133,17 +145,33 @@ export function App() {
         <h1 class="text-2xl font-bold text-black dark:text-white">
           Bay Noise
         </h1>
-        <button
-          type="button"
-          onClick={() => {
-            setPrefs({ preferredGenres: [], onboarded: false });
-            setPrefsState({ preferredGenres: [], onboarded: false });
-          }}
-          class="cursor-pointer text-xs text-neutral-400 underline-offset-2 hover:underline dark:text-neutral-500 dark:hover:text-white"
-        >
-          Change genres
-        </button>
+        <div class="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={() => setShowIcal((s) => !s)}
+            class="cursor-pointer text-xs text-neutral-400 underline-offset-2 hover:underline dark:text-neutral-500 dark:hover:text-white"
+          >
+            {showIcal ? "Hide iCal" : "iCal"}
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setPrefs({ preferredGenres: [], onboarded: false });
+              setPrefsState({ preferredGenres: [], onboarded: false });
+            }}
+            class="cursor-pointer text-xs text-neutral-400 underline-offset-2 hover:underline dark:text-neutral-500 dark:hover:text-white"
+          >
+            Change genres
+          </button>
+        </div>
       </div>
+
+      {/* iCal subscription panel (personalized to preferred genres) */}
+      {showIcal && (
+        <div class="mb-6">
+          <FeedSubscribe url={icalUrl} />
+        </div>
+      )}
 
       {/* Search */}
       <div class="mb-6">
@@ -169,14 +197,13 @@ export function App() {
             const newPrefs: UserPrefs = { ...prefs, preferredGenres: updated };
             setPrefs(newPrefs);
             setPrefsState(newPrefs);
+          } else if (broad === "other") {
+            // Unknown genre — set as search query
+            handleFilterChange({ query: genre.toLowerCase() });
           }
         }}
       />
 
-      {/* Footer */}
-      <div class="mt-8 border-t border-neutral-200 pt-4 dark:border-neutral-800">
-        <FeedSubscribe />
-      </div>
     </div>
   );
 }

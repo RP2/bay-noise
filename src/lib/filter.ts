@@ -10,14 +10,26 @@ import { scoreArtistGenres } from "./genres.js";
  *
  * Days with no preferredGenres (empty array) all get score 0.
  */
+/** Get today's date as YYYY-MM-DD in local timezone. */
+function todayLocal(): string {
+  const d = new Date();
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${y}-${m}-${day}`;
+}
+
 export function flattenAndScoreShows(
   shows: ShowDay[],
   prefs: UserPrefs,
 ): ScoredShow[] {
   const preferred = prefs.preferredGenres;
-    const scored: ScoredShow[] = [];
+  const scored: ScoredShow[] = [];
+  const cutoff = todayLocal();
 
   for (const day of shows) {
+    // Skip past dates
+    if (day.date < cutoff) continue;
     for (const venue of day.venues) {
       const score = preferred.length > 0
         ? venue.artists.reduce((acc, artist) => {
