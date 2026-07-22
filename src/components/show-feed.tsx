@@ -9,9 +9,10 @@ interface ShowFeedProps {
   dataEmpty?: boolean;
   preferredGenres?: string[];
   onGenreRemove?: (genre: string) => void;
+  onGenreClick?: (genre: string) => void;
 }
 
-export function ShowFeed({ shows, filter, onFilterChange, hasBelowFold, dataEmpty = false, preferredGenres = [], onGenreRemove }: ShowFeedProps) {
+export function ShowFeed({ shows, filter, onFilterChange, hasBelowFold, dataEmpty = false, preferredGenres = [], onGenreRemove, onGenreClick }: ShowFeedProps) {
   const grouped = groupByDate(shows);
   const hasAnyFilter = filter.query || filter.venue || filter.artist;
 
@@ -77,6 +78,7 @@ export function ShowFeed({ shows, filter, onFilterChange, hasBelowFold, dataEmpt
                 show={show}
                 onVenueClick={(v) => onFilterChange({ venue: v })}
                 onArtistClick={(a) => onFilterChange({ artist: a })}
+                onGenreClick={onGenreClick}
               />
             ))}
           </div>

@@ -91,25 +91,37 @@ export function hasShowsBelowFold(shows: ScoredShow[]): boolean {
  *
  * Returns a new array even for empty query (no reference leak).
  */
+const SEARCH_STOP_WORDS = new Set([
+  "the", "a", "an", "of", "in", "on", "at", "to", "for", "with", "and", "or",
+]);
+
 export function filterByQuery(
   shows: ScoredShow[],
   query: string,
 ): ScoredShow[] {
-  const q = query.toLowerCase().trim();
-  if (!q) return [...shows];
+  const raw = query.toLowerCase().trim();
+  if (!raw) return [...shows];
+
+  // Split into words, exclude stop words. Remaining words are OR'd.
+  // "punk indie" matches shows with punk OR indie in any field.
+  const words = raw.split(/\s+/)
+    .filter((w) => w.length > 2 && !SEARCH_STOP_WORDS.has(w));
+  if (words.length === 0) return [...shows];
 
   return shows.filter((show) => {
-    // Search venue name
-    if (show.venueName.toLowerCase().includes(q)) return true;
-    // Search city (guard against null)
-    if (show.city && show.city.toLowerCase().includes(q)) return true;
-    // Search extra
-    if (show.extra.toLowerCase().includes(q)) return true;
-    // Search artist names + genres
-    for (const artist of show.artists) {
-      if (artist.name.toLowerCase().includes(q)) return true;
-      for (const genre of artist.genres) {
-        if (genre.toLowerCase().includes(q)) return true;
+    for (const word of words) {
+      // Search venue name
+      if (show.venueName.toLowerCase().includes(word)) return true;
+      // Search city (guard against null)
+      if (show.city && show.city.toLowerCase().includes(word)) return true;
+      // Search extra
+      if (show.extra.toLowerCase().includes(word)) return true;
+      // Search artist names + genres
+      for (const artist of show.artists) {
+        if (artist.name.toLowerCase().includes(word)) return true;
+        for (const genre of artist.genres) {
+          if (genre.toLowerCase().includes(word)) return true;
+        }
       }
     }
     return false;

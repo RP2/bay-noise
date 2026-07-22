@@ -6,6 +6,7 @@ interface ShowCardProps {
   show: ScoredShow;
   onVenueClick?: (venue: string) => void;
   onArtistClick?: (artist: string) => void;
+  onGenreClick?: (genre: string) => void;
 }
 
 /** Stable venue object for AddToCalendar — avoids unnecessary re-renders. */
@@ -21,7 +22,7 @@ function venueFromShow(show: ScoredShow) {
   };
 }
 
-export function ShowCard({ show, onVenueClick, onArtistClick }: ShowCardProps) {
+export function ShowCard({ show, onVenueClick, onArtistClick, onGenreClick }: ShowCardProps) {
   return (
     <div class="border border-neutral-200 bg-white p-4 text-neutral-900 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100">
       {/* Venue name and city */}
@@ -51,7 +52,7 @@ export function ShowCard({ show, onVenueClick, onArtistClick }: ShowCardProps) {
       <ul class="mb-3 space-y-1">
         {show.artists.map((artist, i) => (
           <li key={i}>
-            <ArtistRow artist={artist} onArtistClick={onArtistClick} />
+            <ArtistRow artist={artist} onArtistClick={onArtistClick} onGenreClick={onGenreClick} />
           </li>
         ))}
       </ul>
@@ -67,9 +68,10 @@ export function ShowCard({ show, onVenueClick, onArtistClick }: ShowCardProps) {
 interface ArtistRowProps {
   artist: Artist;
   onArtistClick?: (artist: string) => void;
+  onGenreClick?: (genre: string) => void;
 }
 
-function ArtistRow({ artist, onArtistClick }: ArtistRowProps) {
+function ArtistRow({ artist, onArtistClick, onGenreClick }: ArtistRowProps) {
   return (
     <div class="flex flex-wrap items-center gap-1">
       <button
@@ -92,7 +94,7 @@ function ArtistRow({ artist, onArtistClick }: ArtistRowProps) {
       )}
       <div class="flex flex-wrap gap-1">
         {[...new Set(artist.genres)].slice(0, 2).map((g, gi) => (
-          <GenrePill key={`${artist.name}-${g}-${gi}`} name={g} />
+          <GenrePill key={`${artist.name}-${g}-${gi}`} name={g} onClick={() => onGenreClick?.(g)} />
         ))}
       </div>
     </div>

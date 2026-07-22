@@ -1,9 +1,10 @@
 interface SearchBarProps {
   value: string;
   onChange: (value: string) => void;
+  onSubmit?: (value: string) => void;
 }
 
-export function SearchBar({ value, onChange }: SearchBarProps) {
+export function SearchBar({ value, onChange, onSubmit }: SearchBarProps) {
   return (
     <div class="relative flex items-center">
       <svg class="absolute left-3 h-4 w-4 text-neutral-400 dark:text-neutral-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -13,6 +14,7 @@ export function SearchBar({ value, onChange }: SearchBarProps) {
         type="search"
         value={value}
         onInput={(e) => onChange((e.target as HTMLInputElement).value)}
+        onKeyDown={(e) => { if (e.key === "Enter" && !e.isComposing && value.trim()) onSubmit?.(value.trim()); }}
         placeholder="Search artists, venues..."
         aria-label="Search shows"
         class="w-full min-h-11 border border-neutral-300 bg-white px-3 py-2 pl-9 text-sm

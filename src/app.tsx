@@ -1,6 +1,7 @@
 import { useState, useEffect } from "preact/hooks";
 import type { ShowsData, FilterState, UserPrefs } from "./lib/types.js";
 import { getPrefs, setPrefs } from "./lib/prefs.js";
+import { getBroadCategories, classifyGenre } from "./lib/genres.js";
 import { flattenAndScoreShows, sortShows, applyFilters, hasShowsBelowFold } from "./lib/filter.js";
 import { Greeter } from "./components/greeter.js";
 import { SearchBar } from "./components/search-bar.js";
@@ -53,6 +54,24 @@ export function App() {
     setPrefs(newPrefs);
     setPrefsState(newPrefs);
     setFilter(DEFAULT_FILTER);
+  };
+
+  // Handle search submit: Enter converts genre/artist/venue matches to chips
+  const handleSearchSubmit = (query: string) => {
+    const q = query.toLowerCase().trim();
+    // Check if query matches a broad genre category — if so, add as genre chip
+    const categories = getBroadCategories();
+    const matching = categories.find((c) => c.toLowerCase() === q);
+    if (matching) {
+      if (!prefs.preferredGenres.includes(matching)) {
+        const updated = [...prefs.preferredGenres, matching];
+        const newPrefs: UserPrefs = { ...prefs, preferredGenres: updated };
+        setPrefs(newPrefs);
+        setPrefsState(newPrefs);
+      }
+      setFilter((prev) => ({ ...prev, query: "" }));
+    }
+    // Otherwise keep as text search (don't clear)
   };
 
   // Handle filter changes (partial updates)
@@ -131,6 +150,7 @@ export function App() {
         <SearchBar
           value={filter.query}
           onChange={(q) => handleFilterChange({ query: q })}
+          onSubmit={handleSearchSubmit}
         />
       </div>
 
@@ -142,6 +162,15 @@ export function App() {
         hasBelowFold={belowFold}
         preferredGenres={prefs.preferredGenres}
         onGenreRemove={handleGenreRemove}
+        onGenreClick={(genre) => {
+          const broad = classifyGenre(genre);
+          if (broad !== "other" && !prefs.preferredGenres.includes(broad)) {
+            const updated = [...prefs.preferredGenres, broad];
+            const newPrefs: UserPrefs = { ...prefs, preferredGenres: updated };
+            setPrefs(newPrefs);
+            setPrefsState(newPrefs);
+          }
+        }}
       />
 
       {/* Footer */}
