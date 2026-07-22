@@ -68,7 +68,7 @@ export function ShowFeed({ shows, filter, onFilterChange, hasBelowFold, dataEmpt
       {/* Shows grouped by date */}
       {grouped.map(({ date, day, items }) => (
         <section key={date}>
-          <h2 class="mb-2 text-sm font-semibold text-neutral-800 dark:text-neutral-200">
+          <h2 class="sticky top-0 z-10 border-b border-neutral-200 bg-white/80 pb-1 text-sm font-semibold text-neutral-800 backdrop-blur-sm dark:border-neutral-800 dark:bg-neutral-950/80 dark:text-neutral-200">
             {day}
           </h2>
           <div class="space-y-3">
