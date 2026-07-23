@@ -25,6 +25,7 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ["**/*.{js,css,html,json,svg,png}"],
+        navigateFallbackDenylist: [/^\/\.well-known\//],
         runtimeCaching: [
           {
             urlPattern: /^\/shows\.json$/,
