@@ -7,6 +7,7 @@ import {
   filterByQuery,
   applyFilters,
   processShows,
+  scoreArtistGenres,
 } from "./filter.js";
 import { SAMPLE_SHOWS } from "./__fixtures__/shows.js";
 import type { UserPrefs, FilterState, ScoredShow } from "./types.js";
@@ -40,8 +41,8 @@ describe("flattenAndScoreShows", () => {
     expect(result[0].score).toBe(2);
     // August Hall: Cab (indie rock) + Jady (electronic) = 0
     expect(result[1].score).toBe(0);
-    // 924 Gilman: Spray (hardcore punk → contains "punk", yes), Torch (metal, no), Open Wound (punk, yes) = 2
-    expect(result[2].score).toBe(2);
+    // 924 Gilman: Spray (hardcore punk → hardcore, no), Torch (metal, no), Open Wound (punk, yes) = 1
+    expect(result[2].score).toBe(1);
     // The New Parish: Helado Negro (indie,electronic) = 0
     expect(result[3].score).toBe(0);
     // The Temple: Dust Collector (noise,experimental) = 0
@@ -114,7 +115,7 @@ describe("splitByScore", () => {
   it("splits shows into above (score>0) and below (score=0)", () => {
     const shows = flattenAndScoreShows(SAMPLE_SHOWS.shows, PUNK_PREFS);
     const { above, below } = splitByScore(shows);
-    expect(above.length).toBe(2); // Bottom of the Hill (2), Gilman (2)
+    expect(above.length).toBe(2); // Bottom of the Hill (2), Gilman (1)
     expect(below.length).toBe(3); // August Hall, New Parish, Temple
     for (const s of above) expect(s.score).toBeGreaterThan(0);
     for (const s of below) expect(s.score).toBe(0);
@@ -349,3 +350,37 @@ function createScoredShow(
     score,
   };
 }
+
+describe("scoreArtistGenres", () => {
+  it("exact match only", () => {
+    expect(scoreArtistGenres(["punk"], ["punk"])).toBe(1);
+    expect(scoreArtistGenres(["punk", "indie"], ["punk"])).toBe(1);
+    expect(scoreArtistGenres(["punk", "indie"], ["punk", "indie"])).toBe(2);
+  });
+
+  it("returns 0 for no matches", () => {
+    expect(scoreArtistGenres(["jazz"], ["punk"])).toBe(0);
+    expect(scoreArtistGenres([], ["punk"])).toBe(0);
+  });
+
+  it("does not match sub-strings (exact only)", () => {
+    expect(scoreArtistGenres(["pop punk"], ["punk"])).toBe(0);
+    expect(scoreArtistGenres(["metalcore"], ["metal"])).toBe(0);
+    expect(scoreArtistGenres(["death metal"], ["metal"])).toBe(0);
+    expect(scoreArtistGenres(["hardcore punk"], ["punk"])).toBe(0);
+    expect(scoreArtistGenres(["hip hop"], ["hiphop"])).toBe(0);
+  });
+
+  it("is case-insensitive", () => {
+    expect(scoreArtistGenres(["PUNK"], ["punk"])).toBe(1);
+    expect(scoreArtistGenres(["punk"], ["PUNK"])).toBe(1);
+    expect(scoreArtistGenres(["Indie Rock"], ["indie rock"])).toBe(1);
+    expect(scoreArtistGenres(["indie rock"], ["Indie Rock"])).toBe(1);
+  });
+
+  it("handles empty arrays", () => {
+    expect(scoreArtistGenres(["punk", "indie"], [])).toBe(0);
+    expect(scoreArtistGenres([], ["punk", "indie"])).toBe(0);
+    expect(scoreArtistGenres([], [])).toBe(0);
+  });
+});

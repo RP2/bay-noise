@@ -1,5 +1,24 @@
 import type { ShowDay, ScoredShow, FilterState, UserPrefs } from "./types.js";
-import { scoreArtistGenres } from "./genres.js";
+
+/**
+ * Count how many of an artist's genres exactly match the user's preferred genres.
+ * Case-insensitive. Empty arrays and non-array inputs return 0.
+ *
+ * Exact match only: "punk" does NOT match "pop punk" or "hardcore punk".
+ */
+export function scoreArtistGenres(
+  artistGenres: string[],
+  preferredGenres: string[],
+): number {
+  if (!Array.isArray(artistGenres) || !Array.isArray(preferredGenres)) {
+    return 0;
+  }
+  const lowerArtistGenres = artistGenres.map((g) => g.toLowerCase());
+  const preferredSet = new Set(
+    preferredGenres.map((c) => c.toLowerCase().trim()).filter(Boolean),
+  );
+  return lowerArtistGenres.filter((g) => preferredSet.has(g)).length;
+}
 
 /**
  * Flatten ShowDay[] into ScoredShow[] and compute genre-match scores.

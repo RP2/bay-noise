@@ -1,12 +1,14 @@
 /**
  * Cloudflare Pages Function — iCal feed subscription endpoint.
  * Query params (all optional, combined with AND):
- *   ?preferred=genre1,genre2  — filter by genre strings (comma-separated, substring match)
+ *   ?preferred=genre1,genre2  — filter by genre strings (comma-separated, exact match only)
  *   ?venue=bottom+of+the+hill — filter by venue name (substring, case-insensitive)
  *   ?artist=sad+snack         — filter by artist name (substring, case-insensitive)
  * Defaults to all shows when no params are given (backwards compatible).
+ * Genre matching uses scoreArtistGenres from filter.ts for front-end consistency.
  */
 import { generateIcs } from "../src/lib/ics.js";
+import { scoreArtistGenres } from "../src/lib/filter.js";
 import type { ShowsData, ShowDay } from "../src/lib/types.js";
 
 function todayLocal(): string {
@@ -54,13 +56,6 @@ export async function onRequest(context: { request: Request }): Promise<Response
 
     const cutoff = todayLocal();
 
-    // Filter: future shows only + optional venue/artist/genre filters (AND).
-    // A venue survives if it matches the venue substring, has an artist
-    // matching the artist substring, and has an artist matching a preferred
-    // genre string — for every filter that is active.
-    // Matching is direct substring: preferred "metal" matches artist genres
-    // "metal", "metalcore", "death metal", etc.
-    const preferredSet = new Set(preferred);
     const shows: ShowDay[] = data.shows
       .filter((day) => day.date >= cutoff)
       .map((day) => ({
@@ -70,10 +65,7 @@ export async function onRequest(context: { request: Request }): Promise<Response
           (!artistParam || venue.artists.some((a) => a.name.toLowerCase().includes(artistParam))) &&
           (preferred.length === 0 ||
             venue.artists.some((artist) =>
-              artist.genres.some((g) => {
-                const lower = g.toLowerCase();
-                return preferredSet.has(lower) || [...preferredSet].some((p) => lower.includes(p));
-              }),
+              scoreArtistGenres(artist.genres, preferred) > 0,
             ))
         ),
       }))
