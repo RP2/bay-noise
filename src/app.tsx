@@ -13,6 +13,7 @@ import { SearchBar } from "./components/search-bar.js";
 import { ShowFeed } from "./components/show-feed.js";
 import { FeedSubscribe } from "./components/feed-subscribe.js";
 import { PwaInstall } from "./components/pwa-install.js";
+import { PrivacyModal } from "./components/privacy-modal.js";
 
 type ViewState =
   | { status: "loading" }
@@ -33,6 +34,7 @@ export function App() {
   const [filter, setFilter] = useState<FilterState>(DEFAULT_FILTER);
   const [retryKey, setRetryKey] = useState(0);
   const [showIcal, setShowIcal] = useState(false);
+  const [showPrivacy, setShowPrivacy] = useState(false);
   const [availableGenres, setAvailableGenres] = useState<string[] | null>(null);
 
   // Personalized iCal subscription URL. All active filters (preferred
@@ -435,38 +437,48 @@ export function App() {
   // Determine app state
   if (!prefs.onboarded) {
     return (
-      <Greeter
-        genres={availableGenres ?? []}
-        onSubmit={handleGreeterSubmit}
-      />
+      <>
+        <Greeter
+          genres={availableGenres ?? []}
+          onSubmit={handleGreeterSubmit}
+          onShowPrivacy={() => setShowPrivacy(true)}
+        />
+        {showPrivacy && <PrivacyModal onClose={() => setShowPrivacy(false)} />}
+      </>
     );
   }
 
   if (view.status === "loading") {
     return (
-      <div class="mx-auto max-w-2xl px-4 py-12 text-center">
-        <p class="text-neutral-500 dark:text-neutral-400">Loading shows...</p>
-      </div>
+      <>
+        <div class="mx-auto max-w-2xl px-4 py-12 text-center">
+          <p class="text-neutral-500 dark:text-neutral-400">Loading shows...</p>
+        </div>
+        {showPrivacy && <PrivacyModal onClose={() => setShowPrivacy(false)} />}
+      </>
     );
   }
 
   if (view.status === "error") {
     return (
-      <div class="mx-auto max-w-2xl px-4 py-12 text-center">
-        <p class="mb-4 text-neutral-600 dark:text-neutral-400">
-          Failed to load shows.
-        </p>
-        <p class="mb-4 text-sm text-neutral-500 dark:text-neutral-400">
-          {view.message}
-        </p>
-        <button
-          type="button"
-          onClick={() => setRetryKey((k) => k + 1)}
-          class="cursor-pointer text-sm text-neutral-600 underline-offset-2 hover:underline dark:text-neutral-400 dark:hover:text-white"
-        >
-          Try again
-        </button>
-      </div>
+      <>
+        <div class="mx-auto max-w-2xl px-4 py-12 text-center">
+          <p class="mb-4 text-neutral-600 dark:text-neutral-400">
+            Failed to load shows.
+          </p>
+          <p class="mb-4 text-sm text-neutral-500 dark:text-neutral-400">
+            {view.message}
+          </p>
+          <button
+            type="button"
+            onClick={() => setRetryKey((k) => k + 1)}
+            class="cursor-pointer text-sm text-neutral-600 underline-offset-2 hover:underline dark:text-neutral-400 dark:hover:text-white"
+          >
+            Try again
+          </button>
+        </div>
+        {showPrivacy && <PrivacyModal onClose={() => setShowPrivacy(false)} />}
+      </>
     );
   }
 
@@ -481,7 +493,8 @@ export function App() {
   const belowFold = hasShowsBelowFold(sorted) && !forceShowAll;
 
   return (
-    <div class="mx-auto max-w-2xl px-4 py-6">
+    <>
+      <div class="mx-auto max-w-2xl px-4 py-6">
       {/* Header */}
       <div class="mb-6 flex items-center justify-between">
         <h1 class="hidden sm:block text-lg font-bold text-black dark:text-white">Bay Noise</h1>
@@ -494,6 +507,13 @@ export function App() {
             {showIcal ? "Hide" : "Add to Calendar"}
           </button>
           <PwaInstall />
+          <button
+            type="button"
+            onClick={() => setShowPrivacy(true)}
+            class="cursor-pointer text-xs text-neutral-400 underline-offset-2 hover:underline dark:text-neutral-500 dark:hover:text-white"
+          >
+            Privacy
+          </button>
           <button
             type="button"
             onClick={() => {
@@ -546,6 +566,8 @@ export function App() {
           }
         }}
       />
-    </div>
+      </div>
+      {showPrivacy && <PrivacyModal onClose={() => setShowPrivacy(false)} />}
+    </>
   );
 }

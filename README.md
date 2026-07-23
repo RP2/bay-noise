@@ -24,7 +24,7 @@ Finding shows around the Bay shouldn't mean following different venues on social
 - **Frontend:** Preact + TypeScript + Tailwind v4 (Vite), mobile-first
 - **PWA:** vite-plugin-pwa / Workbox — installable, offline-capable, `shows.json` served stale-while-revalidate
 - **Pipeline:** TypeScript via `tsx`, cheerio, Spotify Web API
-- **Hosting:** Cloudflare Pages + Pages Functions (`/calendar.ics`, domain redirect)
+- **Hosting:** Cloudflare Pages + Pages Functions (`/calendar.ics`)
 - **CI:** GitHub Actions runs the pipeline the first Monday of each month and commits the fresh data
 
 ## Quick start

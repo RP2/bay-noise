@@ -6,9 +6,10 @@ const LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 interface GreeterProps {
   genres: string[];
   onSubmit: (genres: string[]) => void;
+  onShowPrivacy?: () => void;
 }
 
-export function Greeter({ genres, onSubmit }: GreeterProps) {
+export function Greeter({ genres, onSubmit, onShowPrivacy }: GreeterProps) {
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const listRef = useRef<HTMLDivElement>(null);
 
@@ -125,6 +126,21 @@ export function Greeter({ genres, onSubmit }: GreeterProps) {
               {selected.size === 0
                 ? "No genres? We'll show you everything."
                 : `${selected.size} selected`}
+              {onShowPrivacy && (
+                <>
+                  {" · "}
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onShowPrivacy();
+                    }}
+                    class="cursor-pointer underline-offset-2 hover:underline hover:text-black dark:hover:text-white"
+                  >
+                    Privacy
+                  </button>
+                </>
+              )}
             </p>
           </div>
         </div>
