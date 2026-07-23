@@ -1,3 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <text y=".9em" font-size="90">🎸</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
+  <rect width="100" height="100" rx="18.75" fill="#000"/>
+  <!-- stem of the lowercase "b" -->
+  <rect x="21.48" y="17.97" width="7.81" height="64.06" rx="3.91" fill="#fff"/>
+  <!-- bowl of the "b": 5 concentric soundwave arcs (same geometry as icon.svg, scaled 100/512) -->
+  <g fill="none" stroke="#fff" stroke-width="3.125" stroke-linecap="round">
+    <path d="M 47.38 51.60 A 6.25 6.25 0 1 1 47.38 60.90"/>
+    <path d="M 43.55 48.52 A 11.13 11.13 0 1 1 43.55 63.98"/>
+    <path d="M 39.30 45.96 A 16.02 16.02 0 1 1 39.30 66.54"/>
+    <path d="M 35.10 43.38 A 20.90 20.90 0 1 1 35.10 69.12"/>
+    <path d="M 27.54 46.89 A 25.78 25.78 0 1 1 27.54 65.61"/>
+  </g>
 </svg>

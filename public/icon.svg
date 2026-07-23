@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="96" fill="#000"/>
+  <!-- stem of the lowercase "b" -->
+  <rect x="110" y="92" width="40" height="328" rx="20" fill="#fff"/>
+  <!-- bowl of the "b": 5 concentric soundwave arcs, gap fanning open toward the stem.
+       Outermost arc's ends land inside the stem so the bowl joins it like a real "b". -->
+  <g fill="none" stroke="#fff" stroke-width="16" stroke-linecap="round">
+    <path d="M 242.6 264.2 A 32 32 0 1 1 242.6 311.8"/>
+    <path d="M 223.0 248.4 A 57 57 0 1 1 223.0 327.6"/>
+    <path d="M 201.2 235.3 A 82 82 0 1 1 201.2 340.7"/>
+    <path d="M 179.7 222.1 A 107 107 0 1 1 179.7 353.9"/>
+    <path d="M 141.0 240.1 A 132 132 0 1 1 141.0 335.9"/>
+  </g>
+</svg>
