@@ -55,6 +55,7 @@ describe("SearchBar", () => {
     const suggestions = {
       genres: ["punk", "indie rock"],
       venues: ["Bottom of the Hill, S.F."],
+      cities: [],
       artists: ["Sad Snack"],
     };
     const { getByText, getAllByText, container } = render(
@@ -77,6 +78,7 @@ describe("SearchBar", () => {
     const suggestions = {
       genres: ["punk"],
       venues: ["Bottom of the Hill, S.F."],
+      cities: [],
       artists: ["Sad Snack"],
     };
     const { queryByText } = render(
@@ -92,7 +94,7 @@ describe("SearchBar", () => {
 
   it("fires onSuggestionClick when a suggestion is clicked", () => {
     const onSuggestionClick = vi.fn();
-    const suggestions = { genres: ["punk"], venues: [], artists: [] };
+    const suggestions = { genres: ["punk"], venues: [], cities: [], artists: [] };
     const { getByText, container } = render(
       <SearchBar
         value="punk"
@@ -109,7 +111,7 @@ describe("SearchBar", () => {
 
   it("closes dropdown when Enter is pressed", () => {
     const onSubmit = vi.fn();
-    const suggestions = { genres: ["punk"], venues: [], artists: [] };
+    const suggestions = { genres: ["punk"], venues: [], cities: [], artists: [] };
     const { container, queryByText } = render(
       <SearchBar
         value="punk"
@@ -126,7 +128,7 @@ describe("SearchBar", () => {
 
   it("closes dropdown when clear button is clicked", () => {
     const onChange = vi.fn();
-    const suggestions = { genres: ["punk"], venues: [], artists: [] };
+    const suggestions = { genres: ["punk"], venues: [], cities: [], artists: [] };
     const { container, queryByText } = render(
       <SearchBar value="punk" onChange={onChange} suggestions={suggestions} />,
     );

@@ -14,7 +14,7 @@ interface ShowFeedProps {
 
 export function ShowFeed({ shows, filter, onFilterChange, hasBelowFold, dataEmpty = false, preferredGenres = [], onGenreRemove, onGenreClick }: ShowFeedProps) {
   const grouped = groupByDate(shows);
-  const hasAnyFilter = filter.query || filter.venue || filter.artist;
+  const hasAnyFilter = filter.query || filter.venue || filter.city || filter.artist;
 
   // HD 17: distinct empty states for no-data vs no-search-match
   if (shows.length === 0) {
@@ -28,7 +28,7 @@ export function ShowFeed({ shows, filter, onFilterChange, hasBelowFold, dataEmpt
         {hasAnyFilter && (
           <button
             type="button"
-            onClick={() => onFilterChange({ query: "", venue: null, artist: null, showAll: false })}
+            onClick={() => onFilterChange({ query: "", venue: null, artist: null, city: null, showAll: false })}
             class="mt-2 inline-flex min-h-11 cursor-pointer items-center text-sm text-neutral-600 underline-offset-2 hover:underline dark:text-neutral-400 dark:hover:text-white"
           >
             Clear all filters
@@ -40,8 +40,8 @@ export function ShowFeed({ shows, filter, onFilterChange, hasBelowFold, dataEmpt
 
   return (
     <div class="space-y-6">
-      {/* Active filters — search query, genre, venue, artist */}
-      {(filter.query || filter.venue || filter.artist || preferredGenres.length > 0) && (
+      {/* Active filters — preferred genres, search query, venue, city, artist */}
+      {(filter.query || filter.venue || filter.city || filter.artist || preferredGenres.length > 0) && (
         <div class="flex flex-wrap items-center gap-2">
           <span class="text-xs font-medium text-neutral-500 dark:text-neutral-400">Filters:</span>
           {preferredGenres.map((g) => (
@@ -52,6 +52,9 @@ export function ShowFeed({ shows, filter, onFilterChange, hasBelowFold, dataEmpt
           )}
           {filter.venue && (
             <FilterChip label={filter.venue} onClear={() => onFilterChange({ venue: null })} />
+          )}
+          {filter.city && (
+            <FilterChip label={filter.city} onClear={() => onFilterChange({ city: null })} />
           )}
           {filter.artist && (
             <FilterChip label={filter.artist} onClear={() => onFilterChange({ artist: null })} />

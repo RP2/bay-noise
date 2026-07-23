@@ -84,4 +84,16 @@ describe("ShowCard", () => {
     const city = container.querySelector("span.text-neutral-500");
     expect(city).toBeNull();
   });
+
+  it("renders extra without trailing dot when no genres", () => {
+    const noGenres: ScoredShow = {
+      ...show,
+      artists: [{ name: "Genreless Band", genres: [] }],
+    };
+    const { container } = render(<ShowCard show={noGenres} />);
+    const p = container.querySelector("p");
+    // Extra content only — no trailing · separator, no genre buttons
+    expect(p?.textContent).toBe("9pm · $15");
+    expect(p?.querySelector("button")).toBeNull();
+  });
 });

@@ -24,6 +24,7 @@ const DEFAULT_FILTER: FilterState = {
   query: "",
   venue: null,
   artist: null,
+  city: null,
   showAll: false,
 };
 
@@ -307,6 +308,36 @@ describe("applyFilters", () => {
     const filter: FilterState = { ...DEFAULT_FILTER, showAll: true, venue: "bottom" };
     const result = applyFilters(sorted, filter);
     expect(result).toHaveLength(1);
+  });
+
+  it("filters by city exact match", () => {
+    const filter: FilterState = { ...DEFAULT_FILTER, showAll: true, city: "Berkeley" };
+    const result = applyFilters(sorted, filter);
+    expect(result).toHaveLength(1);
+    expect(result[0].venueName).toContain("Gilman");
+    expect(result[0].city).toBe("Berkeley");
+  });
+
+  it("city filter is case-insensitive", () => {
+    const filter: FilterState = { ...DEFAULT_FILTER, showAll: true, city: "berkeley" };
+    const result = applyFilters(sorted, filter);
+    expect(result).toHaveLength(1);
+    expect(result[0].venueName).toContain("Gilman");
+  });
+
+  it("city filter bypasses score fold", () => {
+    const filter: FilterState = { ...DEFAULT_FILTER, city: "San Francisco" };
+    const result = applyFilters(sorted, filter);
+    expect(result).toHaveLength(2);
+    expect(result.some((s) => s.venueName.includes("Bottom of the Hill"))).toBe(true);
+    expect(result.some((s) => s.venueName.includes("August Hall"))).toBe(true);
+    expect(result.some((s) => s.score === 0)).toBe(true);
+  });
+
+  it("null city shows excluded when city filter active", () => {
+    const filter: FilterState = { ...DEFAULT_FILTER, showAll: true, city: "San Francisco" };
+    const result = applyFilters(sorted, filter);
+    expect(result.some((s) => s.venueName.includes("The Temple"))).toBe(false);
   });
 });
 

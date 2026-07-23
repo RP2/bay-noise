@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "preact/hooks";
 export interface SearchSuggestions {
   genres: string[];
   venues: string[];
+  cities: string[];
   artists: string[];
 }
 
@@ -11,7 +12,7 @@ interface SearchBarProps {
   onChange: (value: string) => void;
   onSubmit?: (value: string) => void;
   suggestions?: SearchSuggestions | null;
-  onSuggestionClick?: (value: string, type: "genre" | "venue" | "artist") => void;
+  onSuggestionClick?: (value: string, type: "genre" | "venue" | "city" | "artist") => void;
 }
 
 const MAX_PER_TYPE = 3;
@@ -41,15 +42,17 @@ export function SearchBar({ value, onChange, onSubmit, suggestions, onSuggestion
   const hasSuggestions = suggestions && trimmed && (
     suggestions.genres.length > 0 ||
     suggestions.venues.length > 0 ||
+    suggestions.cities.length > 0 ||
     suggestions.artists.length > 0
   );
 
   // Build grouped, capped suggestion list for rendering headers.
-  // Cap at ~3 per type and ~8 total (trim from the end: artists, then venues, then genres).
-  const groups = [] as { type: "genre" | "venue" | "artist"; title: string; items: string[] }[];
+  // Cap at ~3 per type and ~8 total (trim from the end: artists, then cities, then venues, then genres).
+  const groups = [] as { type: "genre" | "venue" | "city" | "artist"; title: string; items: string[] }[];
   if (hasSuggestions) {
     if (suggestions!.genres.length > 0) groups.push({ type: "genre", title: "Genres", items: suggestions!.genres.slice(0, MAX_PER_TYPE) });
     if (suggestions!.venues.length > 0) groups.push({ type: "venue", title: "Venues", items: suggestions!.venues.slice(0, MAX_PER_TYPE) });
+    if (suggestions!.cities.length > 0) groups.push({ type: "city", title: "Cities", items: suggestions!.cities.slice(0, MAX_PER_TYPE) });
     if (suggestions!.artists.length > 0) groups.push({ type: "artist", title: "Artists", items: suggestions!.artists.slice(0, MAX_PER_TYPE) });
     let total = groups.reduce((sum, g) => sum + g.items.length, 0);
     while (total > MAX_TOTAL) {
@@ -63,7 +66,7 @@ export function SearchBar({ value, onChange, onSubmit, suggestions, onSuggestion
     }
   }
 
-  const handleSuggestionClick = (item: string, type: "genre" | "venue" | "artist") => {
+  const handleSuggestionClick = (item: string, type: "genre" | "venue" | "city" | "artist") => {
     onSuggestionClick?.(item, type);
     setOpen(false);
   };

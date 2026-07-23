@@ -23,6 +23,7 @@ const DEFAULT_FILTER: FilterState = {
   query: "",
   venue: null,
   artist: null,
+  city: null,
   showAll: false,
 };
 
@@ -47,6 +48,7 @@ export function App() {
     icalParams.set("preferred", prefs.preferredGenres.join(","));
   if (filter.venue) icalParams.set("venue", filter.venue);
   if (filter.artist) icalParams.set("artist", filter.artist);
+  if (filter.city) icalParams.set("city", filter.city);
   if ([...icalParams].length > 0) icalUrl += "?" + icalParams.toString();
 
   // Fetch available genres for the greeter (runs once on mount)
@@ -121,6 +123,20 @@ export function App() {
     return names;
   }, [view.status === "ready" ? view.data : null]);
 
+  const cityNames = useMemo(() => {
+    if (view.status !== "ready") return new Map<string, string>();
+    const names = new Map<string, string>();
+    for (const day of view.data.shows) {
+      for (const v of day.venues) {
+        if (v.city) {
+          const key = v.city.toLowerCase();
+          if (!names.has(key)) names.set(key, v.city);
+        }
+      }
+    }
+    return names;
+  }, [view.status === "ready" ? view.data : null]);
+
   // Build sorted, unique suggestion lists for the search bar dropdown.
   const allVenueNames = useMemo(() => {
     if (view.status !== "ready") return [];
@@ -137,6 +153,17 @@ export function App() {
     for (const day of view.data.shows) {
       for (const v of day.venues) {
         for (const a of v.artists) names.add(a.name);
+      }
+    }
+    return [...names].sort((a, b) => a.localeCompare(b));
+  }, [view.status === "ready" ? view.data : null]);
+
+  const allCityNames = useMemo(() => {
+    if (view.status !== "ready") return [];
+    const names = new Set<string>();
+    for (const day of view.data.shows) {
+      for (const v of day.venues) {
+        if (v.city) names.add(v.city);
       }
     }
     return [...names].sort((a, b) => a.localeCompare(b));
@@ -159,19 +186,22 @@ export function App() {
     return {
       genres: filterAndRank(availableGenres ?? []),
       venues: filterAndRank(allVenueNames),
+      cities: filterAndRank(allCityNames),
       artists: filterAndRank(allArtistNames),
     };
   }, [
     view.status === "ready" ? view.data : null,
     filter.query,
+    availableGenres,
     allVenueNames,
+    allCityNames,
     allArtistNames,
   ]);
 
   // Apply a suggestion selection the same way an Enter confirmation would.
   const handleSuggestionClick = (
     value: string,
-    type: "genre" | "venue" | "artist",
+    type: "genre" | "venue" | "city" | "artist",
   ) => {
     if (type === "genre") {
       const genreMatch = value.toLowerCase();
@@ -189,13 +219,18 @@ export function App() {
       return;
     }
 
+    if (type === "city") {
+      setFilter((prev) => ({ ...prev, query: "", city: value }));
+      return;
+    }
+
     if (type === "artist") {
       setFilter((prev) => ({ ...prev, query: "", artist: value }));
       return;
     }
   };
 
-  // On Enter: match query against genre → venue → artist → keep as text
+  // On Enter: match query against genre → venue → city → artist → keep as text
   const handleSearchSubmit = (query: string) => {
     const trimmed = query.toLowerCase().trim();
     if (!trimmed) return;
@@ -219,7 +254,14 @@ export function App() {
       return;
     }
 
-    // Check 3: artist name match
+    // Check 3: city name match (after venue, before artist)
+    const cityMatch = cityNames.get(trimmed);
+    if (cityMatch) {
+      setFilter((prev) => ({ ...prev, query: "", city: cityMatch }));
+      return;
+    }
+
+    // Check 4: artist name match
     const artistMatch = artistNames.get(trimmed);
     if (artistMatch) {
       setFilter((prev) => ({ ...prev, query: "", artist: artistMatch }));

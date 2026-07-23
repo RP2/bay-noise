@@ -3,6 +3,7 @@
  * Query params (all optional, combined with AND):
  *   ?preferred=genre1,genre2  — filter by genre strings (comma-separated, exact match only)
  *   ?venue=bottom+of+the+hill — filter by venue name (substring, case-insensitive)
+ *   ?city=berkeley            — filter by venue city (exact match, case-insensitive)
  *   ?artist=sad+snack         — filter by artist name (substring, case-insensitive)
  * Defaults to all shows when no params are given (backwards compatible).
  * Genre matching uses scoreArtistGenres from filter.ts for front-end consistency.
@@ -33,6 +34,7 @@ export async function onRequest(context: { request: Request }): Promise<Response
       .map((s) => s.trim())
       .filter(Boolean);
     const venueParam = (url.searchParams.get("venue") || "").toLowerCase().trim();
+    const cityParam = (url.searchParams.get("city") || "").toLowerCase().trim();
     const artistParam = (url.searchParams.get("artist") || "").toLowerCase().trim();
 
     const resp = await fetch(new URL("/shows.json", url).toString());
@@ -62,6 +64,7 @@ export async function onRequest(context: { request: Request }): Promise<Response
         ...day,
         venues: day.venues.filter((venue) =>
           (!venueParam || venue.name.toLowerCase().includes(venueParam)) &&
+          (!cityParam || (venue.city && venue.city.toLowerCase() === cityParam)) &&
           (!artistParam || venue.artists.some((a) => a.name.toLowerCase().includes(artistParam))) &&
           (preferred.length === 0 ||
             venue.artists.some((artist) =>

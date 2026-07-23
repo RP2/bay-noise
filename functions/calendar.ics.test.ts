@@ -53,6 +53,14 @@ describe("calendar.ics onRequest", () => {
     expect(ics).toContain("Sad Snack");
   });
 
+  it("filters by city exact match, case-insensitive", async () => {
+    const res = await onRequest({ request: makeRequest("?city=berkeley") });
+    const ics = await res.text();
+    expect(countEvents(ics)).toBe(1);
+    expect(ics).toContain("924 Gilman Street");
+    expect(ics).not.toContain("Bottom of the Hill");
+  });
+
   it("combines genre, venue, and artist filters with AND", async () => {
     // punk matches Bottom of the Hill (Sad Snack/Foolish Relics) and 924 Gilman
     // (Open Wound only; Spray's hardcore punk maps to hardcore, not punk). The

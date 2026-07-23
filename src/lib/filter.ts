@@ -188,16 +188,22 @@ export function applyFilters(
     );
   }
 
+  // City filter
+  if (filter.city) {
+    const c = filter.city.toLowerCase();
+    result = result.filter((s) => s.city?.toLowerCase() === c);
+  }
+
   // Free-text query search
   if (filter.query) {
     result = filterByQuery(result, filter.query);
   }
 
   // Score fold: hide score=0 shows unless showAll is true.
-  // When an explicit venue or artist filter is active, bypass the fold —
-  // the user is actively browsing a specific venue/artist and wants to
+  // When an explicit venue, artist, or city filter is active, bypass the fold —
+  // the user is actively browsing a specific venue/artist/city and wants to
   // see all their shows, not just personalized picks.
-  const hasExplicitFilter = filter.venue !== null || filter.artist !== null;
+  const hasExplicitFilter = filter.venue !== null || filter.artist !== null || filter.city !== null;
   if (!filter.showAll && !hasExplicitFilter) {
     result = result.filter((s) => s.score > 0);
   }

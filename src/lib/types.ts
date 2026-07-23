@@ -54,5 +54,6 @@ export interface FilterState {
   query: string; // free-text search
   venue: string | null; // active venue filter (null = none)
   artist: string | null; // active artist filter (null = none)
+  city: string | null; // active city filter (null = none)
   showAll: boolean; // bypass genre-scoring fold
 }
