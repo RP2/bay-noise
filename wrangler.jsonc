@@ -1,8 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/cloudflare/workers-sdk/main/packages/wrangler/config-schema.json",
   "name": "bay-noise",
-  "pages_build_output_dir": "dist",
-  "pages_build_command": "npm run build",
   "compatibility_date": "2026-07-01",
   "compatibility_flags": ["nodejs_compat"]
 }
