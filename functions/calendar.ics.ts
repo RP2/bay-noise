@@ -37,6 +37,18 @@ export async function onRequest(context: { request: Request }): Promise<Response
     const citiesParam = url.searchParams.getAll("cities").map((s) => s.toLowerCase().trim()).filter(Boolean);
     const artistsParam = url.searchParams.getAll("artists").map((s) => s.toLowerCase().trim()).filter(Boolean);
 
+    // Guard: limit query params to prevent abuse
+    if (preferred.length > 20 || venuesParam.length > 20 || citiesParam.length > 20 || artistsParam.length > 20) {
+      return new Response("Too many filter values.", { status: 400 });
+    }
+    const totalParamLength = preferred.reduce((s, v) => s + v.length, 0) +
+      venuesParam.reduce((s, v) => s + v.length, 0) +
+      citiesParam.reduce((s, c) => s + c.length, 0) +
+      artistsParam.reduce((s, a) => s + a.length, 0);
+    if (totalParamLength > 2000) {
+      return new Response("Filter query too long.", { status: 400 });
+    }
+
     const resp = await fetch(new URL("/shows.json", url).toString());
     if (!resp.ok) {
       console.error(`shows.json fetch failed: HTTP ${resp.status}`);
