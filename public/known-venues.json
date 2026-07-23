@@ -711,7 +711,8 @@
     "address": "230 Petaluma Avenue",
     "aliases": [
       "Hopmonk, Novato",
-      "Hopmok Tavern, Novato"
+      "Hopmok Tavern, Novato",
+      "Hopmonk Tavern Novato"
     ]
   },
   {
@@ -943,7 +944,9 @@
     "name": "Mountain Theater",
     "city": "Mount Tamalpais",
     "address": "East Ridgecrest Blvd.",
-    "aliases": []
+    "aliases": [
+      "Mountain Theater, East Ridgecrest Blvd., Mount Tamalpais"
+    ]
   },
   {
     "name": "Mountain Winery",
@@ -1551,7 +1554,8 @@
       "Thee Stork Club, Oakland",
       "Thee Stork Club, Oakand",
       "Thee Stork Club, Oaland",
-      "Thee Stork Club, S.F."
+      "Thee Stork Club, S.F.",
+      "Thee Stork Club, Oakland 21_"
     ]
   },
   {
@@ -1696,6 +1700,32 @@
     "address": null,
     "aliases": [
       "X Bar, Cupertino"
+    ]
+  },
+  {
+    "name": "On Broadway",
+    "city": "San Francisco",
+    "address": "35 Broadway",
+    "aliases": [
+      "On Broadway, S.F."
+    ]
+  },
+  {
+    "name": "Finnish Hall Auditorium",
+    "city": "Berkeley",
+    "address": "1970 Chestnut St",
+    "aliases": [
+      "Finnish Hall Auditorium, Berkeley",
+      "Finnish Hall, 1970 Chestnut Street, Berkeley"
+    ]
+  },
+  {
+    "name": "Idol Beer Works",
+    "city": "Lodi",
+    "address": "100 S Sacramento Street",
+    "aliases": [
+      "Idol Beer Works, Lodi",
+      "Idol Beer Works, 100 S Sacramento Street, Lodi"
     ]
   }
 ]
