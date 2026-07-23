@@ -114,8 +114,15 @@ export function App() {
       return d >= marchSecond && d < novFirst ? "-07:00" : "-08:00";
     }
 
+    // Cap at 21 days to stay under Google's ~100KB structured data limit
+    // Use local date methods to match the Pacific timezone show dates.
+    const cutoff = new Date();
+    cutoff.setDate(cutoff.getDate() + 21);
+    const cutoffStr = `${cutoff.getFullYear()}-${String(cutoff.getMonth() + 1).padStart(2, "0")}-${String(cutoff.getDate()).padStart(2, "0")}`;
+
     const events: object[] = [];
     for (const day of view.data.shows) {
+      if (day.date > cutoffStr) break;
       for (const venue of day.venues) {
         // Parse time like "9pm" → "21:00" for ISO date.
         // For "7pm/8pm" (doors/show), use the show time (second value).
