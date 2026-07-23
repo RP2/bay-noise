@@ -9,7 +9,7 @@ export default defineConfig({
     preact(),
     VitePWA({
       registerType: "autoUpdate",
-      includeAssets: ["favicon.svg"],
+      includeAssets: ["favicon.svg", "icon.svg"],
       manifest: {
         name: "Bay Noise",
         short_name: "Bay Noise",
