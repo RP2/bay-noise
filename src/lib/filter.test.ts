@@ -22,9 +22,9 @@ const UNONBOARDED: UserPrefs = { preferredGenres: [], onboarded: false };
 
 const DEFAULT_FILTER: FilterState = {
   query: "",
-  venue: null,
-  artist: null,
-  city: null,
+  venues: [],
+  artists: [],
+  cities: [],
   showAll: false,
 };
 
@@ -199,7 +199,7 @@ describe("applyFilters", () => {
 
   it("explicit venue filter bypasses the score fold (shows all, even score=0)", () => {
     // August Hall has all score=0 shows with punk prefs
-    const filter: FilterState = { ...DEFAULT_FILTER, venue: "August Hall" };
+    const filter: FilterState = { ...DEFAULT_FILTER, venues: ["August Hall"] };
     const result = applyFilters(sorted, filter);
     // showAll=false but explicit venue filter → fold bypassed
     expect(result.length).toBeGreaterThan(0);
@@ -209,7 +209,7 @@ describe("applyFilters", () => {
 
   it("explicit artist filter bypasses the score fold", () => {
     // Helado Negro is at The New Parish (score=0 with punk prefs)
-    const filter: FilterState = { ...DEFAULT_FILTER, artist: "Helado Negro" };
+    const filter: FilterState = { ...DEFAULT_FILTER, artists: ["Helado Negro"] };
     const result = applyFilters(sorted, filter);
     expect(result.length).toBeGreaterThan(0);
     expect(result.some((s) => s.score === 0)).toBe(true);
@@ -242,21 +242,21 @@ describe("applyFilters", () => {
   });
 
   it("filters by venue name", () => {
-    const filter: FilterState = { ...DEFAULT_FILTER, showAll: true, venue: "Bottom of the Hill" };
+    const filter: FilterState = { ...DEFAULT_FILTER, showAll: true, venues: ["Bottom of the Hill"] };
     const result = applyFilters(sorted, filter);
     expect(result).toHaveLength(1);
     expect(result[0].venueName).toContain("Bottom of the Hill");
   });
 
   it("filters by artist name", () => {
-    const filter: FilterState = { ...DEFAULT_FILTER, showAll: true, artist: "Sad Snack" };
+    const filter: FilterState = { ...DEFAULT_FILTER, showAll: true, artists: ["Sad Snack"] };
     const result = applyFilters(sorted, filter);
     expect(result).toHaveLength(1);
   });
 
   it("artist filter matches any artist in a multi-artist show", () => {
     // Gilman show has Spray, Torch, Open Wound — searching for "Torch" should find it
-    const filter: FilterState = { ...DEFAULT_FILTER, showAll: true, artist: "Torch" };
+    const filter: FilterState = { ...DEFAULT_FILTER, showAll: true, artists: ["Torch"] };
     const result = applyFilters(sorted, filter);
     expect(result).toHaveLength(1);
     expect(result[0].venueName).toContain("Gilman");
@@ -267,8 +267,8 @@ describe("applyFilters", () => {
     const filter: FilterState = {
       ...DEFAULT_FILTER,
       showAll: true,
-      venue: "Bottom of the Hill",
-      artist: "Sad Snack",
+      venues: ["Bottom of the Hill"],
+      artists: ["Sad Snack"],
     };
     const result = applyFilters(sorted, filter);
     expect(result).toHaveLength(1);
@@ -279,8 +279,8 @@ describe("applyFilters", () => {
     const filter: FilterState = {
       ...DEFAULT_FILTER,
       showAll: true,
-      venue: "Bottom of the Hill",
-      artist: "Helado Negro",
+      venues: ["Bottom of the Hill"],
+      artists: ["Helado Negro"],
     };
     const result = applyFilters(sorted, filter);
     expect(result).toEqual([]);
@@ -292,26 +292,26 @@ describe("applyFilters", () => {
       ...DEFAULT_FILTER,
       showAll: true,
       query: "9pm",
-      venue: "Bottom of the Hill",
+      venues: ["Bottom of the Hill"],
     };
     const result = applyFilters(sorted, filter);
     expect(result).toHaveLength(1);
   });
 
   it("returns empty when venue filter matches nothing", () => {
-    const filter: FilterState = { ...DEFAULT_FILTER, showAll: true, venue: "Nonexistent Venue" };
+    const filter: FilterState = { ...DEFAULT_FILTER, showAll: true, venues: ["Nonexistent Venue"] };
     const result = applyFilters(sorted, filter);
     expect(result).toEqual([]);
   });
 
   it("venue filter is substring and case-insensitive", () => {
-    const filter: FilterState = { ...DEFAULT_FILTER, showAll: true, venue: "bottom" };
+    const filter: FilterState = { ...DEFAULT_FILTER, showAll: true, venues: ["bottom"] };
     const result = applyFilters(sorted, filter);
     expect(result).toHaveLength(1);
   });
 
   it("filters by city exact match", () => {
-    const filter: FilterState = { ...DEFAULT_FILTER, showAll: true, city: "Berkeley" };
+    const filter: FilterState = { ...DEFAULT_FILTER, showAll: true, cities: ["Berkeley"] };
     const result = applyFilters(sorted, filter);
     expect(result).toHaveLength(1);
     expect(result[0].venueName).toContain("Gilman");
@@ -319,14 +319,14 @@ describe("applyFilters", () => {
   });
 
   it("city filter is case-insensitive", () => {
-    const filter: FilterState = { ...DEFAULT_FILTER, showAll: true, city: "berkeley" };
+    const filter: FilterState = { ...DEFAULT_FILTER, showAll: true, cities: ["berkeley"] };
     const result = applyFilters(sorted, filter);
     expect(result).toHaveLength(1);
     expect(result[0].venueName).toContain("Gilman");
   });
 
   it("city filter bypasses score fold", () => {
-    const filter: FilterState = { ...DEFAULT_FILTER, city: "San Francisco" };
+    const filter: FilterState = { ...DEFAULT_FILTER, cities: ["San Francisco"] };
     const result = applyFilters(sorted, filter);
     expect(result).toHaveLength(2);
     expect(result.some((s) => s.venueName.includes("Bottom of the Hill"))).toBe(true);
@@ -335,9 +335,49 @@ describe("applyFilters", () => {
   });
 
   it("null city shows excluded when city filter active", () => {
-    const filter: FilterState = { ...DEFAULT_FILTER, showAll: true, city: "San Francisco" };
+    const filter: FilterState = { ...DEFAULT_FILTER, showAll: true, cities: ["San Francisco"] };
     const result = applyFilters(sorted, filter);
     expect(result.some((s) => s.venueName.includes("The Temple"))).toBe(false);
+  });
+
+  it("filters by multiple cities (OR'd)", () => {
+    const filter: FilterState = { ...DEFAULT_FILTER, showAll: true, cities: ["Berkeley", "Oakland"] };
+    const result = applyFilters(sorted, filter);
+    expect(result).toHaveLength(2);
+    expect(result.some((s) => s.city === "Berkeley")).toBe(true);
+    expect(result.some((s) => s.city === "Oakland")).toBe(true);
+  });
+
+  it("filters by multiple venues (OR'd)", () => {
+    const filter: FilterState = { ...DEFAULT_FILTER, showAll: true, venues: ["Bottom", "924"] };
+    const result = applyFilters(sorted, filter);
+    expect(result).toHaveLength(2);
+    expect(result.some((s) => s.venueName.includes("Bottom of the Hill"))).toBe(true);
+    expect(result.some((s) => s.venueName.includes("Gilman"))).toBe(true);
+  });
+
+  it("filters by multiple artists (OR'd)", () => {
+    const filter: FilterState = { ...DEFAULT_FILTER, showAll: true, artists: ["Sad Snack", "Cab"] };
+    const result = applyFilters(sorted, filter);
+    expect(result).toHaveLength(2);
+    expect(result.some((s) => s.artists.some((a) => a.name === "Sad Snack"))).toBe(true);
+    expect(result.some((s) => s.artists.some((a) => a.name === "Cab"))).toBe(true);
+  });
+
+  it("venue filter bypasses score fold without showAll", () => {
+    const filter: FilterState = { ...DEFAULT_FILTER, venues: ["August Hall"] };
+    const result = applyFilters(sorted, filter);
+    expect(result).toHaveLength(1);
+    expect(result[0].score).toBe(0);
+    expect(result[0].venueName).toContain("August Hall");
+  });
+
+  it("artist filter bypasses score fold without showAll", () => {
+    const filter: FilterState = { ...DEFAULT_FILTER, artists: ["Cab"] };
+    const result = applyFilters(sorted, filter);
+    expect(result).toHaveLength(1);
+    expect(result[0].score).toBe(0);
+    expect(result[0].artists.some((a) => a.name === "Cab")).toBe(true);
   });
 });
 

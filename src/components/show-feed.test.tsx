@@ -47,9 +47,9 @@ const mockShows: ScoredShow[] = [
 
 const defaultFilter: FilterState = {
   query: "",
-  venue: null,
-  artist: null,
-  city: null,
+  venues: [],
+  artists: [],
+  cities: [],
   showAll: false,
 };
 
@@ -94,7 +94,7 @@ describe("ShowFeed", () => {
 
   it("renders filter chips when venue filter is active", () => {
     const { getAllByText } = render(
-      <ShowFeed shows={mockShows} filter={{ ...defaultFilter, venue: "Bottom of the Hill" }} onFilterChange={() => {}} hasBelowFold={true} />,
+      <ShowFeed shows={mockShows} filter={{ ...defaultFilter, venues: ["Bottom of the Hill"] }} onFilterChange={() => {}} hasBelowFold={true} />,
     );
     // "Bottom of the Hill" appears in both the filter chip and show card
     expect(getAllByText("Bottom of the Hill").length).toBeGreaterThanOrEqual(1);
@@ -102,18 +102,18 @@ describe("ShowFeed", () => {
 
   it("renders filter chips when artist filter is active", () => {
     const { getAllByText } = render(
-      <ShowFeed shows={mockShows} filter={{ ...defaultFilter, artist: "Sad Snack" }} onFilterChange={() => {}} hasBelowFold={true} />,
+      <ShowFeed shows={mockShows} filter={{ ...defaultFilter, artists: ["Sad Snack"] }} onFilterChange={() => {}} hasBelowFold={true} />,
     );
     expect(getAllByText("Sad Snack").length).toBeGreaterThanOrEqual(1);
   });
 
   it("clears venue filter when chip × is clicked", () => {
-    const onFilterChange = vi.fn();
+    const onVenueRemove = vi.fn();
     const { getByLabelText } = render(
-      <ShowFeed shows={mockShows} filter={{ ...defaultFilter, venue: "Bottom of the Hill" }} onFilterChange={onFilterChange} hasBelowFold={true} />,
+      <ShowFeed shows={mockShows} filter={{ ...defaultFilter, venues: ["Bottom of the Hill"] }} onFilterChange={() => {}} onVenueRemove={onVenueRemove} hasBelowFold={true} />,
     );
     fireEvent.click(getByLabelText("Remove Bottom of the Hill filter"));
-    expect(onFilterChange).toHaveBeenCalledWith({ venue: null });
+    expect(onVenueRemove).toHaveBeenCalledWith("Bottom of the Hill");
   });
 
   it("fires showAll when toggle is clicked", () => {
@@ -138,7 +138,7 @@ describe("ShowFeed", () => {
       <ShowFeed shows={[]} filter={{ ...defaultFilter, query: "zzz" }} onFilterChange={onFilterChange} hasBelowFold={false} />,
     );
     fireEvent.click(getByText("Clear all filters"));
-    expect(onFilterChange).toHaveBeenCalledWith({ query: "", venue: null, artist: null, city: null, showAll: false });
+    expect(onFilterChange).toHaveBeenCalledWith({ query: "", venues: [], artists: [], cities: [], showAll: false });
   });
 
   it("allows tapping venue name to set venue filter", () => {
@@ -147,7 +147,7 @@ describe("ShowFeed", () => {
       <ShowFeed shows={mockShows} filter={defaultFilter} onFilterChange={onFilterChange} hasBelowFold={true} />,
     );
     fireEvent.click(getByText("Bottom of the Hill"));
-    expect(onFilterChange).toHaveBeenCalledWith({ venue: "Bottom of the Hill" });
+    expect(onFilterChange).toHaveBeenCalledWith({ venues: ["Bottom of the Hill"] });
   });
 
   it("allows tapping artist name to set artist filter", () => {
@@ -156,6 +156,6 @@ describe("ShowFeed", () => {
       <ShowFeed shows={mockShows} filter={defaultFilter} onFilterChange={onFilterChange} hasBelowFold={true} />,
     );
     fireEvent.click(getByText("Sad Snack"));
-    expect(onFilterChange).toHaveBeenCalledWith({ artist: "Sad Snack" });
+    expect(onFilterChange).toHaveBeenCalledWith({ artists: ["Sad Snack"] });
   });
 });

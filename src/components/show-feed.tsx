@@ -10,11 +10,14 @@ interface ShowFeedProps {
   preferredGenres?: string[];
   onGenreRemove?: (genre: string) => void;
   onGenreClick?: (genre: string) => void;
+  onCityRemove?: (city: string) => void;
+  onVenueRemove?: (venue: string) => void;
+  onArtistRemove?: (artist: string) => void;
 }
 
-export function ShowFeed({ shows, filter, onFilterChange, hasBelowFold, dataEmpty = false, preferredGenres = [], onGenreRemove, onGenreClick }: ShowFeedProps) {
+export function ShowFeed({ shows, filter, onFilterChange, hasBelowFold, dataEmpty = false, preferredGenres = [], onGenreRemove, onGenreClick, onCityRemove, onVenueRemove, onArtistRemove }: ShowFeedProps) {
   const grouped = groupByDate(shows);
-  const hasAnyFilter = filter.query || filter.venue || filter.city || filter.artist;
+  const hasAnyFilter = filter.query || filter.venues.length > 0 || filter.artists.length > 0 || filter.cities.length > 0;
 
   // HD 17: distinct empty states for no-data vs no-search-match
   if (shows.length === 0) {
@@ -28,7 +31,7 @@ export function ShowFeed({ shows, filter, onFilterChange, hasBelowFold, dataEmpt
         {hasAnyFilter && (
           <button
             type="button"
-            onClick={() => onFilterChange({ query: "", venue: null, artist: null, city: null, showAll: false })}
+            onClick={() => onFilterChange({ query: "", venues: [], artists: [], cities: [], showAll: false })}
             class="mt-2 inline-flex min-h-11 cursor-pointer items-center text-sm text-neutral-600 underline-offset-2 hover:underline dark:text-neutral-400 dark:hover:text-white"
           >
             Clear all filters
@@ -41,7 +44,7 @@ export function ShowFeed({ shows, filter, onFilterChange, hasBelowFold, dataEmpt
   return (
     <div class="space-y-6">
       {/* Active filters — preferred genres, search query, venue, city, artist */}
-      {(filter.query || filter.venue || filter.city || filter.artist || preferredGenres.length > 0) && (
+      {(filter.query || filter.venues.length > 0 || filter.artists.length > 0 || filter.cities.length > 0 || preferredGenres.length > 0) && (
         <div class="flex flex-wrap items-center gap-2">
           <span class="text-xs font-medium text-neutral-500 dark:text-neutral-400">Filters:</span>
           {preferredGenres.map((g) => (
@@ -50,15 +53,15 @@ export function ShowFeed({ shows, filter, onFilterChange, hasBelowFold, dataEmpt
           {filter.query && (
             <FilterChip label={`"${filter.query}"`} onClear={() => onFilterChange({ query: "" })} />
           )}
-          {filter.venue && (
-            <FilterChip label={filter.venue} onClear={() => onFilterChange({ venue: null })} />
-          )}
-          {filter.city && (
-            <FilterChip label={filter.city} onClear={() => onFilterChange({ city: null })} />
-          )}
-          {filter.artist && (
-            <FilterChip label={filter.artist} onClear={() => onFilterChange({ artist: null })} />
-          )}
+          {filter.venues.map((v) => (
+            <FilterChip key={v} label={v} onClear={() => onVenueRemove?.(v)} />
+          ))}
+          {filter.cities.map((c) => (
+            <FilterChip key={c} label={c} onClear={() => onCityRemove?.(c)} />
+          ))}
+          {filter.artists.map((a) => (
+            <FilterChip key={a} label={a} onClear={() => onArtistRemove?.(a)} />
+          ))}
         </div>
       )}
 
@@ -79,8 +82,22 @@ export function ShowFeed({ shows, filter, onFilterChange, hasBelowFold, dataEmpt
               <ShowCard
                 key={`${show.date}-${show.venueName}-${i}`}
                 show={show}
-                onVenueClick={(v) => onFilterChange({ venue: v })}
-                onArtistClick={(a) => onFilterChange({ artist: a })}
+                onVenueClick={(v) => {
+                  const lower = v.toLowerCase();
+                  onFilterChange({
+                    venues: filter.venues.some((x) => x.toLowerCase() === lower)
+                      ? filter.venues
+                      : [...filter.venues, v],
+                  });
+                }}
+                onArtistClick={(a) => {
+                  const lower = a.toLowerCase();
+                  onFilterChange({
+                    artists: filter.artists.some((x) => x.toLowerCase() === lower)
+                      ? filter.artists
+                      : [...filter.artists, a],
+                  });
+                }}
                 onGenreClick={onGenreClick}
               />
             ))}

@@ -174,24 +174,30 @@ export function applyFilters(
 ): ScoredShow[] {
   let result = shows;
 
-  // Venue filter
-  if (filter.venue) {
-    const v = filter.venue.toLowerCase();
-    result = result.filter((s) => s.venueName.toLowerCase().includes(v));
+  // Venue filter (multiple venues OR'd)
+  if (filter.venues.length > 0) {
+    const lowerVenues = new Set(filter.venues.map((v) => v.toLowerCase()));
+    result = result.filter((s) => {
+      const venueName = s.venueName.toLowerCase();
+      for (const v of lowerVenues) {
+        if (venueName.includes(v)) return true;
+      }
+      return false;
+    });
   }
 
-  // Artist filter
-  if (filter.artist) {
-    const a = filter.artist.toLowerCase();
+  // Artist filter (multiple artists OR'd, exact case-insensitive match)
+  if (filter.artists.length > 0) {
+    const lowerArtists = new Set(filter.artists.map((a) => a.toLowerCase()));
     result = result.filter((s) =>
-      s.artists.some((artist) => artist.name.toLowerCase().includes(a)),
+      s.artists.some((a) => lowerArtists.has(a.name.toLowerCase())),
     );
   }
 
-  // City filter
-  if (filter.city) {
-    const c = filter.city.toLowerCase();
-    result = result.filter((s) => s.city?.toLowerCase() === c);
+  // City filter (multiple cities OR'd)
+  if (filter.cities.length > 0) {
+    const lowerCities = new Set(filter.cities.map((c) => c.toLowerCase()));
+    result = result.filter((s) => s.city && lowerCities.has(s.city.toLowerCase()));
   }
 
   // Free-text query search
@@ -203,7 +209,7 @@ export function applyFilters(
   // When an explicit venue, artist, or city filter is active, bypass the fold —
   // the user is actively browsing a specific venue/artist/city and wants to
   // see all their shows, not just personalized picks.
-  const hasExplicitFilter = filter.venue !== null || filter.artist !== null || filter.city !== null;
+  const hasExplicitFilter = filter.venues.length > 0 || filter.artists.length > 0 || filter.cities.length > 0;
   if (!filter.showAll && !hasExplicitFilter) {
     result = result.filter((s) => s.score > 0);
   }

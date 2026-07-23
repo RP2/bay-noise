@@ -52,8 +52,8 @@ export interface ScoredShow {
 /** App-level filter state (lives in app.tsx) */
 export interface FilterState {
   query: string; // free-text search
-  venue: string | null; // active venue filter (null = none)
-  artist: string | null; // active artist filter (null = none)
-  city: string | null; // active city filter (null = none)
+  venues: string[]; // active venue filters (empty = none)
+  artists: string[]; // active artist filters (empty = none)
+  cities: string[]; // active city filters (empty = none)
   showAll: boolean; // bypass genre-scoring fold
 }

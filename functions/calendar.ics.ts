@@ -2,9 +2,9 @@
  * Cloudflare Pages Function — iCal feed subscription endpoint.
  * Query params (all optional, combined with AND):
  *   ?preferred=genre1,genre2  — filter by genre strings (comma-separated, exact match only)
- *   ?venue=bottom+of+the+hill — filter by venue name (substring, case-insensitive)
- *   ?city=berkeley            — filter by venue city (exact match, case-insensitive)
- *   ?artist=sad+snack         — filter by artist name (substring, case-insensitive)
+ *   ?venues=bottom+of+the+hill&venues=gilman — filter by venue name (repeated, substring, case-insensitive)
+ *   ?cities=berkeley&cities=oakland — filter by venue city (repeated, exact match, case-insensitive)
+ *   ?artists=sad+snack&artists=cab — filter by artist name (repeated, exact, case-insensitive)
  * Defaults to all shows when no params are given (backwards compatible).
  * Genre matching uses scoreArtistGenres from filter.ts for front-end consistency.
  */
@@ -33,9 +33,9 @@ export async function onRequest(context: { request: Request }): Promise<Response
       .split(",")
       .map((s) => s.trim())
       .filter(Boolean);
-    const venueParam = (url.searchParams.get("venue") || "").toLowerCase().trim();
-    const cityParam = (url.searchParams.get("city") || "").toLowerCase().trim();
-    const artistParam = (url.searchParams.get("artist") || "").toLowerCase().trim();
+    const venuesParam = url.searchParams.getAll("venues").map((s) => s.toLowerCase().trim()).filter(Boolean);
+    const citiesParam = url.searchParams.getAll("cities").map((s) => s.toLowerCase().trim()).filter(Boolean);
+    const artistsParam = url.searchParams.getAll("artists").map((s) => s.toLowerCase().trim()).filter(Boolean);
 
     const resp = await fetch(new URL("/shows.json", url).toString());
     if (!resp.ok) {
@@ -63,9 +63,9 @@ export async function onRequest(context: { request: Request }): Promise<Response
       .map((day) => ({
         ...day,
         venues: day.venues.filter((venue) =>
-          (!venueParam || venue.name.toLowerCase().includes(venueParam)) &&
-          (!cityParam || (venue.city && venue.city.toLowerCase() === cityParam)) &&
-          (!artistParam || venue.artists.some((a) => a.name.toLowerCase().includes(artistParam))) &&
+          (venuesParam.length === 0 || venuesParam.some((v) => venue.name.toLowerCase().includes(v))) &&
+          (citiesParam.length === 0 || (venue.city && citiesParam.includes(venue.city.toLowerCase()))) &&
+          (artistsParam.length === 0 || venue.artists.some((artist) => artistsParam.includes(artist.name.toLowerCase()))) &&
           (preferred.length === 0 ||
             venue.artists.some((artist) =>
               scoreArtistGenres(artist.genres, preferred) > 0,

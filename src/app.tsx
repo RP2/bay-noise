@@ -21,9 +21,9 @@ type ViewState =
 
 const DEFAULT_FILTER: FilterState = {
   query: "",
-  venue: null,
-  artist: null,
-  city: null,
+  venues: [],
+  artists: [],
+  cities: [],
   showAll: false,
 };
 
@@ -36,9 +36,9 @@ export function App() {
   const [availableGenres, setAvailableGenres] = useState<string[] | null>(null);
 
   // Personalized iCal subscription URL. All active filters (preferred
-  // genres, venue, artist) are appended as query params so the Cloudflare
-  // function returns a matching feed. Without filters, the URL returns
-  // the full feed (backwards compatible).
+  // genres, venues, artists, cities) are appended as query params so the
+  // Cloudflare function returns a matching feed. Without filters, the URL
+  // returns the full feed (backwards compatible).
   // NOTE(port): origin is read from window at render time — this app is
   // client-only, but the guard keeps TS happy under non-DOM test shims.
   const origin = typeof window === "undefined" ? "" : window.location.origin;
@@ -46,9 +46,9 @@ export function App() {
   const icalParams = new URLSearchParams();
   if (prefs.preferredGenres.length > 0)
     icalParams.set("preferred", prefs.preferredGenres.join(","));
-  if (filter.venue) icalParams.set("venue", filter.venue);
-  if (filter.artist) icalParams.set("artist", filter.artist);
-  if (filter.city) icalParams.set("city", filter.city);
+  for (const v of filter.venues) icalParams.append("venues", v);
+  for (const a of filter.artists) icalParams.append("artists", a);
+  for (const c of filter.cities) icalParams.append("cities", c);
   if ([...icalParams].length > 0) icalUrl += "?" + icalParams.toString();
 
   // Fetch available genres for the greeter (runs once on mount)
@@ -215,17 +215,36 @@ export function App() {
     }
 
     if (type === "venue") {
-      setFilter((prev) => ({ ...prev, query: "", venue: value }));
+      const lower = value.toLowerCase();
+      setFilter((prev) => ({
+        ...prev,
+        query: "",
+        venues: prev.venues.some((v) => v.toLowerCase() === lower)
+          ? prev.venues
+          : [...prev.venues, value],
+      }));
       return;
     }
 
     if (type === "city") {
-      setFilter((prev) => ({ ...prev, query: "", city: value }));
+      const lower = value.toLowerCase();
+      setFilter((prev) => ({
+        ...prev,
+        query: "",
+        cities: prev.cities.some((c) => c.toLowerCase() === lower) ? prev.cities : [...prev.cities, value],
+      }));
       return;
     }
 
     if (type === "artist") {
-      setFilter((prev) => ({ ...prev, query: "", artist: value }));
+      const lower = value.toLowerCase();
+      setFilter((prev) => ({
+        ...prev,
+        query: "",
+        artists: prev.artists.some((a) => a.toLowerCase() === lower)
+          ? prev.artists
+          : [...prev.artists, value],
+      }));
       return;
     }
   };
@@ -250,21 +269,40 @@ export function App() {
     // Check 2: venue name match
     const venueMatch = venueNames.get(trimmed);
     if (venueMatch) {
-      setFilter((prev) => ({ ...prev, query: "", venue: venueMatch }));
+      const lower = venueMatch.toLowerCase();
+      setFilter((prev) => ({
+        ...prev,
+        query: "",
+        venues: prev.venues.some((v) => v.toLowerCase() === lower)
+          ? prev.venues
+          : [...prev.venues, venueMatch],
+      }));
       return;
     }
 
     // Check 3: city name match (after venue, before artist)
     const cityMatch = cityNames.get(trimmed);
     if (cityMatch) {
-      setFilter((prev) => ({ ...prev, query: "", city: cityMatch }));
+      const lower = cityMatch.toLowerCase();
+      setFilter((prev) => ({
+        ...prev,
+        query: "",
+        cities: prev.cities.some((c) => c.toLowerCase() === lower) ? prev.cities : [...prev.cities, cityMatch],
+      }));
       return;
     }
 
     // Check 4: artist name match
     const artistMatch = artistNames.get(trimmed);
     if (artistMatch) {
-      setFilter((prev) => ({ ...prev, query: "", artist: artistMatch }));
+      const lower = artistMatch.toLowerCase();
+      setFilter((prev) => ({
+        ...prev,
+        query: "",
+        artists: prev.artists.some((a) => a.toLowerCase() === lower)
+          ? prev.artists
+          : [...prev.artists, artistMatch],
+      }));
       return;
     }
 
@@ -289,6 +327,30 @@ export function App() {
     const newPrefs: UserPrefs = { ...prefs, preferredGenres: updated };
     setPrefs(newPrefs);
     setPrefsState(newPrefs);
+  };
+
+  // Handle removing a single city from the filter
+  const handleCityRemove = (city: string) => {
+    const lower = city.toLowerCase();
+    setFilter((prev) => ({ ...prev, cities: prev.cities.filter((c) => c.toLowerCase() !== lower) }));
+  };
+
+  // Handle removing a single venue from the filter
+  const handleVenueRemove = (venue: string) => {
+    const lower = venue.toLowerCase();
+    setFilter((prev) => ({
+      ...prev,
+      venues: prev.venues.filter((v) => v.toLowerCase() !== lower),
+    }));
+  };
+
+  // Handle removing a single artist from the filter
+  const handleArtistRemove = (artist: string) => {
+    const lower = artist.toLowerCase();
+    setFilter((prev) => ({
+      ...prev,
+      artists: prev.artists.filter((a) => a.toLowerCase() !== lower),
+    }));
   };
 
   // Determine app state
@@ -392,6 +454,9 @@ export function App() {
         hasBelowFold={belowFold}
         preferredGenres={prefs.preferredGenres}
         onGenreRemove={handleGenreRemove}
+        onCityRemove={handleCityRemove}
+        onVenueRemove={handleVenueRemove}
+        onArtistRemove={handleArtistRemove}
         onGenreClick={(genre) => {
           // Add the clicked genre string directly as its own filter
           if (!prefs.preferredGenres.includes(genre.toLowerCase())) {
