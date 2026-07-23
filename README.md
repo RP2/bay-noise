@@ -3,8 +3,9 @@
 Your personal Bay Area show radar.
 
 A mobile-first PWA that scrapes [foopee.com](http://www.foopee.com/punk/the-list/),
-enriches artist names via the Spotify API, deduplicates venues, and serves
-a personalized genre-matched show feed — no accounts, no backend, no bullshit.
+enriches artist names and genres via the Spotify API, deduplicates venues,
+and serves a genre-filtered show feed with personalized scoring — no
+accounts, no backend, no bullshit.
 
 ## Stack
 
@@ -19,7 +20,7 @@ a personalized genre-matched show feed — no accounts, no backend, no bullshit.
 ```bash
 npm install
 npm run dev        # Vite dev server
-npm test           # Vitest (105+ tests)
+npm test           # Vitest (177 tests)
 npm run pipeline   # Scrape + enrich + build shows.json
 npm run build      # tsc + vite build
 ```
@@ -58,7 +59,7 @@ as repository secrets in Settings → Secrets and variables → Actions.
 ## Structure
 
 ```
-src/lib/           Pure functions (types, genres, filter, ics, prefs)
+src/lib/           Pure functions (types, filter, ics, prefs)
 src/components/    Preact components (show-card, show-feed, greeter, etc.)
 src/app.tsx        App shell — data fetch, view state, filter state
 scripts/           build-data.ts — single pipeline script
