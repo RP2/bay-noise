@@ -3,11 +3,17 @@ import type { ShowsData, FilterState, UserPrefs } from "./lib/types.js";
 import { getPrefs, setPrefs } from "./lib/prefs.js";
 import { getAllGenreStrings } from "./lib/genres.js";
 import type { SearchSuggestions } from "./components/search-bar.js";
-import { flattenAndScoreShows, sortShows, applyFilters, hasShowsBelowFold } from "./lib/filter.js";
+import {
+  flattenAndScoreShows,
+  sortShows,
+  applyFilters,
+  hasShowsBelowFold,
+} from "./lib/filter.js";
 import { Greeter } from "./components/greeter.js";
 import { SearchBar } from "./components/search-bar.js";
 import { ShowFeed } from "./components/show-feed.js";
 import { FeedSubscribe } from "./components/feed-subscribe.js";
+import { PwaInstall } from "./components/pwa-install.js";
 
 type ViewState =
   | { status: "loading" }
@@ -37,7 +43,8 @@ export function App() {
   const origin = typeof window === "undefined" ? "" : window.location.origin;
   let icalUrl = `${origin}/calendar.ics`;
   const icalParams = new URLSearchParams();
-  if (prefs.preferredGenres.length > 0) icalParams.set("preferred", prefs.preferredGenres.join(","));
+  if (prefs.preferredGenres.length > 0)
+    icalParams.set("preferred", prefs.preferredGenres.join(","));
   if (filter.venue) icalParams.set("venue", filter.venue);
   if (filter.artist) icalParams.set("artist", filter.artist);
   if ([...icalParams].length > 0) icalUrl += "?" + icalParams.toString();
@@ -61,7 +68,9 @@ export function App() {
         if (!cancelled) setView({ status: "error", message: err.message });
       });
 
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, [prefs.onboarded, retryKey]);
 
   // Handle greeter submit
@@ -144,10 +153,18 @@ export function App() {
       venues: filterAndRank(allVenueNames),
       artists: filterAndRank(allArtistNames),
     };
-  }, [view.status === "ready" ? view.data : null, filter.query, allVenueNames, allArtistNames]);
+  }, [
+    view.status === "ready" ? view.data : null,
+    filter.query,
+    allVenueNames,
+    allArtistNames,
+  ]);
 
   // Apply a suggestion selection the same way an Enter confirmation would.
-  const handleSuggestionClick = (value: string, type: "genre" | "venue" | "artist") => {
+  const handleSuggestionClick = (
+    value: string,
+    type: "genre" | "venue" | "artist",
+  ) => {
     if (type === "genre") {
       const genreMatch = value.toLowerCase();
       if (!prefs.preferredGenres.includes(genreMatch)) {
@@ -241,8 +258,12 @@ export function App() {
   if (view.status === "error") {
     return (
       <div class="mx-auto max-w-2xl px-4 py-12 text-center">
-        <p class="mb-4 text-neutral-600 dark:text-neutral-400">Failed to load shows.</p>
-        <p class="mb-4 text-sm text-neutral-500 dark:text-neutral-400">{view.message}</p>
+        <p class="mb-4 text-neutral-600 dark:text-neutral-400">
+          Failed to load shows.
+        </p>
+        <p class="mb-4 text-sm text-neutral-500 dark:text-neutral-400">
+          {view.message}
+        </p>
         <button
           type="button"
           onClick={() => setRetryKey((k) => k + 1)}
@@ -268,10 +289,9 @@ export function App() {
     <div class="mx-auto max-w-2xl px-4 py-6">
       {/* Header */}
       <div class="mb-6 flex items-center justify-between">
-        <h1 class="text-2xl font-bold text-black dark:text-white">
-          Bay Noise
-        </h1>
+        <h1 class="hidden sm:block text-lg font-bold text-black dark:text-white">Bay Noise</h1>
         <div class="flex items-center gap-3">
+          <PwaInstall />
           <button
             type="button"
             onClick={() => setShowIcal((s) => !s)}
@@ -328,7 +348,6 @@ export function App() {
           }
         }}
       />
-
     </div>
   );
 }
