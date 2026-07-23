@@ -1,14 +1,29 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <title>Bay Noise</title>
+  <defs>
+    <clipPath id="tile">
+      <rect width="512" height="512" rx="96"/>
+    </clipPath>
+  </defs>
   <rect width="512" height="512" rx="96" fill="#000"/>
-  <!-- stem of the lowercase "b" -->
-  <rect x="110" y="92" width="40" height="328" rx="20" fill="#fff"/>
-  <!-- bowl of the "b": 5 concentric soundwave arcs, gap fanning open toward the stem.
-       Outermost arc's ends land inside the stem so the bowl joins it like a real "b". -->
-  <g fill="none" stroke="#fff" stroke-width="16" stroke-linecap="round">
-    <path d="M 242.6 264.2 A 32 32 0 1 1 242.6 311.8"/>
-    <path d="M 223.0 248.4 A 57 57 0 1 1 223.0 327.6"/>
-    <path d="M 201.2 235.3 A 82 82 0 1 1 201.2 340.7"/>
-    <path d="M 179.7 222.1 A 107 107 0 1 1 179.7 353.9"/>
-    <path d="M 141.0 240.1 A 132 132 0 1 1 141.0 335.9"/>
+  <!-- Fog Signal: a broadcast source placed off-center (golden-ratio point), rings
+       expanding toward the upper right. Rings 2-3 are broken at scattered angles
+       (signal obscured by fog); ring 4 fades out entirely. The lone blip on ring 3
+       is a discovered show: a contact in the noise. -->
+  <g clip-path="url(#tile)">
+    <!-- ring 4: dissolving into fog, exits the tile at left/bottom -->
+    <circle cx="196" cy="316" r="280" fill="none" stroke="#fff" stroke-opacity="0.5" stroke-width="20"/>
+    <!-- ring 3: two fog gaps (centered 30 deg and 200 deg), carries the contact blip -->
+    <circle cx="196" cy="316" r="200" fill="none" stroke="#fff" stroke-width="20"
+            stroke-linecap="round" stroke-dasharray="436.3 174.5 505.9 139.94" stroke-dashoffset="1082.14"/>
+    <!-- ring 2: one fog gap (centered 135 deg) -->
+    <circle cx="196" cy="316" r="128" fill="none" stroke="#fff" stroke-width="20"
+            stroke-linecap="round" stroke-dasharray="670.1 134.15" stroke-dashoffset="435.65"/>
+    <!-- ring 1: clear channel -->
+    <circle cx="196" cy="316" r="64" fill="none" stroke="#fff" stroke-width="20"/>
+    <!-- emitter -->
+    <circle cx="196" cy="316" r="32" fill="#fff"/>
+    <!-- contact: a show found in the noise -->
+    <circle cx="337.42" cy="174.58" r="23" fill="#fff"/>
   </g>
 </svg>
