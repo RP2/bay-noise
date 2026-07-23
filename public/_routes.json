@@ -1,7 +1,8 @@
 {
   "version": 1,
-  "include": ["/*"],
-  "exclude": [
-    "/assets/*"
-  ]
+  "include": [
+    "/",
+    "/calendar.ics"
+  ],
+  "exclude": []
 }
