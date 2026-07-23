@@ -46,7 +46,7 @@ export function ShowCard({ show, onVenueClick, onArtistClick, onGenreClick }: Sh
 
       {/* Genres (mapped to broad categories) + event info */}
       <p class="mb-3 text-sm text-neutral-500 dark:text-neutral-400">
-        {show.extra && <span>{show.extra} · </span>}
+        {show.extra && <span>{show.extra}{displayedGenres.length > 0 && <span> · </span>}</span>}
         {displayedGenres.map((g, i) => (
           <span key={g}>
             {i > 0 && <span>, </span>}
