@@ -32,12 +32,13 @@ describe("AddToCalendar", () => {
     const revokeObjectURL = vi.fn();
     vi.stubGlobal("URL", { createObjectURL, revokeObjectURL });
 
-    // Spy on createElement — let the anchor be real so DOM operations work
+    // Spy on createElement — stub click to prevent happy-dom navigation errors
     let capturedAnchor: HTMLAnchorElement | null = null;
     const origCreateElement = document.createElement.bind(document);
     const createElement = vi.spyOn(document, "createElement").mockImplementation(
       (tag: string) => {
         const el = origCreateElement(tag) as HTMLAnchorElement;
+        el.click = vi.fn(); // prevent navigation
         capturedAnchor = el;
         return el;
       },
@@ -65,6 +66,7 @@ describe("AddToCalendar", () => {
     vi.spyOn(document, "createElement").mockImplementation(
       (tag: string) => {
         const el = origCreateElement(tag) as HTMLAnchorElement;
+        el.click = vi.fn(); // prevent navigation
         capturedAnchor = el;
         return el;
       },

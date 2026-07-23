@@ -1,5 +1,5 @@
 import { useState } from "preact/hooks";
-import { getBroadCategories } from "../lib/genres.js";
+import { getBroadCategories, getGenresForCategory } from "../lib/genres.js";
 import { GenrePill } from "./genre-pill.js";
 
 interface GreeterProps {
@@ -8,6 +8,7 @@ interface GreeterProps {
 
 export function Greeter({ onSubmit }: GreeterProps) {
   const [selected, setSelected] = useState<Set<string>>(new Set());
+  const [expanded, setExpanded] = useState<Set<string>>(new Set());
   const categories = getBroadCategories();
 
   const toggle = (genre: string) => {
@@ -18,6 +19,16 @@ export function Greeter({ onSubmit }: GreeterProps) {
       next.add(genre);
     }
     setSelected(next);
+  };
+
+  const toggleExpand = (cat: string) => {
+    const next = new Set(expanded);
+    if (next.has(cat)) {
+      next.delete(cat);
+    } else {
+      next.add(cat);
+    }
+    setExpanded(next);
   };
 
   const handleSubmit = () => {
@@ -33,15 +44,37 @@ export function Greeter({ onSubmit }: GreeterProps) {
         Pick your genres. We'll find your shows.
       </p>
 
-      <div class="mb-8 flex flex-wrap justify-center gap-2">
-        {categories.map((genre) => (
-          <GenrePill
-            key={genre}
-            name={genre}
-            active={selected.has(genre)}
-            onClick={() => toggle(genre)}
-          />
-        ))}
+      <div class="mb-8 text-left">
+        {categories.map((category) => {
+          const genres = getGenresForCategory(category);
+          const isExpanded = expanded.has(category);
+          return (
+            <div key={category} class="mb-2">
+              <button
+                type="button"
+                onClick={() => toggleExpand(category)}
+                class="flex w-full items-center justify-between rounded px-2 py-1 text-left text-sm font-medium text-neutral-800 hover:bg-neutral-100 dark:text-neutral-200 dark:hover:bg-neutral-800"
+              >
+                <span class="capitalize">{category}</span>
+                <span class="ml-2 rounded-full bg-neutral-200 px-2 py-0.5 text-xs text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300">
+                  {genres.length}
+                </span>
+              </button>
+              {isExpanded && (
+                <div class="mt-1 flex flex-wrap gap-2 px-2">
+                  {genres.map((genre) => (
+                    <GenrePill
+                      key={genre}
+                      name={genre}
+                      active={selected.has(genre)}
+                      onClick={() => toggle(genre)}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+          );
+        })}
       </div>
 
       <button

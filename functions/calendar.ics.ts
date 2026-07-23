@@ -1,10 +1,12 @@
 /**
  * Cloudflare Pages Function — iCal feed subscription endpoint.
- * Accepts ?preferred=genre1,genre2 to filter by genre (URL-encoded, comma-separated).
- * Defaults to all shows when no preferred param is given.
+ * Query params (all optional, combined with AND):
+ *   ?preferred=genre1,genre2  — filter by genre strings (comma-separated, substring match)
+ *   ?venue=bottom+of+the+hill — filter by venue name (substring, case-insensitive)
+ *   ?artist=sad+snack         — filter by artist name (substring, case-insensitive)
+ * Defaults to all shows when no params are given (backwards compatible).
  */
 import { generateIcs } from "../src/lib/ics.js";
-import { classifyGenre } from "../src/lib/genres.js";
 import type { ShowsData, ShowDay } from "../src/lib/types.js";
 
 function todayLocal(): string {
@@ -28,6 +30,8 @@ export async function onRequest(context: { request: Request }): Promise<Response
       .split(",")
       .map((s) => s.trim())
       .filter(Boolean);
+    const venueParam = (url.searchParams.get("venue") || "").toLowerCase().trim();
+    const artistParam = (url.searchParams.get("artist") || "").toLowerCase().trim();
 
     const resp = await fetch(new URL("/shows.json", url).toString());
     if (!resp.ok) {
@@ -50,20 +54,29 @@ export async function onRequest(context: { request: Request }): Promise<Response
 
     const cutoff = todayLocal();
 
-    // Filter: future shows only + optional genre preference
-    let shows: ShowDay[] = data.shows
+    // Filter: future shows only + optional venue/artist/genre filters (AND).
+    // A venue survives if it matches the venue substring, has an artist
+    // matching the artist substring, and has an artist matching a preferred
+    // genre string — for every filter that is active.
+    // Matching is direct substring: preferred "metal" matches artist genres
+    // "metal", "metalcore", "death metal", etc.
+    const preferredSet = new Set(preferred);
+    const shows: ShowDay[] = data.shows
       .filter((day) => day.date >= cutoff)
-      .map((day) => {
-        if (preferred.length === 0) return day;
-        return {
-          ...day,
-          venues: day.venues.filter((venue) =>
+      .map((day) => ({
+        ...day,
+        venues: day.venues.filter((venue) =>
+          (!venueParam || venue.name.toLowerCase().includes(venueParam)) &&
+          (!artistParam || venue.artists.some((a) => a.name.toLowerCase().includes(artistParam))) &&
+          (preferred.length === 0 ||
             venue.artists.some((artist) =>
-              artist.genres.some((g) => preferred.includes(classifyGenre(g))),
-            ),
-          ),
-        };
-      })
+              artist.genres.some((g) => {
+                const lower = g.toLowerCase();
+                return preferredSet.has(lower) || [...preferredSet].some((p) => lower.includes(p));
+              }),
+            ))
+        ),
+      }))
       .filter((day) => day.venues.length > 0);
 
     const ics = generateIcs(shows, data.updated || new Date().toISOString().slice(0, 10));

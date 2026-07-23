@@ -4,6 +4,7 @@ import {
   classifyGenre,
   getBroadCategories,
   getGenresForCategory,
+  getAllGenreStrings,
   scoreArtistGenres,
   OTHER_CATEGORY,
 } from "./genres.js";
@@ -83,7 +84,7 @@ describe("classifyGenre", () => {
     expect(classifyGenre("unknown genre")).toBe(OTHER_CATEGORY);
     expect(classifyGenre("classical")).toBe(OTHER_CATEGORY);
     expect(classifyGenre("")).toBe(OTHER_CATEGORY);
-    expect(classifyGenre("reggae")).toBe(OTHER_CATEGORY);
+    expect(classifyGenre("latin")).toBe(OTHER_CATEGORY);
   });
 
   // Empty string coverage is in the "returns 'other' for unknown genres" block above
@@ -138,6 +139,29 @@ describe("getGenresForCategory", () => {
   });
 });
 
+describe("getAllGenreStrings", () => {
+  it("returns all genres flattened and deduplicated", () => {
+    const all = getAllGenreStrings();
+    const expectedCount = Object.values(GENRE_MAP).flat().length;
+    expect(all).toHaveLength(expectedCount);
+    expect(new Set(all).size).toBe(all.length);
+  });
+
+  it("contains known genres", () => {
+    const all = getAllGenreStrings();
+    expect(all).toContain("punk");
+    expect(all).toContain("metalcore");
+    expect(all).toContain("indie rock");
+    expect(all).toContain("dream pop");
+  });
+
+  it("returns a sorted array", () => {
+    const all = getAllGenreStrings();
+    const sorted = [...all].sort((a, b) => a.localeCompare(b));
+    expect(all).toEqual(sorted);
+  });
+});
+
 describe("scoreArtistGenres", () => {
   it("returns match count for matching genres", () => {
     expect(scoreArtistGenres(["punk"], ["punk"])).toBe(1);
@@ -150,10 +174,19 @@ describe("scoreArtistGenres", () => {
     expect(scoreArtistGenres([], ["punk"])).toBe(0);
   });
 
-  it("handles sub-genre matching", () => {
-    expect(scoreArtistGenres(["pop punk", "indie rock"], ["punk"])).toBe(1);
+  it("matches direct substrings (no broad-category mapping)", () => {
+    expect(scoreArtistGenres(["metalcore"], ["metal"])).toBe(1);
+    expect(scoreArtistGenres(["metalcore"], ["metal", "metalcore"])).toBe(2);
+    expect(scoreArtistGenres(["pop punk"], ["punk"])).toBe(1);
     expect(scoreArtistGenres(["death metal"], ["metal"])).toBe(1);
-    expect(scoreArtistGenres(["dream pop"], ["shoegaze"])).toBe(1);
+    expect(scoreArtistGenres(["dream pop"], ["pop"])).toBe(1);
+  });
+
+  it("does not map sub-genres to broad categories", () => {
+    // "dream pop" no longer maps to "shoegaze" for scoring.
+    expect(scoreArtistGenres(["dream pop"], ["shoegaze"])).toBe(0);
+    // "pop punk" no longer maps to "punk" for scoring — but "punk" is a substring.
+    expect(scoreArtistGenres(["pop punk"], ["punk"])).toBe(1);
   });
 
   it("is case-insensitive", () => {
@@ -178,11 +211,10 @@ describe("scoreArtistGenres", () => {
     expect(scoreArtistGenres(["indie rock"], ["Indie"])).toBe(1);
   });
 
-  it("counts each matching artist genre once", () => {
-    // Artist has genres punk and pop punk — both map to "punk"
-    // But scoreArtistGenres counts each genre in the artist's list that maps
-    // to a preferred category. Both punk and pop punk map to "punk",
-    // so the count is 2.
-    expect(scoreArtistGenres(["punk", "pop punk"], ["punk"])).toBe(2);
+  it("matches artist with at least one matching genre", () => {
+    // Artist has two genres that both contain "punk".
+    // scoreArtistGenres returns 1 (one matching preferred term).
+    // At the show level, Math.min(1, 1) caps to 1 per artist.
+    expect(scoreArtistGenres(["punk", "pop punk"], ["punk"])).toBe(1);
   });
 });

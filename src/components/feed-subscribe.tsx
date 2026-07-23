@@ -40,7 +40,7 @@ export function FeedSubscribe({ url, onClose }: FeedSubscribeProps) {
     <div class="border border-neutral-200 bg-neutral-50 p-3 dark:border-neutral-800 dark:bg-neutral-900">
       <div class="mb-1 flex items-center justify-between">
         <p class="text-neutral-600 dark:text-neutral-400">
-          Add this URL to your calendar app (Apple Calendar, Google Calendar, etc.):
+          This URL can be subscribed to in your calendar app. Consider filtering the list first to avoid seeing every possible show:
         </p>
         {onClose && (
           <button

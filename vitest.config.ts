@@ -10,6 +10,6 @@ export default defineConfig({
     // Component tests can override with // @vitest-environment happy-dom
     environment: "node",
     setupFiles: ["./vitest.setup.ts"],
-    include: ["src/**/*.test.{ts,tsx}"],
+    include: ["src/**/*.test.{ts,tsx}", "functions/**/*.test.{ts,tsx}"],
   },
 });

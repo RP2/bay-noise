@@ -40,8 +40,8 @@ describe("flattenAndScoreShows", () => {
     expect(result[0].score).toBe(2);
     // August Hall: Cab (indie rock) + Jady (electronic) = 0
     expect(result[1].score).toBe(0);
-    // 924 Gilman: Spray (hardcore punk → hardcore, no), Torch (metal, no), Open Wound (punk, yes) = 1
-    expect(result[2].score).toBe(1);
+    // 924 Gilman: Spray (hardcore punk → contains "punk", yes), Torch (metal, no), Open Wound (punk, yes) = 2
+    expect(result[2].score).toBe(2);
     // The New Parish: Helado Negro (indie,electronic) = 0
     expect(result[3].score).toBe(0);
     // The Temple: Dust Collector (noise,experimental) = 0
@@ -114,7 +114,7 @@ describe("splitByScore", () => {
   it("splits shows into above (score>0) and below (score=0)", () => {
     const shows = flattenAndScoreShows(SAMPLE_SHOWS.shows, PUNK_PREFS);
     const { above, below } = splitByScore(shows);
-    expect(above.length).toBe(2); // Bottom of the Hill (2), Gilman (1)
+    expect(above.length).toBe(2); // Bottom of the Hill (2), Gilman (2)
     expect(below.length).toBe(3); // August Hall, New Parish, Temple
     for (const s of above) expect(s.score).toBeGreaterThan(0);
     for (const s of below) expect(s.score).toBe(0);

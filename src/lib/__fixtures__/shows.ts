@@ -141,10 +141,10 @@ export const SAMPLE_SCORED_SHOWS: ScoredShow[] = [
     time: "7pm/8pm",
     price: "$10",
     age: "a/a",
-    // spray: hardcore punk → hardcore (no match with punk)
-    // torch: metal → metal (no match)
-    // open wound: punk → punk (match)
-    score: 1,
+    // spray: hardcore punk contains "punk" (match)
+    // torch: metal (no match)
+    // open wound: punk (match)
+    score: 2,
   },
   {
     date: "2026-08-01",

@@ -5,6 +5,16 @@ import { Greeter } from "./greeter.js";
 
 afterEach(cleanup);
 
+/**
+ * Get a selectable genre pill by its text. The category header also displays
+ * the same text, so this helper resolves the pill (the second text match).
+ */
+function getGenrePill(utils: ReturnType<typeof render>, name: string) {
+  const matches = utils.getAllByText(name);
+  // First match is the category header span, second is the pill.
+  return matches[1];
+}
+
 describe("Greeter", () => {
   it("renders title and subtitle", () => {
     const { getByText } = render(<Greeter onSubmit={() => {}} />);
@@ -12,7 +22,7 @@ describe("Greeter", () => {
     expect(getByText("Pick your genres. We'll find your shows.")).toBeDefined();
   });
 
-  it("renders all 13 genre categories as pills", () => {
+  it("renders all 13 genre categories as headers", () => {
     const { getByText } = render(<Greeter onSubmit={() => {}} />);
     expect(getByText("punk")).toBeDefined();
     expect(getByText("indie")).toBeDefined();
@@ -30,26 +40,30 @@ describe("Greeter", () => {
   });
 
   it("toggles genre selection on pill click", () => {
-    const { getByText } = render(<Greeter onSubmit={() => {}} />);
-    const punkPill = getByText("punk");
+    const utils = render(<Greeter onSubmit={() => {}} />);
+    // Expand the punk category to reveal its genre pills
+    fireEvent.click(utils.getByText("punk"));
+    const punkPill = getGenrePill(utils, "punk");
 
     // Click to select
     fireEvent.click(punkPill);
-    // After click, the pill should be active (using getAllByText since it renders twice now)
-    expect(getByText("1 selected")).toBeDefined();
+    expect(utils.getByText("1 selected")).toBeDefined();
 
     // Click to deselect
-    fireEvent.click(getByText("punk"));
-    expect(getByText("No genres? We'll show you everything.")).toBeDefined();
+    fireEvent.click(punkPill);
+    expect(utils.getByText("No genres? We'll show you everything.")).toBeDefined();
   });
 
   it("submits selected genres", () => {
     const onSubmit = vi.fn();
-    const { getByText } = render(<Greeter onSubmit={onSubmit} />);
+    const utils = render(<Greeter onSubmit={onSubmit} />);
 
-    fireEvent.click(getByText("punk"));
-    fireEvent.click(getByText("indie"));
-    fireEvent.click(getByText("Show me what's on"));
+    // Expand each category and select the base genre pill
+    fireEvent.click(utils.getByText("punk"));
+    fireEvent.click(getGenrePill(utils, "punk"));
+    fireEvent.click(utils.getByText("indie"));
+    fireEvent.click(getGenrePill(utils, "indie"));
+    fireEvent.click(utils.getByText("Show me what's on"));
 
     expect(onSubmit).toHaveBeenCalledWith(["punk", "indie"]);
   });
@@ -67,8 +81,9 @@ describe("Greeter", () => {
   });
 
   it("shows count when genres selected", () => {
-    const { getByText } = render(<Greeter onSubmit={() => {}} />);
-    fireEvent.click(getByText("punk"));
-    expect(getByText("1 selected")).toBeDefined();
+    const utils = render(<Greeter onSubmit={() => {}} />);
+    fireEvent.click(utils.getByText("punk"));
+    fireEvent.click(getGenrePill(utils, "punk"));
+    expect(utils.getByText("1 selected")).toBeDefined();
   });
 });

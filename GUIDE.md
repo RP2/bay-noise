@@ -235,7 +235,7 @@ Free-text search input in the feed header. Searches across artist names, venue n
 ### HD 10: iCal sharing
 `lib/ics.ts` has the core `generateIcs()` pure function. Generates all-day events from `ShowDay.date`. The `extra` field is not parsed for time — events are all-day. Both consumers use the same function:
 - `components/add-to-calendar.tsx` — per-event ICS download (one day's events)
-- `functions/calendar.ics.ts` — full feed subscription (all upcoming shows)
+- `functions/calendar.ics.ts` — feed subscription; optional `?preferred=` (genres), `?venue=`, `?artist=` params filter the feed (AND), no params returns all upcoming shows
 
 ### HD 11: Dark mode
 System preference detected in inline `<script>` in `<head>`. Sets/removes `class="dark"` on `<html>`. Tailwind `dark:` variants handle styling. No toggle (follows system). Theme choice stored in localStorage as `'bay-noise-theme'`.
