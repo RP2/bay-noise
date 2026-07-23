@@ -13,6 +13,7 @@ function venueFromShow(show: ScoredShow) {
   return {
     name: show.venueName,
     city: show.city,
+    address: show.address,
     artists: show.artists,
     extra: show.extra,
     time: show.time,

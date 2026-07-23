@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "preact/hooks";
+import { useState, useEffect, useMemo, useRef } from "preact/hooks";
 import type { ShowsData, FilterState, UserPrefs } from "./lib/types.js";
 import { getPrefs, setPrefs } from "./lib/prefs.js";
 import type { SearchSuggestions } from "./components/search-bar.js";
@@ -90,6 +90,73 @@ export function App() {
     setPrefsState(newPrefs);
     setFilter(DEFAULT_FILTER);
   };
+
+  // Inject JSON-LD structured data for search engines.
+  const jsonLdRef = useRef<HTMLScriptElement | null>(null);
+  useEffect(() => {
+    if (view.status !== "ready") return;
+    if (!jsonLdRef.current) {
+      jsonLdRef.current = document.createElement("script");
+      jsonLdRef.current.type = "application/ld+json";
+      document.head.appendChild(jsonLdRef.current);
+    }
+    // Compute Pacific timezone offset for a date (PDT -07:00 or PST -08:00).
+    // Uses UTC getters on UTC-constructed dates to be timezone-independent.
+    function pacificOffset(dateStr: string): string {
+      const year = parseInt(dateStr.slice(0, 4), 10);
+      const d = new Date(Date.UTC(year, parseInt(dateStr.slice(5, 7), 10) - 1, parseInt(dateStr.slice(8, 10), 10)));
+      // 2nd Sunday of March → PDT starts at 2am Pacific
+      const marchSecond = new Date(Date.UTC(year, 2, 1));
+      marchSecond.setUTCDate(marchSecond.getUTCDate() + (14 - marchSecond.getUTCDay()) % 7 + 7);
+      // 1st Sunday of November → PST starts at 2am Pacific
+      const novFirst = new Date(Date.UTC(year, 10, 1));
+      novFirst.setUTCDate(novFirst.getUTCDate() + (7 - novFirst.getUTCDay()) % 7);
+      return d >= marchSecond && d < novFirst ? "-07:00" : "-08:00";
+    }
+
+    const events: object[] = [];
+    for (const day of view.data.shows) {
+      for (const venue of day.venues) {
+        // Parse time like "9pm" → "21:00" for ISO date.
+        // For "7pm/8pm" (doors/show), use the show time (second value).
+        const timeStr = venue.time?.includes("/") ? venue.time.split("/").pop() ?? venue.time : venue.time;
+        let startDate = day.date;
+        if (timeStr) {
+          const m = timeStr.match(/(\d{1,2})(?::(\d{2}))?\s*(am|pm)/i);
+          if (m) {
+            let h = parseInt(m[1], 10);
+            const min = m[2] ? parseInt(m[2], 10) : 0;
+            if (m[3].toLowerCase() === "pm" && h !== 12) h += 12;
+            if (m[3].toLowerCase() === "am" && h === 12) h = 0;
+            const offset = pacificOffset(day.date);
+            startDate = `${day.date}T${String(h).padStart(2, "0")}:${String(min).padStart(2, "0")}:00${offset}`;
+          }
+        }
+        const event: Record<string, unknown> = {
+          "@context": "https://schema.org",
+          "@type": "Event",
+          name: `Show at ${venue.name}`,
+          startDate,
+          location: {
+            "@type": "Place",
+            name: venue.name,
+          },
+          performer: venue.artists.map((a) => ({
+            "@type": "MusicGroup",
+            name: a.name,
+          })),
+        };
+        const addr: Record<string, string> = { "@type": "PostalAddress" };
+        if (venue.address) addr.streetAddress = venue.address;
+        if (venue.city) addr.addressLocality = venue.city;
+        if (addr.streetAddress || addr.addressLocality) {
+          (event.location as Record<string, unknown>).address = addr;
+        }
+        events.push(event);
+      }
+    }
+    jsonLdRef.current.textContent = JSON.stringify(events);
+  }, [view.status === "ready" ? view.data : null]);
 
   // Build searchable venue/artist lookups from loaded show data.
   // Maps lowercase name → canonical name (for chip labels).

@@ -1071,6 +1071,7 @@ async function main(): Promise<void> {
       venues.push({
         name: venueName,
         city,
+        address: dedup.address ?? null,
         artists,
         extra: parsed.display,
         time: parsed.time,

@@ -181,10 +181,10 @@ function buildSummary(venue: VenueEvent): string {
  * Build the LOCATION line for a venue event, including city when available.
  */
 function buildLocation(venue: VenueEvent): string {
-  if (venue.city) {
-    return `${venue.name}, ${venue.city}`;
-  }
-  return venue.name;
+  const parts = [venue.name];
+  if (venue.address) parts.push(venue.address);
+  if (venue.city) parts.push(venue.city);
+  return parts.join(", ");
 }
 
 /**

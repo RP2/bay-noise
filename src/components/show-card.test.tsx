@@ -11,6 +11,7 @@ const show: ScoredShow = {
   day: "Sat Jul 25",
   venueName: "Bottom of the Hill",
   city: "San Francisco",
+  address: null,
   artists: [
     { name: "Sad Snack", genres: ["punk", "indie"], spotifyUrl: "https://open.spotify.com/artist/abc" },
     { name: "Foolish Relics", genres: ["punk"] },

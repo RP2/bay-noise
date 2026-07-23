@@ -15,6 +15,7 @@ export interface ShowDay {
 export interface VenueEvent {
   name: string; // "Bottom of the Hill, S.F."
   city: string | null; // "San Francisco" | null (if unparseable)
+  address: string | null; // street address from known-venues, or null
   artists: Artist[];
   extra: string; // Display string: "9pm · $15"
   time: string | null; // Extracted by pipeline: "9pm"
@@ -41,6 +42,7 @@ export interface ScoredShow {
   day: string;
   venueName: string;
   city: string | null;
+  address: string | null;
   artists: Artist[];
   extra: string;
   time: string | null;

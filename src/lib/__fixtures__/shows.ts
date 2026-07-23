@@ -10,6 +10,7 @@ export const SAMPLE_SHOWS: ShowsData = {
         {
           name: "Bottom of the Hill, S.F.",
           city: "San Francisco",
+          address: null,
           artists: [
             { name: "Sad Snack", genres: ["punk", "indie"], spotifyUrl: "https://open.spotify.com/artist/7KtN9nQaFrGOwyKyF59bA9" },
             { name: "Foolish Relics", genres: ["punk"] },
@@ -22,6 +23,7 @@ export const SAMPLE_SHOWS: ShowsData = {
         {
           name: "August Hall, S.F.",
           city: "San Francisco",
+          address: null,
           artists: [
             { name: "Cab", genres: ["indie rock"] },
             { name: "Jady", genres: ["electronic"] },
@@ -40,6 +42,7 @@ export const SAMPLE_SHOWS: ShowsData = {
         {
           name: "924 Gilman Street, Berkeley",
           city: "Berkeley",
+          address: null,
           artists: [
             { name: "Spray", genres: ["hardcore punk"] },
             { name: "Torch", genres: ["metal"] },
@@ -59,6 +62,7 @@ export const SAMPLE_SHOWS: ShowsData = {
         {
           name: "The New Parish, Oakland",
           city: "Oakland",
+          address: null,
           artists: [
             { name: "Helado Negro", genres: ["indie", "electronic"], spotifyUrl: "https://open.spotify.com/artist/5qoJgyq3gFLuhCbMBiWjBp" },
           ],
@@ -76,6 +80,7 @@ export const SAMPLE_SHOWS: ShowsData = {
         {
           name: "The Temple",
           city: null,
+          address: null,
           artists: [
             { name: "Dust Collector", genres: ["noise", "experimental"] },
           ],
@@ -102,6 +107,7 @@ export const SAMPLE_SCORED_SHOWS: ScoredShow[] = [
     day: "Sat Jul 25",
     venueName: "Bottom of the Hill, S.F.",
     city: "San Francisco",
+    address: null,
     artists: [
       { name: "Sad Snack", genres: ["punk", "indie"], spotifyUrl: "https://open.spotify.com/artist/7KtN9nQaFrGOwyKyF59bA9" },
       { name: "Foolish Relics", genres: ["punk"] },
@@ -117,6 +123,7 @@ export const SAMPLE_SCORED_SHOWS: ScoredShow[] = [
     day: "Sat Jul 25",
     venueName: "August Hall, S.F.",
     city: "San Francisco",
+    address: null,
     artists: [
       { name: "Cab", genres: ["indie rock"] },
       { name: "Jady", genres: ["electronic"] },
@@ -132,6 +139,7 @@ export const SAMPLE_SCORED_SHOWS: ScoredShow[] = [
     day: "Sun Jul 26",
     venueName: "924 Gilman Street, Berkeley",
     city: "Berkeley",
+    address: null,
     artists: [
       { name: "Spray", genres: ["hardcore punk"] },
       { name: "Torch", genres: ["metal"] },
@@ -151,6 +159,7 @@ export const SAMPLE_SCORED_SHOWS: ScoredShow[] = [
     day: "Sat Aug 1",
     venueName: "The New Parish, Oakland",
     city: "Oakland",
+    address: null,
     artists: [
       { name: "Helado Negro", genres: ["indie", "electronic"] },
     ],
@@ -165,6 +174,7 @@ export const SAMPLE_SCORED_SHOWS: ScoredShow[] = [
     day: "Sat Aug 15",
     venueName: "The Temple",
     city: null,
+    address: null,
     artists: [
       { name: "Dust Collector", genres: ["noise", "experimental"] },
     ],

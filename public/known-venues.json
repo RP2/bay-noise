@@ -706,14 +706,6 @@
     ]
   },
   {
-    "name": "Hopmon",
-    "city": "Sebastopol",
-    "address": null,
-    "aliases": [
-      "Hopmon, Sebastopol"
-    ]
-  },
-  {
     "name": "Hopmonk Tavern (Novato)",
     "city": "Novato",
     "address": "230 Petaluma Avenue",
@@ -729,7 +721,8 @@
     "aliases": [
       "Homonk Tavern, Sebastopol",
       "Hopmonk Tavern, Sebastopol 21",
-      "Hopmonk, Sebastopol"
+      "Hopmonk, Sebastopol",
+      "Hopmon, Sebastopol"
     ]
   },
   {
@@ -818,7 +811,7 @@
   {
     "name": "Kuumbwa Jazz Center",
     "city": "Santa Cruz",
-    "address": null,
+    "address": "320 Cedar St, Ste 2",
     "aliases": [
       "Kuumbwa Jazz Center, Santa Cruz"
     ]
@@ -835,7 +828,7 @@
   {
     "name": "Little Hill Lounge",
     "city": "El Cerrito",
-    "address": null,
+    "address": "10753 San Pablo Ave",
     "aliases": [
       "Little Hill Lounge, El Cerrito"
     ]
@@ -1027,7 +1020,7 @@
   {
     "name": "O'Reillys Pub",
     "city": "San Francisco",
-    "address": null,
+    "address": "1840 Haight St",
     "aliases": [
       "O'Reillys Pub, S.F."
     ]
@@ -1406,7 +1399,7 @@
   {
     "name": "Siesta Valley Bowl",
     "city": "Orinda",
-    "address": null,
+    "address": "100 Gateway Blvd",
     "aliases": [
       "Siesta Valley Bowl, Orinda"
     ]
@@ -1483,7 +1476,7 @@
   {
     "name": "Subrosa Community Space",
     "city": "Santa Cruz",
-    "address": null,
+    "address": "703 Pacific Ave",
     "aliases": [
       "Subrosa Community Space, Santa Cruz"
     ]
@@ -1507,7 +1500,7 @@
   {
     "name": "Tamarack",
     "city": "Oakland",
-    "address": null,
+    "address": "1501 Harrison St",
     "aliases": [
       "Tamarack, Oakland"
     ]

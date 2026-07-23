@@ -77,6 +77,7 @@ describe("flattenAndScoreShows", () => {
     expect(show).toHaveProperty("time");
     expect(show).toHaveProperty("price");
     expect(show).toHaveProperty("age");
+    expect(show).toHaveProperty("address");
     expect(show).toHaveProperty("score");
   });
 
@@ -413,6 +414,7 @@ function createScoredShow(
     day: "Sat Jul 25",
     venueName,
     city: null,
+    address: null,
     artists: [],
     extra: "",
     time: null,

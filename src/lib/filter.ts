@@ -66,6 +66,7 @@ export function flattenAndScoreShows(
         day: day.day,
         venueName: venue.name,
         city: venue.city,
+        address: venue.address ?? null,
         artists: [...venue.artists],
         extra: venue.extra,
         time: venue.time,

@@ -76,6 +76,7 @@ describe("generateIcs", () => {
         {
           name: "The Venue",
           city: "San Francisco",
+          address: null,
           artists: [{ name: "A Band", genres: ["rock"] }],
           extra: "",
           time: null,
@@ -101,6 +102,7 @@ describe("generateIcs", () => {
         {
           name: "Venue A",
           city: "San Francisco",
+          address: null,
           artists: [{ name: "Band 1", genres: ["punk"] }],
           extra: "9pm",
           time: "9pm",
@@ -110,6 +112,7 @@ describe("generateIcs", () => {
         {
           name: "Venue B",
           city: "Oakland",
+          address: null,
           artists: [{ name: "Band 2", genres: ["indie"] }],
           extra: "8pm",
           time: "8pm",
@@ -138,6 +141,7 @@ describe("generateIcs", () => {
         {
           name: "Venue; Name, Co.",
           city: "SF",
+          address: null,
           artists: [{ name: "Band \\ A", genres: ["punk"] }],
           extra: "Doors 8pm; $10 (cash)",
           time: "8pm",
@@ -163,6 +167,7 @@ describe("generateIcs", () => {
         {
           name: "Test Venue",
           city: "SF",
+          address: null,
           artists: [{ name: "Foo\\,;Bar", genres: ["punk"] }],
           extra: "",
           time: null,
@@ -189,6 +194,7 @@ describe("generateIcs", () => {
         {
           name: "Venue",
           city: "SF",
+          address: null,
           artists: [{ name: "Band", genres: ["punk"] }],
           extra: "line1\nline2",
           time: null,
@@ -231,6 +237,7 @@ describe("generateIcs", () => {
         {
           name: "A Very Long Venue Name That Goes On And On And On And On And On And On And On",
           city: "San Francisco",
+          address: null,
           artists: [
             {
               name: "An Even Longer Band Name That Definitely Exceeds Seventy Five Characters In Total",
@@ -260,6 +267,7 @@ describe("generateIcs", () => {
         {
           name: "Café avec un nom très long — et avec des caractères spéciaux",
           city: "San Francisco",
+          address: null,
           artists: [
             {
               name: "Artiste avec un nom très long également — ça dépasse 75 octets facilement",
@@ -294,6 +302,7 @@ describe("generateSingleIcs", () => {
   const venue: VenueEvent = {
     name: "Bottom of the Hill, S.F.",
     city: "San Francisco",
+    address: null,
     artists: [
       { name: "Sad Snack", genres: ["punk"] },
       { name: "Foolish Relics", genres: ["punk"] },
@@ -344,6 +353,7 @@ describe("time parsing", () => {
   const baseVenue: VenueEvent = {
     name: "The Venue",
     city: "San Francisco",
+    address: null,
     artists: [{ name: "Band", genres: ["rock"] }],
     extra: "",
     time: "9pm",
@@ -447,6 +457,7 @@ describe("generateIcs with mixed timed and all-day events", () => {
         {
           name: "Timed Venue",
           city: "San Francisco",
+          address: null,
           artists: [{ name: "Band A", genres: ["rock"] }],
           extra: "9pm",
           time: "9pm",
@@ -456,6 +467,7 @@ describe("generateIcs with mixed timed and all-day events", () => {
         {
           name: "All Day Venue",
           city: "Oakland",
+          address: null,
           artists: [{ name: "Band B", genres: ["rock"] }],
           extra: "",
           time: null,

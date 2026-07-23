@@ -14,6 +14,7 @@ beforeEach(() => {
 const venue: VenueEvent = {
   name: "Bottom of the Hill, S.F.",
   city: "San Francisco",
+  address: null,
   artists: [{ name: "Sad Snack", genres: ["punk"] }],
   extra: "9pm · $15",
   time: "9pm",
