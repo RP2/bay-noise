@@ -53,7 +53,7 @@ export function ShowCard({ show, onVenueClick, onArtistClick, onGenreClick }: Sh
             <button
               type="button"
               onClick={() => onGenreClick?.(g)}
-              class="cursor-pointer underline-offset-2 hover:underline"
+              class="cursor-pointer underline underline-offset-2 hover:text-black dark:hover:text-white"
             >
               {g}
             </button>
@@ -98,7 +98,7 @@ function ArtistRow({ artist, onArtistClick }: ArtistRowProps) {
           href={artist.spotifyUrl}
           target="_blank"
           rel="noopener noreferrer"
-          class="text-xs text-neutral-500 underline underline-offset-2 hover:text-black dark:hover:text-white"
+          class="text-xs text-neutral-500 underline underline-offset-2 hover:text-black dark:text-neutral-400 dark:hover:text-white"
           title="Open in Spotify"
         >
           &#9835; Spotify
