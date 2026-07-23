@@ -1124,6 +1124,17 @@ async function main(): Promise<void> {
   await atomicWrite(`${outputDir}/artist-cache.json`, JSON.stringify(cacheObj, null, 2));
   console.log(`✓ Wrote ${outputDir}/artist-cache.json (${Object.keys(cacheObj).length} entries)`);
 
+  // Write available-genres.json (flat sorted list for greeter)
+  const allGenres = new Set<string>();
+  for (const entry of Object.values(cacheObj)) {
+    for (const g of entry.genres ?? []) {
+      if (g) allGenres.add(g.toLowerCase());
+    }
+  }
+  const sortedGenres = [...allGenres].sort();
+  await atomicWrite(`${outputDir}/available-genres.json`, JSON.stringify(sortedGenres, null, 2));
+  console.log(`✓ Wrote ${outputDir}/available-genres.json (${sortedGenres.length} genres)`);
+
   console.log("\n=== Pipeline complete ===");
 }
 

@@ -1,5 +1,4 @@
 import type { ScoredShow, Artist } from "../lib/types.js";
-import { GenrePill } from "./genre-pill.js";
 import { AddToCalendar } from "./add-to-calendar.js";
 
 interface ShowCardProps {
@@ -23,6 +22,10 @@ function venueFromShow(show: ScoredShow) {
 }
 
 export function ShowCard({ show, onVenueClick, onArtistClick, onGenreClick }: ShowCardProps) {
+  // Deduplicate genres across all artists, flatten to a unique set
+    // Raw deduplicated genres from all artists, sorted alphabetically
+    const displayedGenres = [...new Set(show.artists.flatMap((a) => a.genres))].sort();
+
   return (
     <div class="border border-neutral-200 bg-white p-4 text-neutral-900 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100">
       {/* Venue name and city */}
@@ -41,18 +44,28 @@ export function ShowCard({ show, onVenueClick, onArtistClick, onGenreClick }: Sh
         )}
       </div>
 
-      {/* Event info: time, price, age */}
-      {show.extra && (
-        <p class="mb-3 text-sm text-neutral-500 dark:text-neutral-400">
-          {show.extra}
-        </p>
-      )}
+      {/* Genres (mapped to broad categories) + event info */}
+      <p class="mb-3 text-sm text-neutral-500 dark:text-neutral-400">
+        {show.extra && <span>{show.extra} · </span>}
+        {displayedGenres.map((g, i) => (
+          <span key={g}>
+            {i > 0 && <span>, </span>}
+            <button
+              type="button"
+              onClick={() => onGenreClick?.(g)}
+              class="cursor-pointer underline-offset-2 hover:underline"
+            >
+              {g}
+            </button>
+          </span>
+        ))}
+      </p>
 
       {/* Artists list */}
-      <ul class="mb-3 space-y-1">
+      <ul class="mb-2 space-y-1">
         {show.artists.map((artist, i) => (
           <li key={i}>
-            <ArtistRow artist={artist} onArtistClick={onArtistClick} onGenreClick={onGenreClick} />
+            <ArtistRow artist={artist} onArtistClick={onArtistClick} />
           </li>
         ))}
       </ul>
@@ -68,10 +81,9 @@ export function ShowCard({ show, onVenueClick, onArtistClick, onGenreClick }: Sh
 interface ArtistRowProps {
   artist: Artist;
   onArtistClick?: (artist: string) => void;
-  onGenreClick?: (genre: string) => void;
 }
 
-function ArtistRow({ artist, onArtistClick, onGenreClick }: ArtistRowProps) {
+function ArtistRow({ artist, onArtistClick }: ArtistRowProps) {
   return (
     <div class="flex flex-wrap items-center gap-1">
       <button
@@ -92,11 +104,6 @@ function ArtistRow({ artist, onArtistClick, onGenreClick }: ArtistRowProps) {
           &#9835; Spotify
         </a>
       )}
-      <div class="flex flex-wrap gap-1">
-        {[...new Set(artist.genres)].slice(0, 2).map((g, gi) => (
-          <GenrePill key={`${artist.name}-${g}-${gi}`} name={g} onClick={() => onGenreClick?.(g)} />
-        ))}
-      </div>
     </div>
   );
 }

@@ -1,163 +1,6 @@
 {
-  "updated": "2026-07-22",
+  "updated": "2026-07-23",
   "shows": [
-    {
-      "date": "2026-07-21",
-      "day": "Tue Jul 21",
-      "venues": [
-        {
-          "name": "August Hall",
-          "city": "San Francisco",
-          "artists": [
-            {
-              "name": "Fulton Lee",
-              "genres": [
-                "pop soul"
-              ],
-              "spotifyUrl": "https://open.spotify.com/artist/5CAvR9koH16JpcoTxUoeyS"
-            }
-          ],
-          "extra": "7pm/8pm · $39.80",
-          "time": "7pm/8pm",
-          "price": "$39.80",
-          "age": null
-        },
-        {
-          "name": "Ivy Room",
-          "city": "Albany",
-          "artists": [
-            {
-              "name": "Pinata Protest",
-              "genres": [
-                "mexican ska",
-                "latin alternative",
-                "ska punk"
-              ],
-              "spotifyUrl": "https://open.spotify.com/artist/3rC9Y3aN0ZsgYYXcNycg5J"
-            },
-            {
-              "name": "Mokosos",
-              "genres": [
-                "hardcore punk"
-              ],
-              "spotifyUrl": "https://open.spotify.com/artist/3ZiG3ArL2TuxtZCzcfzHWV"
-            },
-            {
-              "name": "Mala Grena",
-              "genres": []
-            }
-          ],
-          "extra": "7pm/7:30pm · $18",
-          "time": "7pm/7:30pm",
-          "price": "$18",
-          "age": null
-        },
-        {
-          "name": "Kilowatt",
-          "city": "San Francisco",
-          "artists": [
-            {
-              "name": "SoapGirls",
-              "genres": [
-                "riot grrrl"
-              ],
-              "spotifyUrl": "https://open.spotify.com/artist/1OLHfdAPzzmWwnOVSX67km"
-            },
-            {
-              "name": "For Horses",
-              "genres": [
-                "riot grrrl"
-              ],
-              "spotifyUrl": "https://open.spotify.com/artist/16l9QdH5Zk1TGvYE9p1mSu"
-            }
-          ],
-          "extra": "6pm · $15/$20",
-          "time": "6pm",
-          "price": "$15/$20",
-          "age": null
-        },
-        {
-          "name": "Mountain Winery",
-          "city": "Saratoga",
-          "artists": [
-            {
-              "name": "Wynonna Judd & Melissa Etheridge",
-              "genres": [],
-              "spotifyUrl": "https://open.spotify.com/artist/4yiXkMbxDIZ3jgEG89NSC1"
-            }
-          ],
-          "extra": "a/a · 5pm/7pm",
-          "time": "5pm/7pm",
-          "price": null,
-          "age": "a/a"
-        },
-        {
-          "name": "Thee Stork Club",
-          "city": "Oakland",
-          "artists": [
-            {
-              "name": "Moviola",
-              "genres": [],
-              "spotifyUrl": "https://open.spotify.com/artist/6wSsTEj2nvujQB6ejh42wl"
-            },
-            {
-              "name": "Michael James Tapscott",
-              "genres": [
-                "indie folk"
-              ],
-              "spotifyUrl": "https://open.spotify.com/artist/1bPZIExWbLhPU95lwsXvpX"
-            },
-            {
-              "name": "Todd Felix Costanza",
-              "genres": []
-            },
-            {
-              "name": "Tofanas",
-              "genres": []
-            }
-          ],
-          "extra": "8pm · $15/$18",
-          "time": "8pm",
-          "price": "$15/$18",
-          "age": null
-        },
-        {
-          "name": "at Open Gallery",
-          "city": "San Jose",
-          "artists": [
-            {
-              "name": "A November Morning",
-              "genres": [
-                "metalcore"
-              ],
-              "spotifyUrl": "https://open.spotify.com/artist/3uj56ZhcNOG2HkyGSEBLPe"
-            },
-            {
-              "name": "Avulsion",
-              "genres": [
-                "hardcore"
-              ],
-              "spotifyUrl": "https://open.spotify.com/artist/5eLa4GlIyH3SGx1PJWAT86"
-            },
-            {
-              "name": "A Life Spent",
-              "genres": [
-                "metalcore"
-              ],
-              "spotifyUrl": "https://open.spotify.com/artist/357FN841TqsHl9gCKfEREt"
-            },
-            {
-              "name": "Altar",
-              "genres": []
-            }
-          ],
-          "extra": "a/a · 6pm · $10",
-          "time": "6pm",
-          "price": "$10",
-          "age": "a/a"
-        }
-      ]
-    },
     {
       "date": "2026-07-22",
       "day": "Wed Jul 22",
@@ -605,6 +448,30 @@
           "age": null
         },
         {
+          "name": "El Rio",
+          "city": "San Francisco",
+          "artists": [
+            {
+              "name": "Flowers For Angela",
+              "genres": []
+            },
+            {
+              "name": "No Ordinary Yokel",
+              "genres": [],
+              "spotifyUrl": "https://open.spotify.com/artist/3Vg08Mq3HUdpxFp4nWmtDh"
+            },
+            {
+              "name": "Strange Culprits",
+              "genres": [],
+              "spotifyUrl": "https://open.spotify.com/artist/2iy37teRUOnzlNZhjnXjUs"
+            }
+          ],
+          "extra": "8pm/8:30pm · $10",
+          "time": "8pm/8:30pm",
+          "price": "$10",
+          "age": null
+        },
+        {
           "name": "Greek Theater",
           "city": "Berkeley",
           "artists": [
@@ -778,47 +645,6 @@
           "age": null
         },
         {
-          "name": "Mabuhay Gardens",
-          "city": "San Francisco",
-          "artists": [
-            {
-              "name": "Fear Of Tradition",
-              "genres": [],
-              "spotifyUrl": "https://open.spotify.com/artist/5GeIftdVaLDygjIl8po3bO"
-            },
-            {
-              "name": "Fatale",
-              "genres": [
-                "riot grrrl"
-              ],
-              "spotifyUrl": "https://open.spotify.com/artist/5fzu5G7mfh9w7OtnTHdKeH"
-            },
-            {
-              "name": "HelloMrsWong",
-              "genres": []
-            },
-            {
-              "name": "Little Critter",
-              "genres": [],
-              "spotifyUrl": "https://open.spotify.com/artist/7aVNM1PafribgXyfhWzfzm"
-            },
-            {
-              "name": "Tangled Ends",
-              "genres": [],
-              "spotifyUrl": "https://open.spotify.com/artist/4ZcCRatd5i93nLv4mxilHB"
-            },
-            {
-              "name": "Viola Swamp",
-              "genres": [],
-              "spotifyUrl": "https://open.spotify.com/artist/0pW1fNTYuTQEwZqtiBsLWv"
-            }
-          ],
-          "extra": "a/a · 6pm/7pm · $15",
-          "time": "6pm/7pm",
-          "price": "$15",
-          "age": "a/a"
-        },
-        {
           "name": "Mountain Winery",
           "city": "Saratoga",
           "artists": [
@@ -938,6 +764,47 @@
           "extra": "a/a · 6:30pm/7:30pm · $24.66",
           "time": "6:30pm/7:30pm",
           "price": "$24.66",
+          "age": "a/a"
+        },
+        {
+          "name": "On Broadway",
+          "city": "San Francisco",
+          "artists": [
+            {
+              "name": "Fear Of Tradition",
+              "genres": [],
+              "spotifyUrl": "https://open.spotify.com/artist/5GeIftdVaLDygjIl8po3bO"
+            },
+            {
+              "name": "Fatale",
+              "genres": [
+                "riot grrrl"
+              ],
+              "spotifyUrl": "https://open.spotify.com/artist/5fzu5G7mfh9w7OtnTHdKeH"
+            },
+            {
+              "name": "HelloMrsWong",
+              "genres": []
+            },
+            {
+              "name": "Little Critter",
+              "genres": [],
+              "spotifyUrl": "https://open.spotify.com/artist/7aVNM1PafribgXyfhWzfzm"
+            },
+            {
+              "name": "Tangled Ends",
+              "genres": [],
+              "spotifyUrl": "https://open.spotify.com/artist/4ZcCRatd5i93nLv4mxilHB"
+            },
+            {
+              "name": "Viola Swamp",
+              "genres": [],
+              "spotifyUrl": "https://open.spotify.com/artist/0pW1fNTYuTQEwZqtiBsLWv"
+            }
+          ],
+          "extra": "a/a · 6pm/7pm · $15",
+          "time": "6pm/7pm",
+          "price": "$15",
           "age": "a/a"
         },
         {
@@ -1908,16 +1775,16 @@
               "spotifyUrl": "https://open.spotify.com/artist/7BuRsqLFjFkMhYF0l11Mnr"
             },
             {
-              "name": "Los Jumping Beans",
-              "genres": [],
-              "spotifyUrl": "https://open.spotify.com/artist/5bKayRLdA42DdaFkzUs9xz"
-            },
-            {
               "name": "Middle-Aged Queers",
               "genres": [
                 "queercore"
               ],
               "spotifyUrl": "https://open.spotify.com/artist/4bXqTVV44kO06WxWJBGoZT"
+            },
+            {
+              "name": "Los Jumping Beans",
+              "genres": [],
+              "spotifyUrl": "https://open.spotify.com/artist/5bKayRLdA42DdaFkzUs9xz"
             },
             {
               "name": "Fallidos",
@@ -1950,6 +1817,32 @@
           "time": "7pm",
           "price": "$30",
           "age": "a/a"
+        },
+        {
+          "name": "Blue Lagoon",
+          "city": "Santa Cruz",
+          "artists": [
+            {
+              "name": "Randy Savages",
+              "genres": [
+                "power pop"
+              ],
+              "spotifyUrl": "https://open.spotify.com/artist/6Lv7iwsJyJzjl4w6f9QmPJ"
+            },
+            {
+              "name": "Cam Girl",
+              "genres": [],
+              "spotifyUrl": "https://open.spotify.com/artist/7BuRsqLFjFkMhYF0l11Mnr"
+            },
+            {
+              "name": "Roughies",
+              "genres": []
+            }
+          ],
+          "extra": "8pm/9pm · $10",
+          "time": "8pm/9pm",
+          "price": "$10",
+          "age": null
         },
         {
           "name": "Bottom of the Hill",
@@ -4369,6 +4262,11 @@
               "spotifyUrl": "https://open.spotify.com/artist/3J9QwmRJDdn9Oq1fB6mfcF"
             },
             {
+              "name": "Diagonal Lines",
+              "genres": [],
+              "spotifyUrl": "https://open.spotify.com/artist/1FpBv2gfsIpcqxyjUajyEd"
+            },
+            {
               "name": "Misfire SD",
               "genres": [
                 "shoegaze"
@@ -4834,6 +4732,25 @@
           ],
           "extra": "a/a · 6pm",
           "time": "6pm",
+          "price": null,
+          "age": "a/a"
+        },
+        {
+          "name": "Finnish Hall Auditorium",
+          "city": null,
+          "artists": [
+            {
+              "name": "Sam Morrison's Cosmic Trip",
+              "genres": []
+            },
+            {
+              "name": "Farallon",
+              "genres": [],
+              "spotifyUrl": "https://open.spotify.com/artist/6i1qX7GR4J2WI4nqvnf7BN"
+            }
+          ],
+          "extra": "a/a · 7pm/8pm",
+          "time": "7pm/8pm",
           "price": null,
           "age": "a/a"
         },
@@ -5621,6 +5538,43 @@
           "age": null
         },
         {
+          "name": "Finnish Hall Auditorium",
+          "city": "Berkeley",
+          "artists": [
+            {
+              "name": "Inner Ear Brigade",
+              "genres": [
+                "jam band",
+                "jazz fusion",
+                "progressive rock",
+                "space rock",
+                "avant-garde",
+                "free jazz"
+              ],
+              "spotifyUrl": "https://open.spotify.com/artist/2j1rMtQ48VfebFbypWmrjK"
+            },
+            {
+              "name": "Mommy Mommy",
+              "genres": [
+                "queercore"
+              ],
+              "spotifyUrl": "https://open.spotify.com/artist/1ymDcvBeTnDVu3J9WE3QB2"
+            },
+            {
+              "name": "Brian Kenney Fresno",
+              "genres": []
+            },
+            {
+              "name": "Greensatan Project",
+              "genres": []
+            }
+          ],
+          "extra": "a/a · 7pm/7:30pm",
+          "time": "7pm/7:30pm",
+          "price": null,
+          "age": "a/a"
+        },
+        {
           "name": "Freight",
           "city": "Berkeley",
           "artists": [
@@ -6395,6 +6349,25 @@
           "age": "a/a"
         },
         {
+          "name": "Finnish Hall Auditorium",
+          "city": "Berkeley",
+          "artists": [
+            {
+              "name": "Vinny Golia's Octacontagon Orchestra",
+              "genres": []
+            },
+            {
+              "name": "Josh Allen",
+              "genres": [],
+              "spotifyUrl": "https://open.spotify.com/artist/6jN8TpxPzXEWTsWPoUWYlF"
+            }
+          ],
+          "extra": "a/a · 7pm/8pm",
+          "time": "7pm/8pm",
+          "price": null,
+          "age": "a/a"
+        },
+        {
           "name": "Freight",
           "city": "Berkeley",
           "artists": [
@@ -6442,6 +6415,21 @@
           ],
           "extra": "a/a · 4pm/6pm",
           "time": "4pm/6pm",
+          "price": null,
+          "age": "a/a"
+        },
+        {
+          "name": "Hotel Utah",
+          "city": "San Francisco",
+          "artists": [
+            {
+              "name": "Knights Of Molino",
+              "genres": [],
+              "spotifyUrl": "https://open.spotify.com/artist/4xNl8DKN7meZTsdiCdnuV1"
+            }
+          ],
+          "extra": "a/a · 3pm",
+          "time": "3pm",
           "price": null,
           "age": "a/a"
         },
@@ -11142,7 +11130,7 @@
           "city": "Berkeley",
           "artists": [
             {
-              "name": "dj Daddy-O-Nov",
+              "name": "Highmarts",
               "genres": []
             },
             {
@@ -11154,22 +11142,18 @@
               "spotifyUrl": "https://open.spotify.com/artist/5VhaHfBD4jb80kJ9pjhOLP"
             },
             {
-              "name": "Highmarts",
-              "genres": []
-            },
-            {
-              "name": "Phantom Surfers",
-              "genres": [
-                "surf rock"
-              ],
-              "spotifyUrl": "https://open.spotify.com/artist/0uLTPL7rXaRtNvqcOKFQZI"
-            },
-            {
               "name": "Losin Streaks",
               "genres": [
                 "garage rock"
               ],
               "spotifyUrl": "https://open.spotify.com/artist/7Hj3waA1iNQIjEZrdBiWtO"
+            },
+            {
+              "name": "Control Freaks",
+              "genres": [
+                "proto-punk"
+              ],
+              "spotifyUrl": "https://open.spotify.com/artist/28BUnWlRIzYZlqnuvhGBgb"
             },
             {
               "name": "Hot Laundry",
@@ -11179,6 +11163,17 @@
                 "power pop"
               ],
               "spotifyUrl": "https://open.spotify.com/artist/26x3M4C4RHEk6q42PuMPdC"
+            },
+            {
+              "name": "Persephone",
+              "genres": []
+            },
+            {
+              "name": "Phantom Surfers",
+              "genres": [
+                "surf rock"
+              ],
+              "spotifyUrl": "https://open.spotify.com/artist/0uLTPL7rXaRtNvqcOKFQZI"
             },
             {
               "name": "Rock N Roll Adventure Kids",
@@ -11200,8 +11195,16 @@
               "genres": []
             },
             {
-              "name": "Persephone",
-              "genres": []
+              "name": "Whateverglades",
+              "genres": [
+                "southern gothic"
+              ],
+              "spotifyUrl": "https://open.spotify.com/artist/4wTAgyGJcw8hiBvXlclSfd"
+            },
+            {
+              "name": "Haardvark",
+              "genres": [],
+              "spotifyUrl": "https://open.spotify.com/artist/1H1sklLWx8TXfpUFvVHi3y"
             },
             {
               "name": "Gumtree Girls",
@@ -11215,18 +11218,11 @@
                 "tropical music"
               ],
               "spotifyUrl": "https://open.spotify.com/artist/5au5rwkZfDh9KsdtZGd860"
-            },
-            {
-              "name": "Whateverglades",
-              "genres": [
-                "southern gothic"
-              ],
-              "spotifyUrl": "https://open.spotify.com/artist/4wTAgyGJcw8hiBvXlclSfd"
             }
           ],
-          "extra": "a/a",
-          "time": null,
-          "price": null,
+          "extra": "a/a · 2pm · $20",
+          "time": "2pm",
+          "price": "$20",
           "age": "a/a"
         },
         {
@@ -11937,6 +11933,42 @@
           "extra": "a/a · 7:30pm · $88.45",
           "time": "7:30pm",
           "price": "$88.45",
+          "age": "a/a"
+        },
+        {
+          "name": "Idol Beer Works, 100 S Sacramento Street, Lodi",
+          "city": null,
+          "artists": [
+            {
+              "name": "Off With Their Heads",
+              "genres": [
+                "punk",
+                "skate punk",
+                "melodic hardcore"
+              ],
+              "spotifyUrl": "https://open.spotify.com/artist/5oPflNEIhaZ8pFJWxMZtDv"
+            },
+            {
+              "name": "Mermaid Island",
+              "genres": [],
+              "spotifyUrl": "https://open.spotify.com/artist/7iGEsQzSOaEhXNgTSKfqSS"
+            },
+            {
+              "name": "Lesdystics",
+              "genres": [
+                "ska punk",
+                "ska"
+              ],
+              "spotifyUrl": "https://open.spotify.com/artist/0FLOKkZiTa9RsRPEgN1Vtg"
+            },
+            {
+              "name": "Just For Now",
+              "genres": []
+            }
+          ],
+          "extra": "a/a · 6pm/7pm · $25",
+          "time": "6pm/7pm",
+          "price": "$25",
           "age": "a/a"
         },
         {
@@ -13013,6 +13045,38 @@
           "age": null
         },
         {
+          "name": "Mabuhay Gardens",
+          "city": "San Francisco",
+          "artists": [
+            {
+              "name": "Boneless Ones",
+              "genres": [
+                "skate punk",
+                "hardcore punk"
+              ],
+              "spotifyUrl": "https://open.spotify.com/artist/3BMp3T7OuiQFbspGgVU5v8"
+            },
+            {
+              "name": "Party Force",
+              "genres": [
+                "hardcore punk"
+              ],
+              "spotifyUrl": "https://open.spotify.com/artist/37FoPYJOGzOpp5zNU5HTeb"
+            },
+            {
+              "name": "Violent Coercion",
+              "genres": [
+                "hardcore punk"
+              ],
+              "spotifyUrl": "https://open.spotify.com/artist/2t5to63oRxq4kBb8oBGpmi"
+            }
+          ],
+          "extra": "9pm · $15",
+          "time": "9pm",
+          "price": "$15",
+          "age": null
+        },
+        {
           "name": "Make-Out Room",
           "city": "San Francisco",
           "artists": [
@@ -13807,6 +13871,21 @@
           "time": "7pm",
           "price": null,
           "age": "a/a"
+        },
+        {
+          "name": "Rickshaw Stop",
+          "city": "San Francisco",
+          "artists": [
+            {
+              "name": "Emo Nite",
+              "genres": [],
+              "spotifyUrl": "https://open.spotify.com/artist/1VVzQaPmhgjVogHUYcqE0a"
+            }
+          ],
+          "extra": "9pm/9pm",
+          "time": "9pm/9pm",
+          "price": null,
+          "age": null
         },
         {
           "name": "Salesforce Park",
@@ -15359,8 +15438,8 @@
           "age": "a/a"
         },
         {
-          "name": "Old Western Saloon, 11201 State CA-1, Point Reyes Station",
-          "city": null,
+          "name": "Old Western Saloon,",
+          "city": "Point Reyes Station",
           "artists": [
             {
               "name": "Wreckless Strangers",
@@ -16695,6 +16774,21 @@
           "age": "a/a"
         },
         {
+          "name": "Gundlach Bundschu Winery",
+          "city": "Sonoma",
+          "artists": [
+            {
+              "name": "Stephen Malkmus",
+              "genres": [],
+              "spotifyUrl": "https://open.spotify.com/artist/0WISkx0PwT6lYWdPqKUJY8"
+            }
+          ],
+          "extra": "a/a · 5pm/6pm · $86.85",
+          "time": "5pm/6pm",
+          "price": "$86.85",
+          "age": "a/a"
+        },
+        {
           "name": "Independent",
           "city": "San Francisco",
           "artists": [
@@ -16783,11 +16877,22 @@
           "city": "San Francisco",
           "artists": [
             {
-              "name": "Alan Voung",
+              "name": "alan vuong",
               "genres": [
                 "dark r&b"
               ],
               "spotifyUrl": "https://open.spotify.com/artist/6y1PHaUMkFXcJNhIAmjAk8"
+            },
+            {
+              "name": "Elias Medina",
+              "genres": [
+                "norteño",
+                "bolero",
+                "grupera",
+                "cumbia norteña",
+                "latin country"
+              ],
+              "spotifyUrl": "https://open.spotify.com/artist/7c6AUl38S5Xo8t6fvGKJDJ"
             }
           ],
           "extra": "a/a · 8pm/8pm",
@@ -17440,6 +17545,21 @@
           "age": "a/a"
         },
         {
+          "name": "Rio Theater",
+          "city": "Santa Cruz",
+          "artists": [
+            {
+              "name": "Stephen Malkmus",
+              "genres": [],
+              "spotifyUrl": "https://open.spotify.com/artist/0WISkx0PwT6lYWdPqKUJY8"
+            }
+          ],
+          "extra": "a/a · 7pm/8pm · $69.65",
+          "time": "7pm/8pm",
+          "price": "$69.65",
+          "age": "a/a"
+        },
+        {
           "name": "Ritz",
           "city": "San Jose",
           "artists": [
@@ -17465,6 +17585,33 @@
           "extra": "a/a · 7pm · $31.34",
           "time": "7pm",
           "price": "$31.34",
+          "age": "a/a"
+        },
+        {
+          "name": "Siesta Valley Bowl",
+          "city": "Orinda",
+          "artists": [
+            {
+              "name": "Talib Kweli",
+              "genres": [
+                "east coast hip hop",
+                "hip hop",
+                "jazz rap"
+              ],
+              "spotifyUrl": "https://open.spotify.com/artist/0lEssBAxQl2In4RpaB1C2Y"
+            },
+            {
+              "name": "Ovrkast.",
+              "genres": [
+                "jazz rap",
+                "alternative hip hop"
+              ],
+              "spotifyUrl": "https://open.spotify.com/artist/4YISTUJnoZtAy6LjgOpRL7"
+            }
+          ],
+          "extra": "a/a · 5:30pm/7:30pm · $60.85-40.25",
+          "time": "5:30pm/7:30pm",
+          "price": "$60.85-40.25",
           "age": "a/a"
         }
       ]
@@ -18536,7 +18683,7 @@
           "age": null
         },
         {
-          "name": "Old Western Saloon, 11201 State CA-1, Point Reyes Station",
+          "name": "Finnish Hall Auditorium",
           "city": null,
           "artists": [
             {
@@ -19713,6 +19860,18 @@
                 "post-punk"
               ],
               "spotifyUrl": "https://open.spotify.com/artist/5k9qBHdkzsibPmFJp1XIAt"
+            },
+            {
+              "name": "Fake Fruit",
+              "genres": [
+                "lo-fi indie"
+              ],
+              "spotifyUrl": "https://open.spotify.com/artist/3WpGIqLvk5kAcvvxEHztL9"
+            },
+            {
+              "name": "System Exclusive",
+              "genres": [],
+              "spotifyUrl": "https://open.spotify.com/artist/7IVPejbKntBGFNMaHpFVPg"
             }
           ],
           "extra": "a/a · 8pm/9pm · $20/$25",
@@ -29324,6 +29483,28 @@
           "time": "7pm/8pm",
           "price": "$43.30",
           "age": "a/a"
+        },
+        {
+          "name": "Rickshaw Stop",
+          "city": "San Francisco",
+          "artists": [
+            {
+              "name": "Wine Lips",
+              "genres": [
+                "egg punk",
+                "garage rock"
+              ],
+              "spotifyUrl": "https://open.spotify.com/artist/4fPl9Aa0FMkATDiA7AnBNM"
+            },
+            {
+              "name": "dj DistorsionGay",
+              "genres": []
+            }
+          ],
+          "extra": "a/a · 7pm/8pm · $20/$25",
+          "time": "7pm/8pm",
+          "price": "$20/$25",
+          "age": "a/a"
         }
       ]
     },
@@ -31281,6 +31462,24 @@
           "time": "6:30pm/7:30pm",
           "price": null,
           "age": "a/a"
+        },
+        {
+          "name": "Uptown Theater",
+          "city": "Napa",
+          "artists": [
+            {
+              "name": "Soft Cell",
+              "genres": [
+                "synthpop",
+                "new wave"
+              ],
+              "spotifyUrl": "https://open.spotify.com/artist/6aq8T2RcspxVOGgMrTzjWc"
+            }
+          ],
+          "extra": "7pm/8pm · $54.20",
+          "time": "7pm/8pm",
+          "price": "$54.20",
+          "age": null
         },
         {
           "name": "Warriors Stadium",
@@ -33614,6 +33813,52 @@
           "time": "8:30pm/9pm",
           "price": "$57.05",
           "age": null
+        },
+        {
+          "name": "Masonic",
+          "city": "San Francisco",
+          "artists": [
+            {
+              "name": "Trivium",
+              "genres": [
+                "metalcore",
+                "metal",
+                "heavy metal"
+              ],
+              "spotifyUrl": "https://open.spotify.com/artist/278ZYwGhdK6QTzE3MFePnP"
+            },
+            {
+              "name": "In Flames",
+              "genres": [
+                "melodic death metal",
+                "metal",
+                "death metal"
+              ],
+              "spotifyUrl": "https://open.spotify.com/artist/57ylwQTnFnIhJh4nu4rxCs"
+            },
+            {
+              "name": "Orbit Culture",
+              "genres": [
+                "melodic death metal",
+                "metal",
+                "groove metal",
+                "deathcore",
+                "death metal"
+              ],
+              "spotifyUrl": "https://open.spotify.com/artist/7k29FbDq69ju2fe6zTskxY"
+            },
+            {
+              "name": "Frozen Soul",
+              "genres": [
+                "death metal"
+              ],
+              "spotifyUrl": "https://open.spotify.com/artist/1hwwmQI1vhQamuIksyDKG6"
+            }
+          ],
+          "extra": "a/a · 5:30pm/6:35pm",
+          "time": "5:30pm/6:35pm",
+          "price": null,
+          "age": "a/a"
         }
       ]
     },
@@ -34261,6 +34506,24 @@
           "time": "7pm/8pm",
           "price": "$53.37",
           "age": null
+        },
+        {
+          "name": "Rickshaw Stop",
+          "city": "San Francisco",
+          "artists": [
+            {
+              "name": "Ruby Haunt",
+              "genres": [
+                "dream pop",
+                "slowcore"
+              ],
+              "spotifyUrl": "https://open.spotify.com/artist/7LpofGzdLlzTnTLOFUhDD5"
+            }
+          ],
+          "extra": "a/a · 7pm/8pm · $20/$25",
+          "time": "7pm/8pm",
+          "price": "$20/$25",
+          "age": "a/a"
         }
       ]
     },

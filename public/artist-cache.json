@@ -17175,5 +17175,204 @@
       "comedy"
     ],
     "spotifyUrl": "https://open.spotify.com/artist/3cOzi726Iav1toV2LRVEjp"
+  },
+  "flowers for angela": {
+    "name": "Flowers For Angela",
+    "genres": []
+  },
+  "no ordinary yokel": {
+    "name": "No Ordinary Yokel",
+    "genres": [],
+    "spotifyUrl": "https://open.spotify.com/artist/3Vg08Mq3HUdpxFp4nWmtDh"
+  },
+  "strange culprits": {
+    "name": "Strange Culprits",
+    "genres": [],
+    "spotifyUrl": "https://open.spotify.com/artist/2iy37teRUOnzlNZhjnXjUs"
+  },
+  "diagonal lines": {
+    "name": "Diagonal Lines",
+    "genres": [],
+    "spotifyUrl": "https://open.spotify.com/artist/1FpBv2gfsIpcqxyjUajyEd"
+  },
+  "sam morrisons cosmic trip": {
+    "name": "Sam Morrison's Cosmic Trip",
+    "genres": []
+  },
+  "farallon": {
+    "name": "Farallon",
+    "genres": [],
+    "spotifyUrl": "https://open.spotify.com/artist/6i1qX7GR4J2WI4nqvnf7BN"
+  },
+  "inner ear brigade": {
+    "name": "Inner Ear Brigade",
+    "genres": [
+      "jam band",
+      "jazz fusion",
+      "progressive rock",
+      "space rock",
+      "avant-garde",
+      "free jazz"
+    ],
+    "spotifyUrl": "https://open.spotify.com/artist/2j1rMtQ48VfebFbypWmrjK"
+  },
+  "brian kenney fresno": {
+    "name": "Brian Kenney Fresno",
+    "genres": []
+  },
+  "greensatan project": {
+    "name": "Greensatan Project",
+    "genres": []
+  },
+  "vinny golias octacontagon orchestra": {
+    "name": "Vinny Golia's Octacontagon Orchestra",
+    "genres": []
+  },
+  "josh allen": {
+    "name": "Josh Allen",
+    "genres": [],
+    "spotifyUrl": "https://open.spotify.com/artist/6jN8TpxPzXEWTsWPoUWYlF"
+  },
+  "rocknroll adventure kids": {
+    "name": "Rock N Roll Adventure Kids",
+    "genres": [
+      "garage rock"
+    ],
+    "spotifyUrl": "https://open.spotify.com/artist/3rGjRylzjsdhqPljdjZnW1"
+  },
+  "lesdystics": {
+    "name": "Lesdystics",
+    "genres": [
+      "ska punk",
+      "ska"
+    ],
+    "spotifyUrl": "https://open.spotify.com/artist/0FLOKkZiTa9RsRPEgN1Vtg"
+  },
+  "just for now": {
+    "name": "Just For Now",
+    "genres": []
+  },
+  "violent coercion": {
+    "name": "Violent Coercion",
+    "genres": [
+      "hardcore punk"
+    ],
+    "spotifyUrl": "https://open.spotify.com/artist/2t5to63oRxq4kBb8oBGpmi"
+  },
+  "stephen malkmus": {
+    "name": "Stephen Malkmus",
+    "genres": [],
+    "spotifyUrl": "https://open.spotify.com/artist/0WISkx0PwT6lYWdPqKUJY8"
+  },
+  "alan vuong": {
+    "name": "alan vuong",
+    "genres": [
+      "dark r&b"
+    ],
+    "spotifyUrl": "https://open.spotify.com/artist/6y1PHaUMkFXcJNhIAmjAk8"
+  },
+  "elias": {
+    "name": "Elias Medina",
+    "genres": [
+      "norteño",
+      "bolero",
+      "grupera",
+      "cumbia norteña",
+      "latin country"
+    ],
+    "spotifyUrl": "https://open.spotify.com/artist/7c6AUl38S5Xo8t6fvGKJDJ"
+  },
+  "talib kweli": {
+    "name": "Talib Kweli",
+    "genres": [
+      "east coast hip hop",
+      "hip hop",
+      "jazz rap"
+    ],
+    "spotifyUrl": "https://open.spotify.com/artist/0lEssBAxQl2In4RpaB1C2Y"
+  },
+  "ovrkast": {
+    "name": "Ovrkast.",
+    "genres": [
+      "jazz rap",
+      "alternative hip hop"
+    ],
+    "spotifyUrl": "https://open.spotify.com/artist/4YISTUJnoZtAy6LjgOpRL7"
+  },
+  "fake fruit": {
+    "name": "Fake Fruit",
+    "genres": [
+      "lo-fi indie"
+    ],
+    "spotifyUrl": "https://open.spotify.com/artist/3WpGIqLvk5kAcvvxEHztL9"
+  },
+  "system exclusive": {
+    "name": "System Exclusive",
+    "genres": [],
+    "spotifyUrl": "https://open.spotify.com/artist/7IVPejbKntBGFNMaHpFVPg"
+  },
+  "wine lips": {
+    "name": "Wine Lips",
+    "genres": [
+      "egg punk",
+      "garage rock"
+    ],
+    "spotifyUrl": "https://open.spotify.com/artist/4fPl9Aa0FMkATDiA7AnBNM"
+  },
+  "dj distorsiongay": {
+    "name": "dj DistorsionGay",
+    "genres": []
+  },
+  "soft cell": {
+    "name": "Soft Cell",
+    "genres": [
+      "synthpop",
+      "new wave"
+    ],
+    "spotifyUrl": "https://open.spotify.com/artist/6aq8T2RcspxVOGgMrTzjWc"
+  },
+  "trivium": {
+    "name": "Trivium",
+    "genres": [
+      "metalcore",
+      "metal",
+      "heavy metal"
+    ],
+    "spotifyUrl": "https://open.spotify.com/artist/278ZYwGhdK6QTzE3MFePnP"
+  },
+  "in flames": {
+    "name": "In Flames",
+    "genres": [
+      "melodic death metal",
+      "metal",
+      "death metal"
+    ],
+    "spotifyUrl": "https://open.spotify.com/artist/57ylwQTnFnIhJh4nu4rxCs"
+  },
+  "orbit culture": {
+    "name": "Orbit Culture",
+    "genres": [
+      "melodic death metal",
+      "metal",
+      "groove metal",
+      "deathcore",
+      "death metal"
+    ],
+    "spotifyUrl": "https://open.spotify.com/artist/7k29FbDq69ju2fe6zTskxY"
+  },
+  "frozen soul": {
+    "name": "Frozen Soul",
+    "genres": [
+      "death metal"
+    ],
+    "spotifyUrl": "https://open.spotify.com/artist/1hwwmQI1vhQamuIksyDKG6"
+  },
+  "ruby haunt": {
+    "name": "Ruby Haunt",
+    "genres": [
+      "dream pop",
+      "slowcore"
+    ],
+    "spotifyUrl": "https://open.spotify.com/artist/7LpofGzdLlzTnTLOFUhDD5"
   }
 }

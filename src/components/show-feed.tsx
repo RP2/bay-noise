@@ -131,16 +131,17 @@ interface DayGroup {
 }
 
 function groupByDate(shows: ScoredShow[]): DayGroup[] {
-  const groups: DayGroup[] = [];
-  let current: DayGroup | null = null;
-
+  const map = new Map<string, DayGroup>();
   for (const show of shows) {
-    if (!current || current.date !== show.date) {
-      current = { date: show.date, day: show.day, items: [] };
-      groups.push(current);
+    let group = map.get(show.date);
+    if (!group) {
+      group = { date: show.date, day: show.day, items: [] };
+      map.set(show.date, group);
     }
-    current.items.push(show);
+    group.items.push(show);
   }
-
-  return groups;
+  // Preserve date order
+  return [...map.entries()]
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([, g]) => g);
 }

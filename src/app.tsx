@@ -1,7 +1,6 @@
 import { useState, useEffect, useMemo } from "preact/hooks";
 import type { ShowsData, FilterState, UserPrefs } from "./lib/types.js";
 import { getPrefs, setPrefs } from "./lib/prefs.js";
-import { getAllGenreStrings } from "./lib/genres.js";
 import type { SearchSuggestions } from "./components/search-bar.js";
 import {
   flattenAndScoreShows,
@@ -33,6 +32,7 @@ export function App() {
   const [filter, setFilter] = useState<FilterState>(DEFAULT_FILTER);
   const [retryKey, setRetryKey] = useState(0);
   const [showIcal, setShowIcal] = useState(false);
+  const [availableGenres, setAvailableGenres] = useState<string[] | null>(null);
 
   // Personalized iCal subscription URL. All active filters (preferred
   // genres, venue, artist) are appended as query params so the Cloudflare
@@ -49,7 +49,15 @@ export function App() {
   if (filter.artist) icalParams.set("artist", filter.artist);
   if ([...icalParams].length > 0) icalUrl += "?" + icalParams.toString();
 
-  // Fetch data — re-runs when onboarded changes OR when retry is triggered
+  // Fetch available genres for the greeter (runs once on mount)
+  useEffect(() => {
+    fetch("/available-genres.json")
+      .then((r) => r.json() as Promise<string[]>)
+      .then((g) => setAvailableGenres(g))
+      .catch(() => setAvailableGenres([]));
+  }, []);
+
+  // Fetch show data — re-runs when onboarded changes OR when retry is triggered
   useEffect(() => {
     if (!prefs.onboarded) return;
 
@@ -149,7 +157,7 @@ export function App() {
         .filter((v) => v.toLowerCase().includes(query))
         .sort((a, b) => rank(a) - rank(b) || a.localeCompare(b));
     return {
-      genres: filterAndRank(getAllGenreStrings()),
+      genres: filterAndRank(availableGenres ?? []),
       venues: filterAndRank(allVenueNames),
       artists: filterAndRank(allArtistNames),
     };
@@ -193,8 +201,7 @@ export function App() {
     if (!trimmed) return;
 
     // Check 1: exact match against any known genre string
-    const allGenres = getAllGenreStrings();
-    const genreMatch = allGenres.find((g) => g.toLowerCase() === trimmed);
+    const genreMatch = (availableGenres ?? []).find((g) => g.toLowerCase() === trimmed);
     if (genreMatch) {
       if (!prefs.preferredGenres.includes(genreMatch.toLowerCase())) {
         const updated = [...prefs.preferredGenres, genreMatch.toLowerCase()];
@@ -244,7 +251,12 @@ export function App() {
 
   // Determine app state
   if (!prefs.onboarded) {
-    return <Greeter onSubmit={handleGreeterSubmit} />;
+    return (
+      <Greeter
+        genres={availableGenres ?? []}
+        onSubmit={handleGreeterSubmit}
+      />
+    );
   }
 
   if (view.status === "loading") {

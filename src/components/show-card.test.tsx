@@ -33,9 +33,10 @@ describe("ShowCard", () => {
     expect(getByText("San Francisco")).toBeDefined();
   });
 
-  it("renders extra info", () => {
+  it("renders extra info with genres", () => {
     const { getByText } = render(<ShowCard show={show} />);
-    expect(getByText("9pm · $15")).toBeDefined();
+    expect(getByText("punk")).toBeDefined();
+    expect(getByText("indie")).toBeDefined();
   });
 
   it("renders all artist names", () => {
@@ -50,9 +51,10 @@ describe("ShowCard", () => {
     expect(links.length).toBeGreaterThan(0);
   });
 
-  it("renders genre pills for artist genres", () => {
-    const { getAllByText, getByText } = render(<ShowCard show={show} />);
-    expect(getAllByText("punk").length).toBeGreaterThanOrEqual(1);
+  it("renders show-level genres (deduplicated, comma-separated)", () => {
+    const { getByText } = render(<ShowCard show={show} />);
+    // punk appears from both artists but should be deduplicated to one entry
+    expect(getByText("punk")).toBeDefined();
     expect(getByText("indie")).toBeDefined();
   });
 

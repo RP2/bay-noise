@@ -54,8 +54,9 @@ describe("calendar.ics onRequest", () => {
   });
 
   it("combines genre, venue, and artist filters with AND", async () => {
-    // punk matches both Bottom of the Hill and 924 Gilman; the venue
-    // param narrows it to Gilman only.
+    // punk matches Bottom of the Hill (Sad Snack/Foolish Relics) and 924 Gilman
+    // (Open Wound only; Spray's hardcore punk maps to hardcore, not punk). The
+    // venue param narrows it to Gilman only.
     const res = await onRequest({ request: makeRequest("?preferred=punk&venue=gilman") });
     const ics = await res.text();
     expect(countEvents(ics)).toBe(1);
