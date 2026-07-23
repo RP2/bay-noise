@@ -303,7 +303,6 @@ export function App() {
       <div class="mb-6 flex items-center justify-between">
         <h1 class="hidden sm:block text-lg font-bold text-black dark:text-white">Bay Noise</h1>
         <div class="flex items-center gap-3">
-          <PwaInstall />
           <button
             type="button"
             onClick={() => setShowIcal((s) => !s)}
@@ -311,6 +310,7 @@ export function App() {
           >
             {showIcal ? "Hide" : "Add to Calendar"}
           </button>
+          <PwaInstall />
           <button
             type="button"
             onClick={() => {
