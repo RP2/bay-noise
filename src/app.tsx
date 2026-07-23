@@ -183,15 +183,20 @@ export function App() {
       values
         .filter((v) => v.toLowerCase().includes(query))
         .sort((a, b) => rank(a) - rank(b) || a.localeCompare(b));
+    const activeGenreSet = new Set(prefs.preferredGenres);
     return {
-      genres: filterAndRank(availableGenres ?? []),
-      venues: filterAndRank(allVenueNames),
-      cities: filterAndRank(allCityNames),
-      artists: filterAndRank(allArtistNames),
+      genres: filterAndRank((availableGenres ?? []).filter((g) => !activeGenreSet.has(g.toLowerCase()))),
+      venues: filterAndRank(allVenueNames.filter((v) => !filter.venues.some((fv) => fv.toLowerCase() === v.toLowerCase()))),
+      cities: filterAndRank(allCityNames.filter((c) => !filter.cities.some((fc) => fc.toLowerCase() === c.toLowerCase()))),
+      artists: filterAndRank(allArtistNames.filter((a) => !filter.artists.some((fa) => fa.toLowerCase() === a.toLowerCase()))),
     };
   }, [
     view.status === "ready" ? view.data : null,
     filter.query,
+    filter.venues,
+    filter.cities,
+    filter.artists,
+    prefs.preferredGenres,
     availableGenres,
     allVenueNames,
     allCityNames,
