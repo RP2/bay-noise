@@ -14,6 +14,7 @@ import { ShowFeed } from "./components/show-feed.js";
 import { FeedSubscribe } from "./components/feed-subscribe.js";
 import { PwaInstall } from "./components/pwa-install.js";
 import { PrivacyModal } from "./components/privacy-modal.js";
+import { Footer } from "./components/footer.js";
 
 type ViewState =
   | { status: "loading" }
@@ -106,13 +107,23 @@ export function App() {
     // Uses UTC getters on UTC-constructed dates to be timezone-independent.
     function pacificOffset(dateStr: string): string {
       const year = parseInt(dateStr.slice(0, 4), 10);
-      const d = new Date(Date.UTC(year, parseInt(dateStr.slice(5, 7), 10) - 1, parseInt(dateStr.slice(8, 10), 10)));
+      const d = new Date(
+        Date.UTC(
+          year,
+          parseInt(dateStr.slice(5, 7), 10) - 1,
+          parseInt(dateStr.slice(8, 10), 10),
+        ),
+      );
       // 2nd Sunday of March → PDT starts at 2am Pacific
       const marchSecond = new Date(Date.UTC(year, 2, 1));
-      marchSecond.setUTCDate(marchSecond.getUTCDate() + (14 - marchSecond.getUTCDay()) % 7 + 7);
+      marchSecond.setUTCDate(
+        marchSecond.getUTCDate() + ((14 - marchSecond.getUTCDay()) % 7) + 7,
+      );
       // 1st Sunday of November → PST starts at 2am Pacific
       const novFirst = new Date(Date.UTC(year, 10, 1));
-      novFirst.setUTCDate(novFirst.getUTCDate() + (7 - novFirst.getUTCDay()) % 7);
+      novFirst.setUTCDate(
+        novFirst.getUTCDate() + ((7 - novFirst.getUTCDay()) % 7),
+      );
       return d >= marchSecond && d < novFirst ? "-07:00" : "-08:00";
     }
 
@@ -128,7 +139,9 @@ export function App() {
       for (const venue of day.venues) {
         // Parse time like "9pm" → "21:00" for ISO date.
         // For "7pm/8pm" (doors/show), use the show time (second value).
-        const timeStr = venue.time?.includes("/") ? venue.time.split("/").pop() ?? venue.time : venue.time;
+        const timeStr = venue.time?.includes("/")
+          ? (venue.time.split("/").pop() ?? venue.time)
+          : venue.time;
         let startDate = day.date;
         if (timeStr) {
           const m = timeStr.match(/(\d{1,2})(?::(\d{2}))?\s*(am|pm)/i);
@@ -261,10 +274,29 @@ export function App() {
         .sort((a, b) => rank(a) - rank(b) || a.localeCompare(b));
     const activeGenreSet = new Set(prefs.preferredGenres);
     return {
-      genres: filterAndRank((availableGenres ?? []).filter((g) => !activeGenreSet.has(g.toLowerCase()))),
-      venues: filterAndRank(allVenueNames.filter((v) => !filter.venues.some((fv) => fv.toLowerCase() === v.toLowerCase()))),
-      cities: filterAndRank(allCityNames.filter((c) => !filter.cities.some((fc) => fc.toLowerCase() === c.toLowerCase()))),
-      artists: filterAndRank(allArtistNames.filter((a) => !filter.artists.some((fa) => fa.toLowerCase() === a.toLowerCase()))),
+      genres: filterAndRank(
+        (availableGenres ?? []).filter(
+          (g) => !activeGenreSet.has(g.toLowerCase()),
+        ),
+      ),
+      venues: filterAndRank(
+        allVenueNames.filter(
+          (v) =>
+            !filter.venues.some((fv) => fv.toLowerCase() === v.toLowerCase()),
+        ),
+      ),
+      cities: filterAndRank(
+        allCityNames.filter(
+          (c) =>
+            !filter.cities.some((fc) => fc.toLowerCase() === c.toLowerCase()),
+        ),
+      ),
+      artists: filterAndRank(
+        allArtistNames.filter(
+          (a) =>
+            !filter.artists.some((fa) => fa.toLowerCase() === a.toLowerCase()),
+        ),
+      ),
     };
   }, [
     view.status === "ready" ? view.data : null,
@@ -312,7 +344,9 @@ export function App() {
       setFilter((prev) => ({
         ...prev,
         query: "",
-        cities: prev.cities.some((c) => c.toLowerCase() === lower) ? prev.cities : [...prev.cities, value],
+        cities: prev.cities.some((c) => c.toLowerCase() === lower)
+          ? prev.cities
+          : [...prev.cities, value],
       }));
       return;
     }
@@ -336,7 +370,9 @@ export function App() {
     if (!trimmed) return;
 
     // Check 1: exact match against any known genre string
-    const genreMatch = (availableGenres ?? []).find((g) => g.toLowerCase() === trimmed);
+    const genreMatch = (availableGenres ?? []).find(
+      (g) => g.toLowerCase() === trimmed,
+    );
     if (genreMatch) {
       if (!prefs.preferredGenres.includes(genreMatch.toLowerCase())) {
         const updated = [...prefs.preferredGenres, genreMatch.toLowerCase()];
@@ -368,7 +404,9 @@ export function App() {
       setFilter((prev) => ({
         ...prev,
         query: "",
-        cities: prev.cities.some((c) => c.toLowerCase() === lower) ? prev.cities : [...prev.cities, cityMatch],
+        cities: prev.cities.some((c) => c.toLowerCase() === lower)
+          ? prev.cities
+          : [...prev.cities, cityMatch],
       }));
       return;
     }
@@ -413,7 +451,10 @@ export function App() {
   // Handle removing a single city from the filter
   const handleCityRemove = (city: string) => {
     const lower = city.toLowerCase();
-    setFilter((prev) => ({ ...prev, cities: prev.cities.filter((c) => c.toLowerCase() !== lower) }));
+    setFilter((prev) => ({
+      ...prev,
+      cities: prev.cities.filter((c) => c.toLowerCase() !== lower),
+    }));
   };
 
   // Handle removing a single venue from the filter
@@ -443,6 +484,7 @@ export function App() {
           onSubmit={handleGreeterSubmit}
           onShowPrivacy={() => setShowPrivacy(true)}
         />
+        <Footer />
         {showPrivacy && <PrivacyModal onClose={() => setShowPrivacy(false)} />}
       </>
     );
@@ -461,8 +503,8 @@ export function App() {
 
   if (view.status === "error") {
     return (
-      <>
-        <div class="mx-auto max-w-2xl px-4 py-12 text-center">
+      <div class="flex min-h-dvh flex-col">
+        <div class="flex-1 mx-auto max-w-2xl px-4 text-center flex flex-col items-center justify-center">
           <p class="mb-4 text-neutral-600 dark:text-neutral-400">
             Failed to load shows.
           </p>
@@ -477,8 +519,9 @@ export function App() {
             Try again
           </button>
         </div>
+        <Footer />
         {showPrivacy && <PrivacyModal onClose={() => setShowPrivacy(false)} />}
-      </>
+      </div>
     );
   }
 
@@ -493,81 +536,87 @@ export function App() {
   const belowFold = hasShowsBelowFold(sorted) && !forceShowAll;
 
   return (
-    <>
-      <div class="mx-auto max-w-2xl px-4 py-6">
-      {/* Header */}
-      <div class="mb-6 flex items-center justify-between">
-        <h1 class="hidden sm:block text-lg font-bold text-black dark:text-white">Bay Noise</h1>
-        <div class="flex items-center gap-3">
-          <button
-            type="button"
-            onClick={() => setShowIcal((s) => !s)}
-            class="cursor-pointer text-xs text-neutral-400 underline-offset-2 hover:underline dark:text-neutral-500 dark:hover:text-white"
-          >
-            {showIcal ? "Hide" : "Add to Calendar"}
-          </button>
-          <PwaInstall />
-          <button
-            type="button"
-            onClick={() => setShowPrivacy(true)}
-            class="cursor-pointer text-xs text-neutral-400 underline-offset-2 hover:underline dark:text-neutral-500 dark:hover:text-white"
-          >
-            Privacy
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              setPrefs({ preferredGenres: [], onboarded: false });
-              setPrefsState({ preferredGenres: [], onboarded: false });
-            }}
-            class="cursor-pointer text-xs text-neutral-400 underline-offset-2 hover:underline dark:text-neutral-500 dark:hover:text-white"
-          >
-            Reopen greeter
-          </button>
+    <div class="flex min-h-dvh flex-col">
+      <div class="flex-1 mx-auto w-full max-w-2xl px-4 py-6">
+        {/* Header */}
+        <div class="mb-6 flex items-center justify-between">
+          <h1 class="hidden sm:block text-lg font-bold text-black dark:text-white">
+            Bay Noise
+          </h1>
+          <div class="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={() => setShowIcal((s) => !s)}
+              class="cursor-pointer text-xs text-neutral-400 underline-offset-2 hover:underline dark:text-neutral-500 dark:hover:text-white"
+            >
+              {showIcal ? "Hide" : "Add to Calendar"}
+            </button>
+            <PwaInstall />
+            <button
+              type="button"
+              onClick={() => setShowPrivacy(true)}
+              class="cursor-pointer text-xs text-neutral-400 underline-offset-2 hover:underline dark:text-neutral-500 dark:hover:text-white"
+            >
+              Privacy
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setPrefs({ preferredGenres: [], onboarded: false });
+                setPrefsState({ preferredGenres: [], onboarded: false });
+              }}
+              class="cursor-pointer text-xs text-neutral-400 underline-offset-2 hover:underline dark:text-neutral-500 dark:hover:text-white"
+            >
+              Reopen greeter
+            </button>
+          </div>
         </div>
-      </div>
 
-      {/* iCal subscription panel (personalized to preferred genres) */}
-      {showIcal && (
+        {/* iCal subscription panel (personalized to preferred genres) */}
+        {showIcal && (
+          <div class="mb-6">
+            <FeedSubscribe url={icalUrl} onClose={() => setShowIcal(false)} />
+          </div>
+        )}
+
+        {/* Search */}
         <div class="mb-6">
-          <FeedSubscribe url={icalUrl} onClose={() => setShowIcal(false)} />
+          <SearchBar
+            value={filter.query}
+            onChange={handleSearchChange}
+            onSubmit={handleSearchSubmit}
+            suggestions={suggestions}
+            onSuggestionClick={handleSuggestionClick}
+          />
         </div>
-      )}
 
-      {/* Search */}
-      <div class="mb-6">
-        <SearchBar
-          value={filter.query}
-          onChange={handleSearchChange}
-          onSubmit={handleSearchSubmit}
-          suggestions={suggestions}
-          onSuggestionClick={handleSuggestionClick}
+        {/* Feed */}
+        <ShowFeed
+          shows={filtered}
+          filter={effectiveFilter}
+          onFilterChange={handleFilterChange}
+          hasBelowFold={belowFold}
+          preferredGenres={prefs.preferredGenres}
+          onGenreRemove={handleGenreRemove}
+          onCityRemove={handleCityRemove}
+          onVenueRemove={handleVenueRemove}
+          onArtistRemove={handleArtistRemove}
+          onGenreClick={(genre) => {
+            // Add the clicked genre string directly as its own filter
+            if (!prefs.preferredGenres.includes(genre.toLowerCase())) {
+              const updated = [...prefs.preferredGenres, genre.toLowerCase()];
+              const newPrefs: UserPrefs = {
+                ...prefs,
+                preferredGenres: updated,
+              };
+              setPrefs(newPrefs);
+              setPrefsState(newPrefs);
+            }
+          }}
         />
       </div>
-
-      {/* Feed */}
-      <ShowFeed
-        shows={filtered}
-        filter={effectiveFilter}
-        onFilterChange={handleFilterChange}
-        hasBelowFold={belowFold}
-        preferredGenres={prefs.preferredGenres}
-        onGenreRemove={handleGenreRemove}
-        onCityRemove={handleCityRemove}
-        onVenueRemove={handleVenueRemove}
-        onArtistRemove={handleArtistRemove}
-        onGenreClick={(genre) => {
-          // Add the clicked genre string directly as its own filter
-          if (!prefs.preferredGenres.includes(genre.toLowerCase())) {
-            const updated = [...prefs.preferredGenres, genre.toLowerCase()];
-            const newPrefs: UserPrefs = { ...prefs, preferredGenres: updated };
-            setPrefs(newPrefs);
-            setPrefsState(newPrefs);
-          }
-        }}
-      />
-      </div>
+      <Footer />
       {showPrivacy && <PrivacyModal onClose={() => setShowPrivacy(false)} />}
-    </>
+    </div>
   );
 }
