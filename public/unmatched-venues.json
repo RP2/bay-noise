@@ -1,1 +1,38 @@
-[]
+[
+  {
+    "scrapedName": "120 5th Street, Santa Rosa",
+    "venueName": "120 5th Street",
+    "city": "Santa Rosa",
+    "address": null,
+    "extra": "",
+    "seen": "2026-07-28",
+    "count": 3
+  },
+  {
+    "scrapedName": "Sailing Goat, 1900 Stenmark Drive, Richmond",
+    "venueName": "Sailing Goat, 1900 Stenmark Drive",
+    "city": "Richmond",
+    "address": "1900 Stenmark Drive",
+    "extra": "",
+    "seen": "2026-07-28",
+    "count": 2
+  },
+  {
+    "scrapedName": "Fourth Bore, 2 Orinda Theater Square",
+    "venueName": "Fourth Bore, 2 Orinda Theater Square",
+    "city": null,
+    "address": "2 Orinda Theater Square",
+    "extra": "",
+    "seen": "2026-07-28",
+    "count": 2
+  },
+  {
+    "scrapedName": "Golden Gare Park, S.F.",
+    "venueName": "Golden Gare Park",
+    "city": "San Francisco",
+    "address": null,
+    "extra": "",
+    "seen": "2026-07-28",
+    "count": 2
+  }
+]
