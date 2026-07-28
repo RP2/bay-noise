@@ -29,13 +29,12 @@ export function scoreArtistGenres(
  *
  * Days with no preferredGenres (empty array) all get score 0.
  */
-/** Get today's date as YYYY-MM-DD in local timezone. */
+/** Get today's date as YYYY-MM-DD in America/Los_Angeles timezone. */
 function todayLocal(): string {
-  const d = new Date();
-  const y = d.getFullYear();
-  const m = String(d.getMonth() + 1).padStart(2, "0");
-  const day = String(d.getDate()).padStart(2, "0");
-  return `${y}-${m}-${day}`;
+  const formatter = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "America/Los_Angeles",
+  });
+  return formatter.format(new Date());
 }
 
 export function flattenAndScoreShows(

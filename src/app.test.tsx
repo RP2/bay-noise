@@ -4,7 +4,10 @@ import { render, fireEvent, cleanup } from "@testing-library/preact";
 import { App } from "./app.js";
 import { SAMPLE_SHOWS } from "./lib/__fixtures__/shows.js";
 
-afterEach(cleanup);
+afterEach(() => {
+  cleanup();
+  vi.useRealTimers();
+});
 
 const TEST_GENRES = ["punk", "pop punk", "indie rock", "metal", "hip hop", "rap"];
 
@@ -40,6 +43,8 @@ function mockFetch(
 
 beforeEach(() => {
   localStorage.clear();
+  vi.useFakeTimers();
+  vi.setSystemTime(new Date("2026-07-20T12:00:00Z"));
 });
 
 describe("App", () => {

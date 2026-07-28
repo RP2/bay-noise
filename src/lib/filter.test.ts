@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi, afterEach, beforeEach } from "vitest";
 import {
   flattenAndScoreShows,
   sortShows,
@@ -11,6 +11,21 @@ import {
 } from "./filter.js";
 import { SAMPLE_SHOWS } from "./__fixtures__/shows.js";
 import type { UserPrefs, FilterState, ScoredShow } from "./types.js";
+
+// Pin Date to 2026-07-20 at module load so describe-block-level computations
+// (e.g. const shows = flattenAndScoreShows(...)) use a pinned date.
+// Re-pinned per-test via beforeEach to keep each test isolated.
+vi.useFakeTimers();
+vi.setSystemTime(new Date("2026-07-20T12:00:00Z"));
+
+beforeEach(() => {
+  vi.useFakeTimers();
+  vi.setSystemTime(new Date("2026-07-20T12:00:00Z"));
+});
+
+afterEach(() => {
+  vi.useRealTimers();
+});
 
 const PUNK_PREFS: UserPrefs = { preferredGenres: ["punk"], onboarded: true };
 const ALL_PREFS: UserPrefs = {
