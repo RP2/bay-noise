@@ -1,3 +1,9 @@
 User-agent: *
 Allow: /
+Disallow: /artist-cache.json
+Disallow: /available-genres.json
+Disallow: /known-venues.json
+Disallow: /shows.json
+Disallow: /unmatched-venues.json
+
 Sitemap: https://shows.wtf/sitemap.xml
