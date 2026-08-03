@@ -5,8 +5,8 @@
     "city": "Santa Rosa",
     "address": null,
     "extra": "",
-    "seen": "2026-07-28",
-    "count": 3
+    "seen": "2026-08-03",
+    "count": 5
   },
   {
     "scrapedName": "Sailing Goat, 1900 Stenmark Drive, Richmond",
@@ -14,8 +14,8 @@
     "city": "Richmond",
     "address": "1900 Stenmark Drive",
     "extra": "",
-    "seen": "2026-07-28",
-    "count": 2
+    "seen": "2026-08-03",
+    "count": 5
   },
   {
     "scrapedName": "Fourth Bore, 2 Orinda Theater Square",
@@ -23,8 +23,8 @@
     "city": null,
     "address": "2 Orinda Theater Square",
     "extra": "",
-    "seen": "2026-07-28",
-    "count": 2
+    "seen": "2026-08-03",
+    "count": 4
   },
   {
     "scrapedName": "Golden Gare Park, S.F.",
@@ -32,7 +32,52 @@
     "city": "San Francisco",
     "address": null,
     "extra": "",
-    "seen": "2026-07-28",
-    "count": 2
+    "seen": "2026-08-03",
+    "count": 4
+  },
+  {
+    "scrapedName": "Mercury Cafe, 201 Octavia Street, S.F.",
+    "venueName": "Mercury Cafe, 201 Octavia Street",
+    "city": "San Francisco",
+    "address": "201 Octavia Street",
+    "extra": "",
+    "seen": "2026-08-03",
+    "count": 3
+  },
+  {
+    "scrapedName": "Crown Coffee, 2523 Broadway, Oakland",
+    "venueName": "Crown Coffee, 2523 Broadway",
+    "city": "Oakland",
+    "address": "2523 Broadway",
+    "extra": "",
+    "seen": "2026-08-03",
+    "count": 1
+  },
+  {
+    "scrapedName": "Mildred Owen Hall, Pacifica",
+    "venueName": "Mildred Owen Hall, Pacifica",
+    "city": null,
+    "address": null,
+    "extra": "",
+    "seen": "2026-08-03",
+    "count": 1
+  },
+  {
+    "scrapedName": "Subrosa, Santa Cruz",
+    "venueName": "Subrosa",
+    "city": "Santa Cruz",
+    "address": null,
+    "extra": "",
+    "seen": "2026-08-03",
+    "count": 3
+  },
+  {
+    "scrapedName": "Lab, S.F.",
+    "venueName": "Lab",
+    "city": "San Francisco",
+    "address": null,
+    "extra": "",
+    "seen": "2026-08-03",
+    "count": 3
   }
 ]
