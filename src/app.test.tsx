@@ -121,16 +121,6 @@ describe("App", () => {
     expect(getByText(/\(all\)/)).toBeDefined();
   });
 
-  it("change genres button resets to greeter", async () => {
-    mockFetch();
-
-    const { getByText, findByPlaceholderText } = render(<App />);
-    fireEvent.click(getByText("Show me what's on"));
-    await findByPlaceholderText("Search artists, venues...");
-
-    fireEvent.click(getByText("Reopen greeter"));
-    expect(getByText("See everything")).toBeDefined();
-  });
 });
 
 describe("Search UX", () => {

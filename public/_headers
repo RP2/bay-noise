@@ -11,6 +11,12 @@
   X-Robots-Tag: noai, noimageai
   Cache-Control: public, max-age=3600
 
+/sw.js
+  Cache-Control: no-cache
+
+/registerSW.js
+  Cache-Control: no-cache
+
 /.well-known/*
   Access-Control-Allow-Origin: *
 

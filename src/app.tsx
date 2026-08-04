@@ -15,6 +15,9 @@ import { FeedSubscribe } from "./components/feed-subscribe.js";
 import { PwaInstall } from "./components/pwa-install.js";
 import { PrivacyModal } from "./components/privacy-modal.js";
 import { Footer } from "./components/footer.js";
+import { Toast } from "./components/toast.js";
+
+let nextToastId = 0;
 
 type ViewState =
   | { status: "loading" }
@@ -37,6 +40,13 @@ export function App() {
   const [showIcal, setShowIcal] = useState(false);
   const [showPrivacy, setShowPrivacy] = useState(false);
   const [availableGenres, setAvailableGenres] = useState<string[] | null>(null);
+  const [toastQueue, setToastQueue] = useState<Array<{ id: number; message: string }>>([]);
+  const shownFiltersRef = useRef(new Set<string>());
+  const showToast = (msg: string) => {
+    const id = ++nextToastId;
+    setToastQueue((q) => [...q, { id, message: msg }]);
+  };
+  const dismissToast = (id: number) => setToastQueue((q) => q.filter((t) => t.id !== id));
 
   // Personalized iCal subscription URL. All active filters (preferred
   // genres, venues, artists, cities) are appended as query params so the
@@ -92,6 +102,8 @@ export function App() {
     setPrefs(newPrefs);
     setPrefsState(newPrefs);
     setFilter(DEFAULT_FILTER);
+    setToastQueue([]);
+    shownFiltersRef.current.clear();
   };
 
   // Inject JSON-LD structured data for search engines.
@@ -322,6 +334,11 @@ export function App() {
         const updated = [...prefs.preferredGenres, genreMatch];
         setPrefs({ ...prefs, preferredGenres: updated });
         setPrefsState({ ...prefs, preferredGenres: updated });
+        const filterKey = `genre:${value.toLowerCase()}`;
+        if (!shownFiltersRef.current.has(filterKey)) {
+          shownFiltersRef.current.add(filterKey);
+          showToast(`Added ${value} to filters`);
+        }
       }
       setFilter((prev) => ({ ...prev, query: "" }));
       return;
@@ -336,6 +353,11 @@ export function App() {
           ? prev.venues
           : [...prev.venues, value],
       }));
+      const venueKey = `venue:${value.toLowerCase()}`;
+      if (!shownFiltersRef.current.has(venueKey)) {
+        shownFiltersRef.current.add(venueKey);
+        showToast(`Added ${value} to filters`);
+      }
       return;
     }
 
@@ -348,6 +370,11 @@ export function App() {
           ? prev.cities
           : [...prev.cities, value],
       }));
+      const cityKey = `city:${value.toLowerCase()}`;
+      if (!shownFiltersRef.current.has(cityKey)) {
+        shownFiltersRef.current.add(cityKey);
+        showToast(`Added ${value} to filters`);
+      }
       return;
     }
 
@@ -360,6 +387,11 @@ export function App() {
           ? prev.artists
           : [...prev.artists, value],
       }));
+      const artistKey = `artist:${value.toLowerCase()}`;
+      if (!shownFiltersRef.current.has(artistKey)) {
+        shownFiltersRef.current.add(artistKey);
+        showToast(`Added ${value} to filters`);
+      }
       return;
     }
   };
@@ -378,6 +410,11 @@ export function App() {
         const updated = [...prefs.preferredGenres, genreMatch.toLowerCase()];
         setPrefs({ ...prefs, preferredGenres: updated });
         setPrefsState({ ...prefs, preferredGenres: updated });
+        const genreKey = `genre:${genreMatch.toLowerCase()}`;
+        if (!shownFiltersRef.current.has(genreKey)) {
+          shownFiltersRef.current.add(genreKey);
+          showToast(`Added ${genreMatch} to filters`);
+        }
       }
       setFilter((prev) => ({ ...prev, query: "" }));
       return;
@@ -394,6 +431,11 @@ export function App() {
           ? prev.venues
           : [...prev.venues, venueMatch],
       }));
+      const venueKey = `venue:${venueMatch.toLowerCase()}`;
+      if (!shownFiltersRef.current.has(venueKey)) {
+        shownFiltersRef.current.add(venueKey);
+        showToast(`Added ${venueMatch} to filters`);
+      }
       return;
     }
 
@@ -408,6 +450,11 @@ export function App() {
           ? prev.cities
           : [...prev.cities, cityMatch],
       }));
+      const cityKey = `city:${cityMatch.toLowerCase()}`;
+      if (!shownFiltersRef.current.has(cityKey)) {
+        shownFiltersRef.current.add(cityKey);
+        showToast(`Added ${cityMatch} to filters`);
+      }
       return;
     }
 
@@ -422,6 +469,11 @@ export function App() {
           ? prev.artists
           : [...prev.artists, artistMatch],
       }));
+      const artistKey = `artist:${artistMatch.toLowerCase()}`;
+      if (!shownFiltersRef.current.has(artistKey)) {
+        shownFiltersRef.current.add(artistKey);
+        showToast(`Added ${artistMatch} to filters`);
+      }
       return;
     }
 
@@ -599,6 +651,41 @@ export function App() {
           onCityRemove={handleCityRemove}
           onVenueRemove={handleVenueRemove}
           onArtistRemove={handleArtistRemove}
+          onClearAll={() => {
+            setFilter(DEFAULT_FILTER);
+            setPrefs({ ...prefs, preferredGenres: [] });
+            setPrefsState({ ...prefs, preferredGenres: [] });
+            setToastQueue([]);
+            shownFiltersRef.current.clear();
+          }}
+          onVenueClick={(v) => {
+            const lower = v.toLowerCase();
+            setFilter((prev) => ({
+              ...prev,
+              venues: prev.venues.some((x) => x.toLowerCase() === lower)
+                ? prev.venues
+                : [...prev.venues, v],
+            }));
+            const venueKey = `venue:${v.toLowerCase()}`;
+            if (!shownFiltersRef.current.has(venueKey)) {
+              shownFiltersRef.current.add(venueKey);
+              showToast(`Added ${v} to filters`);
+            }
+          }}
+          onArtistClick={(a) => {
+            const lower = a.toLowerCase();
+            setFilter((prev) => ({
+              ...prev,
+              artists: prev.artists.some((x) => x.toLowerCase() === lower)
+                ? prev.artists
+                : [...prev.artists, a],
+            }));
+            const artistKey = `artist:${a.toLowerCase()}`;
+            if (!shownFiltersRef.current.has(artistKey)) {
+              shownFiltersRef.current.add(artistKey);
+              showToast(`Added ${a} to filters`);
+            }
+          }}
           onGenreClick={(genre) => {
             // Add the clicked genre string directly as its own filter
             if (!prefs.preferredGenres.includes(genre.toLowerCase())) {
@@ -609,12 +696,20 @@ export function App() {
               };
               setPrefs(newPrefs);
               setPrefsState(newPrefs);
+              const genreKey = `genre:${genre.toLowerCase()}`;
+              if (!shownFiltersRef.current.has(genreKey)) {
+                shownFiltersRef.current.add(genreKey);
+                showToast(`Added ${genre} to filters`);
+              }
             }
           }}
         />
       </div>
       <Footer />
       {showPrivacy && <PrivacyModal onClose={() => setShowPrivacy(false)} />}
+      {toastQueue.length > 0 && (
+        <Toast toasts={toastQueue} onDismiss={dismissToast} />
+      )}
     </div>
   );
 }

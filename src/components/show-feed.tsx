@@ -12,10 +12,13 @@ interface ShowFeedProps {
   onGenreClick?: (genre: string) => void;
   onCityRemove?: (city: string) => void;
   onVenueRemove?: (venue: string) => void;
+  onVenueClick?: (venue: string) => void;
   onArtistRemove?: (artist: string) => void;
+  onArtistClick?: (artist: string) => void;
+  onClearAll?: () => void;
 }
 
-export function ShowFeed({ shows, filter, onFilterChange, hasBelowFold, dataEmpty = false, preferredGenres = [], onGenreRemove, onGenreClick, onCityRemove, onVenueRemove, onArtistRemove }: ShowFeedProps) {
+export function ShowFeed({ shows, filter, onFilterChange, hasBelowFold, dataEmpty = false, preferredGenres = [], onGenreRemove, onGenreClick, onCityRemove, onVenueRemove, onVenueClick, onArtistRemove, onArtistClick, onClearAll }: ShowFeedProps) {
   const grouped = groupByDate(shows);
   const hasAnyFilter = filter.query || filter.venues.length > 0 || filter.artists.length > 0 || filter.cities.length > 0;
 
@@ -62,6 +65,15 @@ export function ShowFeed({ shows, filter, onFilterChange, hasBelowFold, dataEmpt
           {filter.artists.map((a) => (
             <FilterChip key={a} label={a} onClear={() => onArtistRemove?.(a)} />
           ))}
+          {(preferredGenres.length + (filter.query ? 1 : 0) + filter.venues.length + filter.cities.length + filter.artists.length) > 3 && (
+            <button
+              type="button"
+              onClick={() => onClearAll ? onClearAll() : onFilterChange({ query: "", venues: [], artists: [], cities: [] })}
+              class="text-xs text-neutral-400 underline-offset-2 hover:underline dark:text-neutral-500 dark:hover:text-white"
+            >
+              Clear all
+            </button>
+          )}
         </div>
       )}
 
@@ -82,22 +94,8 @@ export function ShowFeed({ shows, filter, onFilterChange, hasBelowFold, dataEmpt
               <ShowCard
                 key={`${show.date}-${show.venueName}-${i}`}
                 show={show}
-                onVenueClick={(v) => {
-                  const lower = v.toLowerCase();
-                  onFilterChange({
-                    venues: filter.venues.some((x) => x.toLowerCase() === lower)
-                      ? filter.venues
-                      : [...filter.venues, v],
-                  });
-                }}
-                onArtistClick={(a) => {
-                  const lower = a.toLowerCase();
-                  onFilterChange({
-                    artists: filter.artists.some((x) => x.toLowerCase() === lower)
-                      ? filter.artists
-                      : [...filter.artists, a],
-                  });
-                }}
+                onVenueClick={onVenueClick}
+                onArtistClick={onArtistClick}
                 onGenreClick={onGenreClick}
               />
             ))}

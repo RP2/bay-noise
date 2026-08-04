@@ -144,21 +144,21 @@ describe("ShowFeed", () => {
     expect(onFilterChange).toHaveBeenCalledWith({ query: "", venues: [], artists: [], cities: [], showAll: false });
   });
 
-  it("allows tapping venue name to set venue filter", () => {
-    const onFilterChange = vi.fn();
+  it("allows tapping venue name to call onVenueClick", () => {
+    const onVenueClick = vi.fn();
     const { getByText } = render(
-      <ShowFeed shows={mockShows} filter={defaultFilter} onFilterChange={onFilterChange} hasBelowFold={true} />,
+      <ShowFeed shows={mockShows} filter={defaultFilter} onFilterChange={() => {}} onVenueClick={onVenueClick} hasBelowFold={true} />,
     );
     fireEvent.click(getByText("Bottom of the Hill"));
-    expect(onFilterChange).toHaveBeenCalledWith({ venues: ["Bottom of the Hill"] });
+    expect(onVenueClick).toHaveBeenCalledWith("Bottom of the Hill");
   });
 
-  it("allows tapping artist name to set artist filter", () => {
-    const onFilterChange = vi.fn();
+  it("allows tapping artist name to call onArtistClick", () => {
+    const onArtistClick = vi.fn();
     const { getByText } = render(
-      <ShowFeed shows={mockShows} filter={defaultFilter} onFilterChange={onFilterChange} hasBelowFold={true} />,
+      <ShowFeed shows={mockShows} filter={defaultFilter} onFilterChange={() => {}} onArtistClick={onArtistClick} hasBelowFold={true} />,
     );
     fireEvent.click(getByText("Sad Snack"));
-    expect(onFilterChange).toHaveBeenCalledWith({ artists: ["Sad Snack"] });
+    expect(onArtistClick).toHaveBeenCalledWith("Sad Snack");
   });
 });
