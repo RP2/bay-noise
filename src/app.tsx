@@ -539,7 +539,7 @@ export function App() {
     <div class="flex min-h-dvh flex-col">
       <div class="flex-1 mx-auto w-full max-w-2xl px-4 py-6">
         {/* Header */}
-        <div class="mb-6 flex items-center justify-between">
+        <div class="mb-6 flex items-center justify-center sm:justify-between">
           <h1 class="hidden sm:block text-lg font-bold text-black dark:text-white">
             Bay Noise
           </h1>
@@ -552,22 +552,20 @@ export function App() {
               {showIcal ? "Hide" : "Add to Calendar"}
             </button>
             <PwaInstall />
+            <a
+              href="https://feedback.rileyperalta.com?project=bay-noise"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-xs text-neutral-400 underline-offset-2 hover:underline dark:text-neutral-500 dark:hover:text-white"
+            >
+              Feedback
+            </a>
             <button
               type="button"
               onClick={() => setShowPrivacy(true)}
               class="cursor-pointer text-xs text-neutral-400 underline-offset-2 hover:underline dark:text-neutral-500 dark:hover:text-white"
             >
               Privacy
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                setPrefs({ preferredGenres: [], onboarded: false });
-                setPrefsState({ preferredGenres: [], onboarded: false });
-              }}
-              class="cursor-pointer text-xs text-neutral-400 underline-offset-2 hover:underline dark:text-neutral-500 dark:hover:text-white"
-            >
-              Reopen greeter
             </button>
           </div>
         </div>
