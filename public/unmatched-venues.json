@@ -5,8 +5,8 @@
     "city": "Santa Rosa",
     "address": null,
     "extra": "",
-    "seen": "2026-08-03",
-    "count": 5
+    "seen": "2026-08-10",
+    "count": 6
   },
   {
     "scrapedName": "Sailing Goat, 1900 Stenmark Drive, Richmond",
@@ -14,8 +14,8 @@
     "city": "Richmond",
     "address": "1900 Stenmark Drive",
     "extra": "",
-    "seen": "2026-08-03",
-    "count": 5
+    "seen": "2026-08-10",
+    "count": 11
   },
   {
     "scrapedName": "Fourth Bore, 2 Orinda Theater Square",
@@ -23,8 +23,8 @@
     "city": null,
     "address": "2 Orinda Theater Square",
     "extra": "",
-    "seen": "2026-08-03",
-    "count": 4
+    "seen": "2026-08-10",
+    "count": 8
   },
   {
     "scrapedName": "Golden Gare Park, S.F.",
@@ -32,8 +32,8 @@
     "city": "San Francisco",
     "address": null,
     "extra": "",
-    "seen": "2026-08-03",
-    "count": 4
+    "seen": "2026-08-10",
+    "count": 8
   },
   {
     "scrapedName": "Mercury Cafe, 201 Octavia Street, S.F.",
@@ -41,8 +41,8 @@
     "city": "San Francisco",
     "address": "201 Octavia Street",
     "extra": "",
-    "seen": "2026-08-03",
-    "count": 3
+    "seen": "2026-08-10",
+    "count": 6
   },
   {
     "scrapedName": "Crown Coffee, 2523 Broadway, Oakland",
@@ -50,8 +50,8 @@
     "city": "Oakland",
     "address": "2523 Broadway",
     "extra": "",
-    "seen": "2026-08-03",
-    "count": 1
+    "seen": "2026-08-10",
+    "count": 2
   },
   {
     "scrapedName": "Mildred Owen Hall, Pacifica",
@@ -59,8 +59,8 @@
     "city": null,
     "address": null,
     "extra": "",
-    "seen": "2026-08-03",
-    "count": 1
+    "seen": "2026-08-10",
+    "count": 4
   },
   {
     "scrapedName": "Subrosa, Santa Cruz",
@@ -68,8 +68,8 @@
     "city": "Santa Cruz",
     "address": null,
     "extra": "",
-    "seen": "2026-08-03",
-    "count": 3
+    "seen": "2026-08-10",
+    "count": 6
   },
   {
     "scrapedName": "Lab, S.F.",
@@ -77,7 +77,61 @@
     "city": "San Francisco",
     "address": null,
     "extra": "",
-    "seen": "2026-08-03",
-    "count": 3
+    "seen": "2026-08-10",
+    "count": 6
+  },
+  {
+    "scrapedName": "Jade Cathey Resturant, 1339 N 1st Street, San Jose",
+    "venueName": "Jade Cathey Resturant, 1339 N 1st Street",
+    "city": "San Jose",
+    "address": "1339 N 1st Street",
+    "extra": "",
+    "seen": "2026-08-10",
+    "count": 1
+  },
+  {
+    "scrapedName": "Lower Bobs Skatepark, 1899 9th Street, Oakland",
+    "venueName": "Lower Bobs Skatepark, 1899 9th Street",
+    "city": "Oakland",
+    "address": "1899 9th Street",
+    "extra": "",
+    "seen": "2026-08-10",
+    "count": 2
+  },
+  {
+    "scrapedName": "663 South 9th Street, San Jose",
+    "venueName": "663 South 9th Street",
+    "city": "San Jose",
+    "address": null,
+    "extra": "",
+    "seen": "2026-08-10",
+    "count": 1
+  },
+  {
+    "scrapedName": "Back Room, 1984 Bonita, Berkeley",
+    "venueName": "Back Room, 1984 Bonita",
+    "city": "Berkeley",
+    "address": "1984 Bonita",
+    "extra": "",
+    "seen": "2026-08-10",
+    "count": 1
+  },
+  {
+    "scrapedName": "Rickhouse, 246 Kearny, S.F.",
+    "venueName": "Rickhouse, 246 Kearny",
+    "city": "San Francisco",
+    "address": "246 Kearny",
+    "extra": "",
+    "seen": "2026-08-10",
+    "count": 2
+  },
+  {
+    "scrapedName": "Kuumbwa Jazz Center, 230-2 Cedar Street, Santa Cruz",
+    "venueName": "Kuumbwa Jazz Center, 230-2 Cedar Street",
+    "city": "Santa Cruz",
+    "address": null,
+    "extra": "",
+    "seen": "2026-08-10",
+    "count": 1
   }
 ]

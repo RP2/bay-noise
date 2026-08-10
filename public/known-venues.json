@@ -99,7 +99,8 @@
     "city": "Santa Rosa",
     "address": "99 6th Street",
     "aliases": [
-      "Arlene Francis Center, 99 6th Street, Santa Rosa"
+      "Arlene Francis Center, 99 6th Street, Santa Rosa",
+      "Arlene Francis Center, Santa Rosa"
     ]
   },
   {
@@ -143,7 +144,8 @@
     "address": "344 12th St.",
     "aliases": [
       "Beauty Shop Above Tay Ho, 344 12th St., Oakland",
-      "Beauty Supply Above Tay Ho, 344 12th St., Oakland"
+      "Beauty Supply Above Tay Ho, 344 12th St., Oakland",
+      "Beauty Supply Shop Above Tay Ho, 344 12th Street, Oakland"
     ]
   },
   {
@@ -454,7 +456,8 @@
     "city": "San Francisco",
     "address": "1933 Davis St.",
     "aliases": [
-      "Drake's Barrel House, 1933 Davis St."
+      "Drake's Barrel House, 1933 Davis St.",
+      "Drake's Barrel House, 1933 Davis Street"
     ]
   },
   {
@@ -733,7 +736,8 @@
     "city": "San Francisco",
     "address": "500 4th Street",
     "aliases": [
-      "Hotel Utah, S.F."
+      "Hotel Utah, S.F.",
+      "Hotel Utah Saloon, S.F."
     ]
   },
   {
@@ -754,7 +758,8 @@
     "address": "860 San Pablo Avenue",
     "aliases": [
       "Ivy Room, Albany",
-      "Ivy Room, Albanu"
+      "Ivy Room, Albanu",
+      "Ivy Room, S.F."
     ]
   },
   {
@@ -1467,7 +1472,8 @@
     "city": "Santa Cruz",
     "address": "939 Pacific Avenue",
     "aliases": [
-      "Streetlight Records, Santa Cruz"
+      "Streetlight Records, Santa Cruz",
+      "Streetlight Records, San Jose"
     ]
   },
   {
@@ -1655,7 +1661,8 @@
     "address": "2328 San Pablo Avenue",
     "aliases": [
       "Victory Stables, 2328 San Pablo Avenue, Oakland",
-      "Victory Stables, 2328 San Pablo Avenue"
+      "Victory Stables, 2328 San Pablo Avenue",
+      "Victory Stables, Oakland"
     ]
   },
   {
