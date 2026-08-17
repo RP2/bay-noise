@@ -5,8 +5,8 @@
     "city": "Santa Rosa",
     "address": null,
     "extra": "",
-    "seen": "2026-08-10",
-    "count": 6
+    "seen": "2026-08-17",
+    "count": 7
   },
   {
     "scrapedName": "Sailing Goat, 1900 Stenmark Drive, Richmond",
@@ -14,8 +14,8 @@
     "city": "Richmond",
     "address": "1900 Stenmark Drive",
     "extra": "",
-    "seen": "2026-08-10",
-    "count": 11
+    "seen": "2026-08-17",
+    "count": 17
   },
   {
     "scrapedName": "Fourth Bore, 2 Orinda Theater Square",
@@ -23,8 +23,8 @@
     "city": null,
     "address": "2 Orinda Theater Square",
     "extra": "",
-    "seen": "2026-08-10",
-    "count": 8
+    "seen": "2026-08-17",
+    "count": 13
   },
   {
     "scrapedName": "Golden Gare Park, S.F.",
@@ -32,8 +32,8 @@
     "city": "San Francisco",
     "address": null,
     "extra": "",
-    "seen": "2026-08-10",
-    "count": 8
+    "seen": "2026-08-17",
+    "count": 9
   },
   {
     "scrapedName": "Mercury Cafe, 201 Octavia Street, S.F.",
@@ -41,8 +41,8 @@
     "city": "San Francisco",
     "address": "201 Octavia Street",
     "extra": "",
-    "seen": "2026-08-10",
-    "count": 6
+    "seen": "2026-08-17",
+    "count": 8
   },
   {
     "scrapedName": "Crown Coffee, 2523 Broadway, Oakland",
@@ -50,8 +50,8 @@
     "city": "Oakland",
     "address": "2523 Broadway",
     "extra": "",
-    "seen": "2026-08-10",
-    "count": 2
+    "seen": "2026-08-17",
+    "count": 3
   },
   {
     "scrapedName": "Mildred Owen Hall, Pacifica",
@@ -59,8 +59,8 @@
     "city": null,
     "address": null,
     "extra": "",
-    "seen": "2026-08-10",
-    "count": 4
+    "seen": "2026-08-17",
+    "count": 5
   },
   {
     "scrapedName": "Subrosa, Santa Cruz",
@@ -68,8 +68,8 @@
     "city": "Santa Cruz",
     "address": null,
     "extra": "",
-    "seen": "2026-08-10",
-    "count": 6
+    "seen": "2026-08-17",
+    "count": 11
   },
   {
     "scrapedName": "Lab, S.F.",
@@ -77,8 +77,8 @@
     "city": "San Francisco",
     "address": null,
     "extra": "",
-    "seen": "2026-08-10",
-    "count": 6
+    "seen": "2026-08-17",
+    "count": 9
   },
   {
     "scrapedName": "Jade Cathey Resturant, 1339 N 1st Street, San Jose",
@@ -95,8 +95,8 @@
     "city": "Oakland",
     "address": "1899 9th Street",
     "extra": "",
-    "seen": "2026-08-10",
-    "count": 2
+    "seen": "2026-08-17",
+    "count": 4
   },
   {
     "scrapedName": "663 South 9th Street, San Jose",
@@ -104,8 +104,8 @@
     "city": "San Jose",
     "address": null,
     "extra": "",
-    "seen": "2026-08-10",
-    "count": 1
+    "seen": "2026-08-17",
+    "count": 2
   },
   {
     "scrapedName": "Back Room, 1984 Bonita, Berkeley",
@@ -113,8 +113,8 @@
     "city": "Berkeley",
     "address": "1984 Bonita",
     "extra": "",
-    "seen": "2026-08-10",
-    "count": 1
+    "seen": "2026-08-17",
+    "count": 2
   },
   {
     "scrapedName": "Rickhouse, 246 Kearny, S.F.",
@@ -122,8 +122,8 @@
     "city": "San Francisco",
     "address": "246 Kearny",
     "extra": "",
-    "seen": "2026-08-10",
-    "count": 2
+    "seen": "2026-08-17",
+    "count": 4
   },
   {
     "scrapedName": "Kuumbwa Jazz Center, 230-2 Cedar Street, Santa Cruz",
@@ -131,7 +131,43 @@
     "city": "Santa Cruz",
     "address": null,
     "extra": "",
-    "seen": "2026-08-10",
+    "seen": "2026-08-17",
+    "count": 2
+  },
+  {
+    "scrapedName": "Hotel Utal, S.F.",
+    "venueName": "Hotel Utal",
+    "city": "San Francisco",
+    "address": null,
+    "extra": "",
+    "seen": "2026-08-17",
+    "count": 1
+  },
+  {
+    "scrapedName": "Cooperage Brewing, 575 Ross Street, Santa Rosa",
+    "venueName": "Cooperage Brewing, 575 Ross Street",
+    "city": "Santa Rosa",
+    "address": "575 Ross Street",
+    "extra": "",
+    "seen": "2026-08-17",
+    "count": 1
+  },
+  {
+    "scrapedName": "3437 Haven Street, Oakland",
+    "venueName": "3437 Haven Street",
+    "city": "Oakland",
+    "address": null,
+    "extra": "",
+    "seen": "2026-08-17",
+    "count": 1
+  },
+  {
+    "scrapedName": "924 Gilman and Gilman Brewing, Berkeley",
+    "venueName": "924 Gilman and Gilman Brewing",
+    "city": "Berkeley",
+    "address": null,
+    "extra": "",
+    "seen": "2026-08-17",
     "count": 1
   }
 ]
