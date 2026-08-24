@@ -2,14 +2,12 @@ name: Monthly data pipeline
 
 on:
   schedule:
-    # First Monday of each month at 8am PT (15:00 UTC).
-    # Runs every Monday; early-exit when day-of-month > 7.
-    - cron: "0 15 * * 1"
+    # First day of each month at 15:00 UTC (7am PST / 8am PDT).
+    - cron: "0 15 1 * *"
   workflow_dispatch:
 
 concurrency:
   group: pipeline
-  cancel-in-progress: false
 
 permissions:
   contents: write
@@ -19,14 +17,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Check first Monday of month
-        run: |
-          DAY=$(date +%d)
-          if [ "$DAY" -gt 7 ]; then
-            echo "Not first Monday (day $DAY > 7). Skipping."
-            exit 0
-          fi
 
       - uses: actions/setup-node@v4
         with:
