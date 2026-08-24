@@ -5,8 +5,8 @@
     "city": "Santa Rosa",
     "address": null,
     "extra": "",
-    "seen": "2026-08-17",
-    "count": 7
+    "seen": "2026-08-24",
+    "count": 9
   },
   {
     "scrapedName": "Sailing Goat, 1900 Stenmark Drive, Richmond",
@@ -14,8 +14,8 @@
     "city": "Richmond",
     "address": "1900 Stenmark Drive",
     "extra": "",
-    "seen": "2026-08-17",
-    "count": 17
+    "seen": "2026-08-24",
+    "count": 27
   },
   {
     "scrapedName": "Fourth Bore, 2 Orinda Theater Square",
@@ -23,8 +23,8 @@
     "city": null,
     "address": "2 Orinda Theater Square",
     "extra": "",
-    "seen": "2026-08-17",
-    "count": 13
+    "seen": "2026-08-24",
+    "count": 19
   },
   {
     "scrapedName": "Golden Gare Park, S.F.",
@@ -32,8 +32,8 @@
     "city": "San Francisco",
     "address": null,
     "extra": "",
-    "seen": "2026-08-17",
-    "count": 9
+    "seen": "2026-08-24",
+    "count": 11
   },
   {
     "scrapedName": "Mercury Cafe, 201 Octavia Street, S.F.",
@@ -41,8 +41,8 @@
     "city": "San Francisco",
     "address": "201 Octavia Street",
     "extra": "",
-    "seen": "2026-08-17",
-    "count": 8
+    "seen": "2026-08-24",
+    "count": 9
   },
   {
     "scrapedName": "Crown Coffee, 2523 Broadway, Oakland",
@@ -50,8 +50,8 @@
     "city": "Oakland",
     "address": "2523 Broadway",
     "extra": "",
-    "seen": "2026-08-17",
-    "count": 3
+    "seen": "2026-08-24",
+    "count": 4
   },
   {
     "scrapedName": "Mildred Owen Hall, Pacifica",
@@ -59,8 +59,8 @@
     "city": null,
     "address": null,
     "extra": "",
-    "seen": "2026-08-17",
-    "count": 5
+    "seen": "2026-08-24",
+    "count": 6
   },
   {
     "scrapedName": "Subrosa, Santa Cruz",
@@ -77,8 +77,8 @@
     "city": "San Francisco",
     "address": null,
     "extra": "",
-    "seen": "2026-08-17",
-    "count": 9
+    "seen": "2026-08-24",
+    "count": 12
   },
   {
     "scrapedName": "Jade Cathey Resturant, 1339 N 1st Street, San Jose",
@@ -86,8 +86,8 @@
     "city": "San Jose",
     "address": "1339 N 1st Street",
     "extra": "",
-    "seen": "2026-08-10",
-    "count": 1
+    "seen": "2026-08-24",
+    "count": 3
   },
   {
     "scrapedName": "Lower Bobs Skatepark, 1899 9th Street, Oakland",
@@ -95,8 +95,8 @@
     "city": "Oakland",
     "address": "1899 9th Street",
     "extra": "",
-    "seen": "2026-08-17",
-    "count": 4
+    "seen": "2026-08-24",
+    "count": 6
   },
   {
     "scrapedName": "663 South 9th Street, San Jose",
@@ -122,8 +122,8 @@
     "city": "San Francisco",
     "address": "246 Kearny",
     "extra": "",
-    "seen": "2026-08-17",
-    "count": 4
+    "seen": "2026-08-24",
+    "count": 6
   },
   {
     "scrapedName": "Kuumbwa Jazz Center, 230-2 Cedar Street, Santa Cruz",
@@ -140,8 +140,8 @@
     "city": "San Francisco",
     "address": null,
     "extra": "",
-    "seen": "2026-08-17",
-    "count": 1
+    "seen": "2026-08-24",
+    "count": 3
   },
   {
     "scrapedName": "Cooperage Brewing, 575 Ross Street, Santa Rosa",
@@ -149,8 +149,8 @@
     "city": "Santa Rosa",
     "address": "575 Ross Street",
     "extra": "",
-    "seen": "2026-08-17",
-    "count": 1
+    "seen": "2026-08-24",
+    "count": 4
   },
   {
     "scrapedName": "3437 Haven Street, Oakland",
@@ -158,8 +158,8 @@
     "city": "Oakland",
     "address": null,
     "extra": "",
-    "seen": "2026-08-17",
-    "count": 1
+    "seen": "2026-08-24",
+    "count": 3
   },
   {
     "scrapedName": "924 Gilman and Gilman Brewing, Berkeley",
@@ -167,7 +167,70 @@
     "city": "Berkeley",
     "address": null,
     "extra": "",
-    "seen": "2026-08-17",
+    "seen": "2026-08-24",
+    "count": 2
+  },
+  {
+    "scrapedName": "Santa Cruz Revival Church, Santa Cruz",
+    "venueName": "Santa Cruz Revival Church",
+    "city": "Santa Cruz",
+    "address": null,
+    "extra": "",
+    "seen": "2026-08-24",
+    "count": 3
+  },
+  {
+    "scrapedName": "Jack Kerouac Alley, S.F.",
+    "venueName": "Jack Kerouac Alley",
+    "city": "San Francisco",
+    "address": null,
+    "extra": "",
+    "seen": "2026-08-24",
     "count": 1
+  },
+  {
+    "scrapedName": "Mass, S.F.",
+    "venueName": "Mass",
+    "city": "San Francisco",
+    "address": null,
+    "extra": "",
+    "seen": "2026-08-24",
+    "count": 1
+  },
+  {
+    "scrapedName": "Somewhere, S.F.",
+    "venueName": "Somewhere",
+    "city": "San Francisco",
+    "address": null,
+    "extra": "",
+    "seen": "2026-08-24",
+    "count": 1
+  },
+  {
+    "scrapedName": "2708 Channing Way, Berkeley",
+    "venueName": "2708 Channing Way",
+    "city": "Berkeley",
+    "address": null,
+    "extra": "",
+    "seen": "2026-08-24",
+    "count": 1
+  },
+  {
+    "scrapedName": "Spire, 825 Athens, Oakland",
+    "venueName": "Spire, 825 Athens",
+    "city": "Oakland",
+    "address": "825 Athens",
+    "extra": "",
+    "seen": "2026-08-24",
+    "count": 1
+  },
+  {
+    "scrapedName": "Rtiz, San Jose",
+    "venueName": "Rtiz",
+    "city": "San Jose",
+    "address": null,
+    "extra": "",
+    "seen": "2026-08-24",
+    "count": 2
   }
 ]

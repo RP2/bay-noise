@@ -54,7 +54,8 @@
       "924 Gilman, Berkeley",
       "924 Gilman Street, Berkely",
       "924 Gilman St, Berkeley",
-      "924 Gilman STreet, Berkeley"
+      "924 Gilman STreet, Berkeley",
+      "924 Gilman Street, Berkeleyt"
     ]
   },
   {
@@ -127,7 +128,8 @@
     "city": "Santa Rosa",
     "address": "501 Mendocino Avenue",
     "aliases": [
-      "Barrel Proof Lounge, 501 Mendocino Avenue, Santa Rosa"
+      "Barrel Proof Lounge, 501 Mendocino Avenue, Santa Rosa",
+      "Barrel Proof Lounge, 501 Mendocino Ave., Santa Rosa"
     ]
   },
   {
@@ -484,7 +486,8 @@
     "city": "Alameda",
     "address": "2501 Monarch Street",
     "aliases": [
-      "Faction Brewing, Alameda"
+      "Faction Brewing, Alameda",
+      "Faction Brewing, Alamea"
     ]
   },
   {
@@ -1078,7 +1081,8 @@
       "Outside Lands, Golden Gate Park, S.F.",
       "Outside Lands, Golden Gate Par, SF",
       "Outside Lands, Golden Gate Park, SF",
-      "Golden Gate Park, S.F."
+      "Golden Gate Park, S.F.",
+      "Band Shell, Golden Gate Park"
     ]
   },
   {
