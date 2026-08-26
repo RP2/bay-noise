@@ -17,6 +17,30 @@
     ]
   },
   {
+    "name": "120 5th Street",
+    "city": "Santa Rosa",
+    "address": null,
+    "aliases": [
+      "120 5th Street, Santa Rosa"
+    ]
+  },
+  {
+    "name": "2708 Channing Way",
+    "city": "Berkeley",
+    "address": null,
+    "aliases": [
+      "2708 Channing Way, Berkeley"
+    ]
+  },
+  {
+    "name": "3437 Haven Street",
+    "city": "Oakland",
+    "address": null,
+    "aliases": [
+      "3437 Haven Street, Oakland"
+    ]
+  },
+  {
     "name": "4 Star Theater",
     "city": "San Francisco",
     "address": "2200 Clement St.",
@@ -33,6 +57,14 @@
       "49'ers Stadium, Santa Clara",
       "49er's Stadium, Santa Clara",
       "49'er Stadium, Santa Clara"
+    ]
+  },
+  {
+    "name": "663 South 9th Street",
+    "city": "San Jose",
+    "address": null,
+    "aliases": [
+      "663 South 9th Street, San Jose"
     ]
   },
   {
@@ -55,7 +87,8 @@
       "924 Gilman Street, Berkely",
       "924 Gilman St, Berkeley",
       "924 Gilman STreet, Berkeley",
-      "924 Gilman Street, Berkeleyt"
+      "924 Gilman Street, Berkeleyt",
+      "924 Gilman and Gilman Brewing, Berkeley"
     ]
   },
   {
@@ -121,6 +154,14 @@
       "August Hall, S.F.",
       "Autust Hall, S.F.",
       "Augst Hall, S.F."
+    ]
+  },
+  {
+    "name": "Back Room",
+    "city": "Berkeley",
+    "address": "1984 Bonita",
+    "aliases": [
+      "Back Room, 1984 Bonita, Berkeley"
     ]
   },
   {
@@ -353,6 +394,14 @@
     ]
   },
   {
+    "name": "Cooperage Brewing",
+    "city": "Santa Rosa",
+    "address": "575 Ross Street",
+    "aliases": [
+      "Cooperage Brewing, 575 Ross Street, Santa Rosa"
+    ]
+  },
+  {
     "name": "Cornerstone",
     "city": "Berkeley",
     "address": "2367 Shattuck Ave",
@@ -389,6 +438,14 @@
     "aliases": [
       "Crepe Place, Santa Cruz",
       "Crepe Place, 1134 Soquel Avenue, Santa Cruz"
+    ]
+  },
+  {
+    "name": "Crown Coffee",
+    "city": "Oakland",
+    "address": "2523 Broadway",
+    "aliases": [
+      "Crown Coffee, 2523 Broadway, Oakland"
     ]
   },
   {
@@ -518,6 +575,15 @@
     ]
   },
   {
+    "name": "Finnish Hall Auditorium",
+    "city": "Berkeley",
+    "address": "1970 Chestnut St",
+    "aliases": [
+      "Finnish Hall Auditorium, Berkeley",
+      "Finnish Hall, 1970 Chestnut Street, Berkeley"
+    ]
+  },
+  {
     "name": "Fireside Lounge",
     "city": "Alameda",
     "address": "1405 Park Street",
@@ -549,6 +615,14 @@
     "aliases": [
       "Forest Meadows, 890 Bell Ave., San Rafael",
       "Forest Meadows, 890 Bell Ave."
+    ]
+  },
+  {
+    "name": "Fourth Bore",
+    "city": "Orinda",
+    "address": "2 Theater Square",
+    "aliases": [
+      "Fourth Bore, 2 Orinda Theater Square"
     ]
   },
   {
@@ -604,6 +678,14 @@
     "aliases": [
       "Gilman Brewing Co., 912 Gilman Street, Berkeley",
       "Gilman Brewing Co., 912 Gilman Street"
+    ]
+  },
+  {
+    "name": "Golden Gate Park",
+    "city": "San Francisco",
+    "address": null,
+    "aliases": [
+      "Golden Gare Park, S.F."
     ]
   },
   {
@@ -740,7 +822,17 @@
     "address": "500 4th Street",
     "aliases": [
       "Hotel Utah, S.F.",
-      "Hotel Utah Saloon, S.F."
+      "Hotel Utah Saloon, S.F.",
+      "Hotel Utal, S.F."
+    ]
+  },
+  {
+    "name": "Idol Beer Works",
+    "city": "Lodi",
+    "address": "100 S Sacramento Street",
+    "aliases": [
+      "Idol Beer Works, Lodi",
+      "Idol Beer Works, 100 S Sacramento Street, Lodi"
     ]
   },
   {
@@ -763,6 +855,22 @@
       "Ivy Room, Albany",
       "Ivy Room, Albanu",
       "Ivy Room, S.F."
+    ]
+  },
+  {
+    "name": "Jack Kerouac Alley",
+    "city": "San Francisco",
+    "address": null,
+    "aliases": [
+      "Jack Kerouac Alley, S.F."
+    ]
+  },
+  {
+    "name": "Jade Cathey Resturant",
+    "city": "San Jose",
+    "address": "1339 N 1st Street",
+    "aliases": [
+      "Jade Cathey Resturant, 1339 N 1st Street, San Jose"
     ]
   },
   {
@@ -829,6 +937,22 @@
     ]
   },
   {
+    "name": "Kuumbwa Jazz Center",
+    "city": "Santa Cruz",
+    "address": "230-2 Cedar Street",
+    "aliases": [
+      "Kuumbwa Jazz Center, 230-2 Cedar Street, Santa Cruz"
+    ]
+  },
+  {
+    "name": "Lab",
+    "city": "San Francisco",
+    "address": null,
+    "aliases": [
+      "Lab, S.F."
+    ]
+  },
+  {
     "name": "Lane Splitter Pizza",
     "city": "Emeryville",
     "address": "4770 Horton Street",
@@ -869,6 +993,14 @@
     "aliases": [
       "Lot, 1401 Macdonald Avenue, Richmond",
       "Lot, 1401 Macdonald Avenue"
+    ]
+  },
+  {
+    "name": "Lower Bobs Skatepark",
+    "city": "Oakland",
+    "address": "1899 9th Street",
+    "aliases": [
+      "Lower Bobs Skatepark, 1899 9th Street, Oakland"
     ]
   },
   {
@@ -917,6 +1049,14 @@
     ]
   },
   {
+    "name": "Mercury Cafe",
+    "city": "San Francisco",
+    "address": "201 Octavia Street",
+    "aliases": [
+      "Mercury Cafe, 201 Octavia Street, S.F."
+    ]
+  },
+  {
     "name": "Meritage Resort",
     "city": "Napa",
     "address": "875 Bordeaux Way",
@@ -930,6 +1070,14 @@
     "address": "900 Marin Street",
     "aliases": [
       "Midway, S.F."
+    ]
+  },
+  {
+    "name": "Mildred Owen Hall",
+    "city": "Pacifica",
+    "address": null,
+    "aliases": [
+      "Mildred Owen Hall, Pacifica"
     ]
   },
   {
@@ -1071,6 +1219,14 @@
     "address": "11201 State CA-1",
     "aliases": [
       "Old Western Saloon, 11201 State CA-1, Point Reyes Station"
+    ]
+  },
+  {
+    "name": "On Broadway",
+    "city": "San Francisco",
+    "address": "35 Broadway",
+    "aliases": [
+      "On Broadway, S.F."
     ]
   },
   {
@@ -1280,6 +1436,14 @@
     ]
   },
   {
+    "name": "Rickhouse",
+    "city": "San Francisco",
+    "address": "246 Kearny",
+    "aliases": [
+      "Rickhouse, 246 Kearny, S.F."
+    ]
+  },
+  {
     "name": "Rickshaw Stop",
     "city": "San Francisco",
     "address": "155 Fell Street",
@@ -1305,7 +1469,8 @@
     "city": "San Jose",
     "address": "395 South 1st Street",
     "aliases": [
-      "Ritz, San Jose"
+      "Ritz, San Jose",
+      "Rtiz, San Jose"
     ]
   },
   {
@@ -1331,7 +1496,16 @@
     "address": "955 Market Street 6th Floor",
     "aliases": [
       "S.F. Mass, 955 Market Street 6th Floor, S.F.",
-      "S.F. Mass, 955 Market Street 6th Floor"
+      "S.F. Mass, 955 Market Street 6th Floor",
+      "Mass, S.F."
+    ]
+  },
+  {
+    "name": "Sailing Goat",
+    "city": "Richmond",
+    "address": "1900 Stenmark Drive",
+    "aliases": [
+      "Sailing Goat, 1900 Stenmark Drive, Richmond"
     ]
   },
   {
@@ -1354,6 +1528,14 @@
       "San Jose Civic, San Jose",
       "Civic Center, 135 San Carlos St., San Jose",
       "Civic, 135 San Carlos St., San Jose"
+    ]
+  },
+  {
+    "name": "Santa Cruz Revival Church",
+    "city": "Santa Cruz",
+    "address": null,
+    "aliases": [
+      "Santa Cruz Revival Church, Santa Cruz"
     ]
   },
   {
@@ -1431,6 +1613,14 @@
     ]
   },
   {
+    "name": "Somewhere",
+    "city": "San Francisco",
+    "address": null,
+    "aliases": [
+      "Somewhere, S.F."
+    ]
+  },
+  {
     "name": "Spanky's Bar",
     "city": "Cotati",
     "address": "8201 Old Redwood Hwy.",
@@ -1444,6 +1634,14 @@
     "address": "1974 Shattuck Avenue",
     "aliases": [
       "Spats, Berkeley"
+    ]
+  },
+  {
+    "name": "Spire",
+    "city": "Oakland",
+    "address": "825 Athens",
+    "aliases": [
+      "Spire, 825 Athens, Oakland"
     ]
   },
   {
@@ -1495,7 +1693,8 @@
     "city": "Santa Cruz",
     "address": "703 Pacific Ave",
     "aliases": [
-      "Subrosa Community Space, Santa Cruz"
+      "Subrosa Community Space, Santa Cruz",
+      "Subrosa, Santa Cruz"
     ]
   },
   {
@@ -1716,32 +1915,6 @@
     "address": null,
     "aliases": [
       "X Bar, Cupertino"
-    ]
-  },
-  {
-    "name": "On Broadway",
-    "city": "San Francisco",
-    "address": "35 Broadway",
-    "aliases": [
-      "On Broadway, S.F."
-    ]
-  },
-  {
-    "name": "Finnish Hall Auditorium",
-    "city": "Berkeley",
-    "address": "1970 Chestnut St",
-    "aliases": [
-      "Finnish Hall Auditorium, Berkeley",
-      "Finnish Hall, 1970 Chestnut Street, Berkeley"
-    ]
-  },
-  {
-    "name": "Idol Beer Works",
-    "city": "Lodi",
-    "address": "100 S Sacramento Street",
-    "aliases": [
-      "Idol Beer Works, Lodi",
-      "Idol Beer Works, 100 S Sacramento Street, Lodi"
     ]
   }
 ]
