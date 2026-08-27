@@ -47,18 +47,29 @@ const SITEMAP_CHANGEFREQ = "weekly";
  * pre-condition — the rest of the pipeline depends on it).
  */
 export function generateSeoPages(outputDir: string): void {
-  if (!existsSync(SHOWS_PATH)) {
-    console.error(`FATAL: ${SHOWS_PATH} not found. Run \`npm run pipeline\` first.`);
-    process.exit(1);
+  for (const [, filePath] of [
+    ["shows.json", SHOWS_PATH],
+    ["known-venues.json", KNOWN_VENUES_PATH],
+    ["artist-cache.json", ARTIST_CACHE_PATH],
+  ] as const) {
+    if (!existsSync(filePath)) {
+      console.error(`FATAL: ${filePath} not found. Run \`npm run pipeline\` first.`);
+      process.exit(1);
+    }
   }
 
-  const data = JSON.parse(readFileSync(SHOWS_PATH, "utf-8")) as ShowsData;
-  const knownVenues = JSON.parse(
-    readFileSync(KNOWN_VENUES_PATH, "utf-8"),
-  ) as KnownVenue[];
-  const artistCache = JSON.parse(
-    readFileSync(ARTIST_CACHE_PATH, "utf-8"),
-  ) as Record<string, ArtistCacheEntry>;
+  let data: ShowsData;
+  let knownVenues: KnownVenue[];
+  let artistCache: Record<string, ArtistCacheEntry>;
+  try {
+    data = JSON.parse(readFileSync(SHOWS_PATH, "utf-8")) as ShowsData;
+    knownVenues = JSON.parse(readFileSync(KNOWN_VENUES_PATH, "utf-8")) as KnownVenue[];
+    artistCache = JSON.parse(readFileSync(ARTIST_CACHE_PATH, "utf-8")) as Record<string, ArtistCacheEntry>;
+  } catch (e) {
+    const msg = e instanceof Error ? e.message : String(e);
+    console.error(`FATAL: failed to read or parse input JSON: ${msg}\nRun \`npm run pipeline\` to regenerate.`);
+    process.exit(1);
+  }
 
   const { venues, artists, cities } = extractEntities(data, knownVenues, artistCache);
 
@@ -191,7 +202,7 @@ export function generateSeoPages(outputDir: string): void {
     })),
   ];
 
-  const sitemap = buildSitemap(sitemapEntries);
+  const sitemap = buildSitemap(sitemapEntries, data.updated);
   mkdirSync(outputDir, { recursive: true });
   writeFileSync(join(outputDir, "sitemap.xml"), sitemap);
 

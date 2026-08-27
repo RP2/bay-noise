@@ -7,14 +7,8 @@ export interface SitemapEntry {
 
 const SITE_BASE = "https://shows.wtf";
 
-// NOTE(port): Homepage lastmod is derived as the max of all entry lastmods.
 function escapeXml(s: string): string {
   return s.replace(/&/g, "&amp;");
-}
-
-function maxLastmod(entries: SitemapEntry[]): string {
-  if (entries.length === 0) return new Date().toISOString().slice(0, 10);
-  return entries.reduce((max, e) => (e.lastmod > max ? e.lastmod : max), entries[0].lastmod);
 }
 
 function urlBlock(loc: string, lastmod: string, changefreq: string, priority: number): string {
@@ -29,10 +23,12 @@ function urlBlock(loc: string, lastmod: string, changefreq: string, priority: nu
   ].join("\n");
 }
 
-export function buildSitemap(entries: SitemapEntry[]): string {
+export function buildSitemap(entries: SitemapEntry[], homepageLastmod?: string): string {
   const homepage: SitemapEntry = {
     path: "/",
-    lastmod: maxLastmod(entries),
+    lastmod: homepageLastmod ?? (entries.length > 0
+      ? entries.reduce((max, e) => (e.lastmod > max ? e.lastmod : max), entries[0].lastmod)
+      : new Date().toISOString().slice(0, 10)),
     priority: 1.0,
     changefreq: "daily",
   };

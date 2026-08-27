@@ -93,6 +93,13 @@ describe("buildSitemap", () => {
     expect(firstUrl).toContain("<lastmod>2026-08-15</lastmod>");
   });
 
+  it("uses explicit homepageLastmod when provided", () => {
+    const entries = [venue("a", "2026-12-31")];
+    const xml = buildSitemap(entries, "2026-08-24");
+    const firstUrl = xml.match(/<url>[\s\S]*?<\/url>/)?.[0] ?? "";
+    expect(firstUrl).toContain("<lastmod>2026-08-24</lastmod>");
+  });
+
   it("produces valid XML structure with matching open/close tags", () => {
     const xml = buildSitemap([venue("test")]);
     const openCount = (xml.match(/<url>/g) ?? []).length;
