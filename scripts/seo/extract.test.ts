@@ -120,9 +120,9 @@ describe("extractEntities — date filtering", () => {
     const { venues, artists } = extractEntities(data, KNOWN_VENUES, {});
 
     // Past Act appears in no entity.
-    const allArtistNames = artists.flatMap((a) => a.shows.flatMap((s) => s.artists.map((x) => x.name)));
-    expect(allArtistNames).not.toContain("Past Act");
-    expect(allArtistNames).toContain("Future Act");
+    const artistNames = artists.map((a) => a.name);
+    expect(artistNames).not.toContain("Past Act");
+    expect(artistNames).toContain("Future Act");
 
     // The venue only carries the future show.
     expect(venues).toHaveLength(1);
@@ -545,6 +545,38 @@ describe("extractEntities — slugs", () => {
     expect(venues[0].slug).toBe("bottom-of-the-hill");
     expect(artists[0].slug).toBe("yes-ma-am");
     expect(cities[0].slug).toBe("san-francisco");
+  });
+
+  it("EntityShow includes venueSlug and ArtistRef includes slug", () => {
+    const data = makeData([
+      {
+        date: "2026-09-10",
+        day: "Thu Sep 10",
+        venues: [
+          {
+            name: VENUE_BOTH,
+            city: "San Francisco",
+            address: null,
+            artists: [{ name: "Yes Ma'am" }, { name: "Support Act" }],
+          },
+        ],
+      },
+    ]);
+
+    const { venues, artists, cities } = extractEntities(data, KNOWN_VENUES, {});
+
+    expect(venues[0].shows[0].venueSlug).toBe("bottom-of-the-hill");
+    expect(venues[0].shows[0].artists[0].slug).toBe("yes-ma-am");
+    expect(cities[0].shows[0].venueSlug).toBe("bottom-of-the-hill");
+    expect(cities[0].shows[0].artists[0].slug).toBe("yes-ma-am");
+
+    const yesMaam = artists.find((a) => a.name === "Yes Ma'am")!;
+    expect(yesMaam.shows[0].venueSlug).toBe("bottom-of-the-hill");
+    expect(yesMaam.shows[0].artists[0].slug).toBe("support-act");
+
+    const supportAct = artists.find((a) => a.name === "Support Act")!;
+    expect(supportAct.shows[0].venueSlug).toBe("bottom-of-the-hill");
+    expect(supportAct.shows[0].artists[0].slug).toBe("yes-ma-am");
   });
 
   it("sorts each entity type alphabetically by slug", () => {

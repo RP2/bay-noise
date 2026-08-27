@@ -1,6 +1,5 @@
 import { describe, it, expect } from "vitest";
 import { buildVenuePage, buildArtistPage, buildCityPage, escapeHtml } from "./templates.js";
-import type { Artist } from "../../src/lib/types.js";
 
 /** Extract the JSON-LD blob from a rendered page. */
 function extractJsonLd(html: string): unknown {
@@ -30,7 +29,7 @@ const VENUE_SHOWS: Array<{
   time: string | null;
   price: string | null;
   age: string | null;
-  artists: Array<Pick<Artist, "name" | "genres">>;
+  artists: Array<{ name: string; genres: string[]; slug: string }>;
 }> = [
   {
     date: "2026-09-01",
@@ -40,8 +39,8 @@ const VENUE_SHOWS: Array<{
     price: "$15",
     age: null,
     artists: [
-      { name: "Artist A", genres: ["punk", "indie"] },
-      { name: "Artist B", genres: ["indie"] },
+      { name: "Artist A", genres: ["punk", "indie"], slug: "artist-a" },
+      { name: "Artist B", genres: ["indie"], slug: "artist-b" },
     ],
   },
 ];
@@ -54,9 +53,10 @@ const ARTIST_SHOWS: Array<{
   price: string | null;
   age: string | null;
   venueName: string;
+  venueSlug: string;
   city: string | null;
   address: string | null;
-  artists: Array<Pick<Artist, "name" | "genres">>;
+  artists: Array<{ name: string; genres: string[]; slug: string }>;
 }> = [
   {
     date: "2026-09-01",
@@ -66,9 +66,10 @@ const ARTIST_SHOWS: Array<{
     price: "$15",
     age: null,
     venueName: "The Chapel",
+    venueSlug: "the-chapel",
     city: "San Francisco",
     address: null,
-    artists: [{ name: "Opener", genres: ["indie"] }],
+    artists: [{ name: "Opener", genres: ["indie"], slug: "opener" }],
   },
 ];
 
@@ -80,9 +81,10 @@ const CITY_SHOWS: Array<{
   price: string | null;
   age: string | null;
   venueName: string;
+  venueSlug: string;
   city: string | null;
   address: string | null;
-  artists: Array<Pick<Artist, "name" | "genres">>;
+  artists: Array<{ name: string; genres: string[]; slug: string }>;
 }> = [
   {
     date: "2026-09-01",
@@ -92,9 +94,10 @@ const CITY_SHOWS: Array<{
     price: "$15",
     age: null,
     venueName: "The Chapel",
+    venueSlug: "the-chapel",
     city: "San Francisco",
     address: "777 Valencia St",
-    artists: [{ name: "Artist A", genres: ["indie"] }],
+    artists: [{ name: "Artist A", genres: ["indie"], slug: "artist-a" }],
   },
   {
     date: "2026-09-02",
@@ -104,9 +107,10 @@ const CITY_SHOWS: Array<{
     price: "$20",
     age: null,
     venueName: "Bottom of the Hill",
+    venueSlug: "bottom-of-the-hill",
     city: "San Francisco",
     address: "1233 17th St",
-    artists: [{ name: "Artist B", genres: ["punk"] }],
+    artists: [{ name: "Artist B", genres: ["punk"], slug: "artist-b" }],
   },
 ];
 
@@ -157,6 +161,24 @@ describe("buildVenuePage", () => {
     const ld = extractJsonLd(html) as { event: Array<{ name: string }> };
     expect(ld.event[0]?.name).toContain("Artist A");
     expect(ld.event[0]?.name).toContain("Artist B");
+  });
+
+  it("artist names link to /artist/{slug}/", () => {
+    expect(html).toMatch(
+      /<a href="\/artist\/artist-a\/">Artist A<\/a>/,
+    );
+    expect(html).toMatch(
+      /<a href="\/artist\/artist-b\/">Artist B<\/a>/,
+    );
+  });
+
+  it("JSON-LD performer includes url", () => {
+    const ld = extractJsonLd(html) as {
+      event: Array<{ performer: Array<{ url: string }> }>;
+    };
+    expect(ld.event[0]?.performer[0]?.url).toBe(
+      "https://shows.wtf/artist/artist-a/",
+    );
   });
 
   it("null city is handled (no city in meta line)", () => {
@@ -229,6 +251,27 @@ describe("buildArtistPage", () => {
     const ld = extractJsonLd(noGenresHtml) as Record<string, unknown>;
     expect(ld).not.toHaveProperty("genre");
   });
+
+  it("venue name links to /venue/{slug}/", () => {
+    expect(html).toMatch(
+      /<a href="\/venue\/the-chapel\/">The Chapel<\/a>/,
+    );
+  });
+
+  it("other artist names link to /artist/{slug}/", () => {
+    expect(html).toMatch(
+      /<a href="\/artist\/opener\/">Opener<\/a>/,
+    );
+  });
+
+  it("JSON-LD location includes url", () => {
+    const ld = extractJsonLd(html) as {
+      event: Array<{ location: { url: string } }>;
+    };
+    expect(ld.event[0]?.location.url).toBe(
+      "https://shows.wtf/venue/the-chapel/",
+    );
+  });
 });
 
 describe("buildCityPage", () => {
@@ -256,6 +299,34 @@ describe("buildCityPage", () => {
     expect(arr).toHaveLength(2);
     expect(arr[0]?.["@type"]).toBe("Event");
     expect(arr[1]?.["@type"]).toBe("Event");
+  });
+
+  it("venue names link to /venue/{slug}/", () => {
+    expect(html).toMatch(
+      /<a href="\/venue\/the-chapel\/">The Chapel<\/a>/,
+    );
+    expect(html).toMatch(
+      /<a href="\/venue\/bottom-of-the-hill\/">Bottom of the Hill<\/a>/,
+    );
+  });
+
+  it("artist names link to /artist/{slug}/", () => {
+    expect(html).toMatch(
+      /<a href="\/artist\/artist-a\/">Artist A<\/a>/,
+    );
+    expect(html).toMatch(
+      /<a href="\/artist\/artist-b\/">Artist B<\/a>/,
+    );
+  });
+
+  it("JSON-LD location includes url", () => {
+    const ld = extractJsonLd(html) as Array<{
+      location: { url: string };
+    }>;
+    expect(ld[0]?.location.url).toBe("https://shows.wtf/venue/the-chapel/");
+    expect(ld[1]?.location.url).toBe(
+      "https://shows.wtf/venue/bottom-of-the-hill/",
+    );
   });
 });
 
@@ -344,7 +415,7 @@ describe("show cap", () => {
       time: "9pm",
       price: "$10",
       age: null,
-      artists: [{ name: `A${i}`, genres: [] }],
+      artists: [{ name: `A${i}`, genres: [], slug: `a${i}` }],
     }));
   }
 
@@ -370,6 +441,7 @@ describe("show cap", () => {
       price: "$10",
       age: null,
       venueName: "V",
+      venueSlug: "v",
       city: null,
       address: null,
       artists: [],
@@ -395,6 +467,7 @@ describe("show cap", () => {
       price: "$10",
       age: null,
       venueName: "V",
+      venueSlug: "v",
       city: "San Francisco",
       address: "123 Main St",
       artists: [],
@@ -415,7 +488,7 @@ describe("show cap", () => {
       slug: "the-evil-venue",
       city: "San Francisco",
       address: "123 Main St",
-      shows: [{ date: "2026-09-01", day: "Mon Sep 1", extra: "", time: "8pm", price: "$10", age: null, artists: [{ name: "Band</script><script>alert(1)", genres: ["rock"] }] }],
+      shows: [{ date: "2026-09-01", day: "Mon Sep 1", extra: "", time: "8pm", price: "$10", age: null, artists: [{ name: "Band</script><script>alert(1)", genres: ["rock"], slug: "band" }] }],
       updated: "2026-08-26",
     });
     // Extract the JSON-LD content between script tags
@@ -430,7 +503,7 @@ describe("show cap", () => {
     const html = buildCityPage({
       name: "San Francisco",
       slug: "san-francisco",
-      shows: [{ date: "2026-09-01", day: "Mon Sep 1", extra: "", time: "8pm", price: "$10", age: null, venueName: "The Fillmore", city: "San Francisco", address: "1805 Geary Blvd", artists: [{ name: "Band A", genres: ["rock"] }] }],
+      shows: [{ date: "2026-09-01", day: "Mon Sep 1", extra: "", time: "8pm", price: "$10", age: null, venueName: "The Fillmore", venueSlug: "the-fillmore", city: "San Francisco", address: "1805 Geary Blvd", artists: [{ name: "Band A", genres: ["rock"], slug: "band-a" }] }],
       updated: "2026-08-26",
     });
     const ld = extractJsonLd(html) as Array<Record<string, unknown>>;

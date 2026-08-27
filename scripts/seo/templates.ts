@@ -10,9 +10,11 @@
  * only file allowed to read or write files.
  */
 
-import type { Artist } from "../../src/lib/types.js";
-
-type ArtistRef = Pick<Artist, "name" | "genres">;
+interface ArtistRef {
+  name: string;
+  genres: string[];
+  slug: string;
+}
 
 interface ShowCommon {
   date: string;
@@ -29,6 +31,7 @@ interface VenueShowEntry extends ShowCommon {
 
 interface ArtistShowEntry extends ShowCommon {
   venueName: string;
+  venueSlug: string;
   city: string | null;
   address: string | null;
   artists: ArtistRef[];
@@ -36,6 +39,7 @@ interface ArtistShowEntry extends ShowCommon {
 
 interface CityShowEntry extends ShowCommon {
   venueName: string;
+  venueSlug: string;
   city: string | null;
   address: string | null;
   artists: ArtistRef[];
@@ -70,8 +74,12 @@ a:hover { color: #fff; }
 .show .info { color: #a3a3a3; font-size: .9rem; margin: .25rem 0; }
 .show .artists { margin: .5rem 0 0; padding: 0; list-style: none; }
 .show .artists li { margin: .15rem 0; }
+.show .artists a { color: #e5e5e5; text-decoration: underline; text-decoration-color: #525252; }
+.show .artists a:hover { text-decoration-color: #f5f5f5; }
 .show .genres { color: #737373; font-size: .85rem; }
 .show .venue { color: #d4d4d4; }
+.show .venue a { color: #e5e5e5; text-decoration: underline; text-decoration-color: #525252; }
+.show .venue a:hover { text-decoration-color: #f5f5f5; }
 .cta {
   display: inline-block; margin-top: 2rem; padding: .6rem 1rem;
   border: 1px solid #404040; text-decoration: none; font-weight: 600;
@@ -123,7 +131,7 @@ function renderArtistsList(artists: ArtistRef[]): string {
     const genres = a.genres.length
       ? ` <span class="genres">(${escapeHtml(a.genres.join(", "))})</span>`
       : "";
-    return `<li>${escapeHtml(a.name)}${genres}</li>`;
+    return `<li><a href="/artist/${escapeHtml(a.slug)}/">${escapeHtml(a.name)}</a>${genres}</li>`;
   }).join("");
   return `<ul class="artists">${items}</ul>`;
 }
@@ -144,7 +152,7 @@ function renderArtistShowArticle(show: ArtistShowEntry): string {
   const cityPart = show.city ? `, ${escapeHtml(show.city)}` : "";
   return `<article class="show">
   <div class="date">${escapeHtml(show.day)}</div>
-  <div class="venue">${escapeHtml(show.venueName)}${cityPart}</div>
+  <div class="venue"><a href="/venue/${escapeHtml(show.venueSlug)}/">${escapeHtml(show.venueName)}</a>${cityPart}</div>
   <div class="info">${escapeHtml(renderShowInfo(show))}</div>
   ${renderArtistsList(show.artists)}
 </article>`;
@@ -153,7 +161,7 @@ function renderArtistShowArticle(show: ArtistShowEntry): string {
 function renderCityShowArticle(show: CityShowEntry): string {
   return `<article class="show">
   <div class="date">${escapeHtml(show.day)}</div>
-  <div class="venue">${escapeHtml(show.venueName)}</div>
+  <div class="venue"><a href="/venue/${escapeHtml(show.venueSlug)}/">${escapeHtml(show.venueName)}</a></div>
   <div class="info">${escapeHtml(renderShowInfo(show))}</div>
   ${renderArtistsList(show.artists)}
 </article>`;
@@ -276,7 +284,11 @@ export function buildVenuePage(opts: {
       startDate: s.date,
     };
     if (s.artists.length) {
-      ev.performer = s.artists.map((a) => ({ "@type": "MusicGroup", name: a.name }));
+      ev.performer = s.artists.map((a) => ({
+        "@type": "MusicGroup",
+        name: a.name,
+        url: `${SITE_URL}/artist/${a.slug}/`,
+      }));
     }
     return ev;
   });
@@ -318,7 +330,11 @@ export function buildArtistPage(opts: {
   };
   if (opts.genres.length) ld.genre = opts.genres;
   ld.event = shows.map((s) => {
-    const location: Record<string, unknown> = { "@type": "Place", name: s.venueName };
+    const location: Record<string, unknown> = {
+      "@type": "Place",
+      name: s.venueName,
+      url: `${SITE_URL}/venue/${s.venueSlug}/`,
+    };
     const addr = buildAddress(s.city, s.address);
     if (addr) location.address = addr;
     return {
@@ -355,7 +371,11 @@ export function buildCityPage(opts: {
   // repeating every Event in a hasPart array. The page subject (the city)
   // is implicit in the URL and the @context.
   const ld = shows.map((s) => {
-    const location: Record<string, unknown> = { "@type": "Place", name: s.venueName };
+    const location: Record<string, unknown> = {
+      "@type": "Place",
+      name: s.venueName,
+      url: `${SITE_URL}/venue/${s.venueSlug}/`,
+    };
     const addr = buildAddress(s.city, s.address);
     if (addr) location.address = addr;
     return {

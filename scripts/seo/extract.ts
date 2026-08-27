@@ -1,5 +1,12 @@
-import type { ShowsData, ShowDay, VenueEvent, Artist } from "../../src/lib/types.js";
+import type { ShowsData, ShowDay, VenueEvent } from "../../src/lib/types.js";
 import { slugify } from "../../src/lib/slug.js";
+
+/** Artist reference with a page slug for cross-linking. */
+export interface ArtistRef {
+  name: string;
+  genres: string[];
+  slug: string;
+}
 
 /** One show as it appears inside a venue/artist/city page list. */
 export interface EntityShow {
@@ -9,8 +16,9 @@ export interface EntityShow {
   time: string | null;
   price: string | null;
   age: string | null;
-  artists: Artist[];
+  artists: ArtistRef[];
   venueName: string; // only on artist/city pages
+  venueSlug: string;
   city: string | null; // only on artist pages
   address: string | null;
 }
@@ -211,6 +219,18 @@ function buildArtistEntities(
     }
   }
 
+  // Build a canonical name→slug lookup so cross-links on artist pages point to
+  // the artist's canonical SEO page even when the raw bill uses a variant name.
+  const nameToSlug = new Map<string, string>();
+  for (const [key, group] of groups) {
+    const canonicalName = resolveArtistCanonicalName(key, group, artistCache);
+    const slug = slugify(canonicalName);
+    for (const variant of group.variants) {
+      nameToSlug.set(variant.toLowerCase(), slug);
+    }
+    nameToSlug.set(canonicalName.toLowerCase(), slug);
+  }
+
   const out: ArtistEntity[] = [];
   for (const [key, group] of groups) {
     if (group.shows.length === 0) continue;
@@ -228,7 +248,18 @@ function buildArtistEntities(
     // spotifyUrl we found in any show. If neither, undefined.
     const spotifyUrl = cacheEntry?.spotifyUrl ?? group.spotifyUrl;
 
-    const sorted = sortAndCap(group.shows);
+    // Artist pages list the OTHER artists on the bill; the page subject is the
+    // <h1>. Use the canonical slug lookup for cross-links.
+    const sorted = sortAndCap(group.shows.map((s) => ({
+      ...s,
+      artists: s.artists
+        .filter((a) => a.name.toLowerCase() !== key)
+        .map((a) => ({
+          name: a.name,
+          genres: a.genres,
+          slug: nameToSlug.get(a.name.toLowerCase()) ?? slugify(a.name),
+        })),
+    })));
     out.push({
       type: "artist",
       name: canonicalName,
@@ -240,6 +271,17 @@ function buildArtistEntities(
     });
   }
   return out;
+}
+
+function resolveArtistCanonicalName(
+  key: string,
+  group: { variants: Set<string> },
+  artistCache: Record<string, ArtistCacheEntry>,
+): string {
+  const cacheEntry = artistCache[normalizeForMatching(key)];
+  return cacheEntry?.name
+    ?? [...group.variants].sort((a, b) => a.localeCompare(b))[0]
+    ?? key;
 }
 
 function buildCityEntities(
@@ -287,8 +329,13 @@ function makeShow(
     time: event.time,
     price: event.price,
     age: event.age,
-    artists: event.artists,
+    artists: event.artists.map((a) => ({
+      name: a.name,
+      genres: a.genres,
+      slug: slugify(a.name),
+    })),
     venueName: venue.name,
+    venueSlug: slugify(venue.name),
     city: event.city,
     address: event.address,
   };
