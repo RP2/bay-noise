@@ -1,18 +1,10 @@
 import { generateSingleIcs } from "../lib/ics.js";
 import type { VenueEvent } from "../lib/types.js";
+import { slugify } from "../lib/slug.js";
 
 interface AddToCalendarProps {
   date: string;
   venue: VenueEvent;
-}
-
-/** Sanitize a string for use in a filename. */
-function slugify(text: string): string {
-  return text
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-|-$/g, "")
-    .slice(0, 60);
 }
 
 export function AddToCalendar({ date, venue }: AddToCalendarProps) {

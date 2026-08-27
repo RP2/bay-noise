@@ -7,7 +7,7 @@
   "description": "Your personal Bay Area show radar.",
   "scripts": {
     "dev": "vite",
-    "build": "tsc --noEmit && vite build",
+    "build": "tsc --noEmit && vite build && npx tsx scripts/build-seo-pages.ts",
     "preview": "vite preview",
     "pipeline": "npx tsx scripts/build-data.ts",
     "promote": "node scripts/promote-unmatched.js",
