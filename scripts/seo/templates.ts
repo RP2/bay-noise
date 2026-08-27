@@ -88,7 +88,13 @@ a:hover { color: #fff; }
 .site-footer {
   border-top: 1px solid #262626; text-align: center; padding: 1.5rem 1rem;
   color: #737373; font-size: .8rem;
-}`;
+}
+.index-list { list-style: none; padding: 0; columns: 2; column-gap: 2rem; }
+.index-list li { padding: .3rem 0; break-inside: avoid; }
+.index-list a { color: #e5e5e5; text-decoration: none; }
+.index-list a:hover { text-decoration: underline; }
+.index-list .subtitle { color: #737373; font-size: .85rem; margin-left: .35rem; }
+@media (max-width: 640px) { .index-list { columns: 1; } }`;
 
 const SITE_NAME = "Bay Noise";
 const SITE_URL = "https://shows.wtf";
@@ -390,5 +396,52 @@ export function buildCityPage(opts: {
   return (
     renderHead({ title, description, canonicalUrl, ogType: "website", jsonLd: ld })
     + renderShell({ h1: `Live shows in ${opts.name}`, metaLine: escapeHtml(metaLine), showArticles: articles })
+  );
+}
+
+/** Build a complete index/hub page HTML string (e.g. /venue/, /artist/, /city/). */
+export function buildIndexPage(opts: {
+  title: string;
+  slug: string;
+  description: string;
+  entries: Array<{ name: string; slug: string; subtitle?: string }>;
+}): string {
+  const fullTitle = `${opts.title} \u2014 Bay Noise`;
+  const canonicalUrl = `${SITE_URL}/${opts.slug}/`;
+  const countLabel = opts.slug === "city" ? "cities" : `${opts.slug}s`;
+  const metaLine = `${opts.entries.length.toLocaleString("en-US")} ${countLabel}`;
+
+  const items = opts.entries.map((entry) => {
+    const subtitle = entry.subtitle
+      ? ` <span class="subtitle">${escapeHtml(entry.subtitle)}</span>`
+      : "";
+    return `<li><a href="/${opts.slug}/${escapeHtml(entry.slug)}/">${escapeHtml(entry.name)}</a>${subtitle}</li>`;
+  }).join("\n      ");
+
+  const ld: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: fullTitle,
+    description: opts.description,
+    url: canonicalUrl,
+  };
+
+  const body = `    <h1>${escapeHtml(opts.title)}</h1>
+    <p class="meta">${escapeHtml(metaLine)}</p>
+    <ul class="index-list">
+      ${items}
+    </ul>
+    <a class="cta" href="/">${escapeHtml(CTA_TEXT)}</a>
+  </main>
+  <footer class="site-footer">
+    ${FOOTER_HTML}
+  </footer>
+</body>
+</html>
+`;
+
+  return (
+    renderHead({ title: fullTitle, description: opts.description, canonicalUrl, ogType: "website", jsonLd: ld })
+    + body
   );
 }

@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { buildVenuePage, buildArtistPage, buildCityPage, escapeHtml } from "./templates.js";
+import { buildVenuePage, buildArtistPage, buildCityPage, buildIndexPage, escapeHtml } from "./templates.js";
 
 /** Extract the JSON-LD blob from a rendered page. */
 function extractJsonLd(html: string): unknown {
@@ -513,5 +513,112 @@ describe("show cap", () => {
     const addr = location.address as Record<string, unknown>;
     expect(addr.streetAddress).toBe("1805 Geary Blvd");
     expect(addr.addressLocality).toBe("San Francisco");
+  });
+});
+
+describe("buildIndexPage", () => {
+  const html = buildIndexPage({
+    title: "All Venues",
+    slug: "venue",
+    description: "Browse all 135 Bay Area music venues on Bay Noise.",
+    entries: [
+      { name: "Bottom of the Hill", slug: "bottom-of-the-hill", subtitle: "San Francisco" },
+      { name: "The Chapel", slug: "the-chapel", subtitle: "San Francisco" },
+      { name: "Fox Theater", slug: "fox-theater", subtitle: "Oakland" },
+    ],
+  });
+
+  it("title contains the provided title", () => {
+    expect(extractTitle(html)).toBe("All Venues \u2014 Bay Noise");
+  });
+
+  it("canonical URL is /venue/", () => {
+    expect(html).toMatch(/<link rel="canonical" href="https:\/\/shows\.wtf\/venue\/">/);
+  });
+
+  it("contains a link to every provided entry", () => {
+    expect(html).toMatch(/<a href="\/venue\/bottom-of-the-hill\/">Bottom of the Hill<\/a>/);
+    expect(html).toMatch(/<a href="\/venue\/the-chapel\/">The Chapel<\/a>/);
+    expect(html).toMatch(/<a href="\/venue\/fox-theater\/">Fox Theater<\/a>/);
+  });
+
+  it("renders subtitles in .subtitle spans", () => {
+    expect(html).toMatch(/<span class="subtitle">San Francisco<\/span>/);
+    expect(html).toMatch(/<span class="subtitle">Oakland<\/span>/);
+  });
+
+  it("meta line shows the count", () => {
+    expect(extractMetaLine(html)).toContain("3 venues");
+  });
+
+  it("JSON-LD @type is CollectionPage with url", () => {
+    const ld = extractJsonLd(html) as Record<string, unknown>;
+    expect(ld["@type"]).toBe("CollectionPage");
+    expect(ld.url).toBe("https://shows.wtf/venue/");
+    expect(ld.name).toBe("All Venues \u2014 Bay Noise");
+  });
+
+  it("CTA links to /", () => {
+    expect(html).toMatch(/<a class="cta" href="\/">/);
+  });
+
+  it("omits subtitle span when none provided", () => {
+    const noSubHtml = buildIndexPage({
+      title: "All Artists",
+      slug: "artist",
+      description: "Browse all Bay Area artists on Bay Noise.",
+      entries: [{ name: "Helado Negro", slug: "helado-negro" }],
+    });
+    expect(noSubHtml).not.toContain('<span class="subtitle">');
+    expect(noSubHtml).toMatch(/<a href="\/artist\/helado-negro\/">Helado Negro<\/a>/);
+  });
+
+  it("localizes large counts with commas", () => {
+    const manyEntries = Array.from({ length: 2317 }, (_, i) => ({
+      name: `Artist ${i}`,
+      slug: `artist-${i}`,
+    }));
+    const bigHtml = buildIndexPage({
+      title: "All Artists",
+      slug: "artist",
+      description: "Browse all artists.",
+      entries: manyEntries,
+    });
+    expect(extractMetaLine(bigHtml)).toContain("2,317 artists");
+  });
+
+  it("uses 'cities' plural for city slug", () => {
+    const cityHtml = buildIndexPage({
+      title: "All Cities",
+      slug: "city",
+      description: "x",
+      entries: [
+        { name: "Oakland", slug: "oakland" },
+        { name: "San Francisco", slug: "san-francisco" },
+      ],
+    });
+    expect(extractMetaLine(cityHtml)).toContain("2 cities");
+    expect(extractMetaLine(cityHtml)).not.toContain("citys");
+  });
+
+  it("escapes HTML in entry names", () => {
+    const safeHtml = buildIndexPage({
+      title: "All Venues",
+      slug: "venue",
+      description: "x",
+      entries: [{ name: "Hall & Oates", slug: "hall-and-oates" }],
+    });
+    expect(safeHtml).toContain("Hall &amp; Oates");
+    expect(safeHtml).not.toMatch(/Hall & Oates(?!amp)/);
+  });
+
+  it("escapes HTML in subtitles", () => {
+    const safeHtml = buildIndexPage({
+      title: "All Venues",
+      slug: "venue",
+      description: "x",
+      entries: [{ name: "V", slug: "v", subtitle: "M\u00e9nlo Park" }],
+    });
+    expect(safeHtml).toContain("M\u00e9nlo Park");
   });
 });

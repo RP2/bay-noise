@@ -200,6 +200,7 @@ describe("orchestrator pipeline (real data)", () => {
         const dir = join(outputDir, type);
         if (!existsSync(dir)) continue;
         for (const entry of readdirSync(dir)) {
+          if (entry === "index.html") continue;
           check(type, entry);
         }
       }
@@ -224,7 +225,7 @@ describe("orchestrator file I/O", () => {
 
       const venueDir = join(outputDir, "venue");
       if (existsSync(venueDir)) {
-        const venueEntries = readdirSync(venueDir);
+        const venueEntries = readdirSync(venueDir).filter((e) => e !== "index.html");
         expect(venueEntries.length).toBe(venues.length);
         const firstVenue = venues[0]!;
         const venueFile = join(venueDir, firstVenue.slug, "index.html");
@@ -252,6 +253,35 @@ describe("orchestrator file I/O", () => {
       const sitemap = readFileSync(sitemapPath, "utf-8");
       expect(sitemap).toMatch(/^<\?xml/);
       expect(sitemap).toContain("<loc>https://shows.wtf/</loc>");
+    } finally {
+      rmSync(outputDir, { recursive: true, force: true });
+    }
+  });
+
+  it("writes index pages for venue, artist, and city", () => {
+    const outputDir = mkdtempSync(join(tmpdir(), "seo-index-"));
+    try {
+      generateSeoPages(outputDir);
+
+      const venueIndex = join(outputDir, "venue", "index.html");
+      expect(existsSync(venueIndex)).toBe(true);
+      const venueHtml = readFileSync(venueIndex, "utf-8");
+      expect(venueHtml).toContain("<title>");
+      expect(venueHtml).toContain('rel="canonical" href="https://shows.wtf/venue/"');
+      expect(venueHtml).toContain('<ul class="index-list">');
+      expect(venueHtml).toMatch(/<a href="\/venue\/[a-z0-9-]+\//);
+
+      const artistIndex = join(outputDir, "artist", "index.html");
+      expect(existsSync(artistIndex)).toBe(true);
+      const artistHtml = readFileSync(artistIndex, "utf-8");
+      expect(artistHtml).toContain('rel="canonical" href="https://shows.wtf/artist/"');
+      expect(artistHtml).toMatch(/<a href="\/artist\/[a-z0-9-]+\//);
+
+      const cityIndex = join(outputDir, "city", "index.html");
+      expect(existsSync(cityIndex)).toBe(true);
+      const cityHtml = readFileSync(cityIndex, "utf-8");
+      expect(cityHtml).toContain('rel="canonical" href="https://shows.wtf/city/"');
+      expect(cityHtml).toMatch(/<a href="\/city\/[a-z0-9-]+\//);
     } finally {
       rmSync(outputDir, { recursive: true, force: true });
     }

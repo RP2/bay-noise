@@ -20,7 +20,7 @@ import { fileURLToPath } from "url";
 
 import { extractEntities, type KnownVenue, type ArtistCacheEntry } from "./seo/extract.js";
 import type { ShowsData } from "../src/lib/types.js";
-import { buildVenuePage, buildArtistPage, buildCityPage } from "./seo/templates.js";
+import { buildVenuePage, buildArtistPage, buildCityPage, buildIndexPage } from "./seo/templates.js";
 import { buildSitemap, type SitemapEntry } from "./seo/sitemap.js";
 
 const PUBLIC_DIR = "public";
@@ -194,6 +194,52 @@ export function generateSeoPages(outputDir: string): void {
   const sitemap = buildSitemap(sitemapEntries);
   mkdirSync(outputDir, { recursive: true });
   writeFileSync(join(outputDir, "sitemap.xml"), sitemap);
+
+  // Build entries from the written set, deduping by slug (the artists array
+  // can contain multiple entries with the same slug due to variant grouping;
+  // only one page per slug is written).
+  const venueBySlug = new Map(venues.map((v) => [v.slug, v]));
+  const artistBySlug = new Map(artists.map((a) => [a.slug, a]));
+  const cityBySlug = new Map(cities.map((c) => [c.slug, c]));
+
+  const venueIndexHtml = buildIndexPage({
+    title: "All Venues",
+    slug: "venue",
+    description: `Browse all ${venueCount} Bay Area music venues on Bay Noise. Find upcoming live shows by venue, with dates, artists, and tickets.`,
+    entries: [...written].filter((s) => venueBySlug.has(s)).map((s) => {
+      const v = venueBySlug.get(s)!;
+      return { name: v.name, slug: v.slug, subtitle: v.city ?? undefined };
+    }),
+  });
+  const venueIndexDir = join(outputDir, "venue");
+  mkdirSync(venueIndexDir, { recursive: true });
+  writeFileSync(join(venueIndexDir, "index.html"), venueIndexHtml);
+
+  const artistIndexHtml = buildIndexPage({
+    title: "All Artists",
+    slug: "artist",
+    description: `Browse all ${artistCount} Bay Area artists on Bay Noise. Find upcoming live shows by artist, with dates, venues, and tickets.`,
+    entries: [...written].filter((s) => artistBySlug.has(s)).map((s) => {
+      const a = artistBySlug.get(s)!;
+      return { name: a.name, slug: a.slug };
+    }),
+  });
+  const artistIndexDir = join(outputDir, "artist");
+  mkdirSync(artistIndexDir, { recursive: true });
+  writeFileSync(join(artistIndexDir, "index.html"), artistIndexHtml);
+
+  const cityIndexHtml = buildIndexPage({
+    title: "All Cities",
+    slug: "city",
+    description: `Browse all ${cityCount} Bay Area cities with upcoming live music on Bay Noise. Find shows by city, with dates, venues, and artists.`,
+    entries: [...written].filter((s) => cityBySlug.has(s)).map((s) => {
+      const c = cityBySlug.get(s)!;
+      return { name: c.name, slug: c.slug };
+    }),
+  });
+  const cityIndexDir = join(outputDir, "city");
+  mkdirSync(cityIndexDir, { recursive: true });
+  writeFileSync(join(cityIndexDir, "index.html"), cityIndexHtml);
 
   console.log(
     `✓ Generated ${venueCount} venue pages, ${artistCount} artist pages, ${cityCount} city pages`,
