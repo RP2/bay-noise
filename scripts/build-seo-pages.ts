@@ -184,19 +184,19 @@ export function generateSeoPages(outputDir: string): void {
   const sitemapEntries: SitemapEntry[] = [
     ...venues.filter((v) => written.has(v.slug)).map((v) => ({
       path: `/venue/${v.slug}/`,
-      lastmod: v.lastmod,
+      lastmod: data.updated,
       priority: SITEMAP_PRIORITIES.venue,
       changefreq: SITEMAP_CHANGEFREQ,
     })),
     ...artists.filter((a) => written.has(a.slug)).map((a) => ({
       path: `/artist/${a.slug}/`,
-      lastmod: a.lastmod,
+      lastmod: data.updated,
       priority: SITEMAP_PRIORITIES.artist,
       changefreq: SITEMAP_CHANGEFREQ,
     })),
     ...cities.filter((c) => written.has(c.slug)).map((c) => ({
       path: `/city/${c.slug}/`,
-      lastmod: c.lastmod,
+      lastmod: data.updated,
       priority: SITEMAP_PRIORITIES.city,
       changefreq: SITEMAP_CHANGEFREQ,
     })),
