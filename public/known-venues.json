@@ -161,7 +161,8 @@
     "city": "Berkeley",
     "address": "1984 Bonita",
     "aliases": [
-      "Back Room, 1984 Bonita, Berkeley"
+      "Back Room, 1984 Bonita, Berkeley",
+      "Back Room, 1984 Bonita"
     ]
   },
   {
@@ -398,7 +399,8 @@
     "city": "Santa Rosa",
     "address": "575 Ross Street",
     "aliases": [
-      "Cooperage Brewing, 575 Ross Street, Santa Rosa"
+      "Cooperage Brewing, 575 Ross Street, Santa Rosa",
+      "Cooperage Brewing, 575 Ross Street"
     ]
   },
   {
@@ -445,7 +447,8 @@
     "city": "Oakland",
     "address": "2523 Broadway",
     "aliases": [
-      "Crown Coffee, 2523 Broadway, Oakland"
+      "Crown Coffee, 2523 Broadway, Oakland",
+      "Crown Coffee, 2523 Broadway"
     ]
   },
   {
@@ -1000,7 +1003,8 @@
     "city": "Oakland",
     "address": "1899 9th Street",
     "aliases": [
-      "Lower Bobs Skatepark, 1899 9th Street, Oakland"
+      "Lower Bobs Skatepark, 1899 9th Street, Oakland",
+      "Lower Bobs Skatepark, 1899 9th Street"
     ]
   },
   {
@@ -1053,7 +1057,8 @@
     "city": "San Francisco",
     "address": "201 Octavia Street",
     "aliases": [
-      "Mercury Cafe, 201 Octavia Street, S.F."
+      "Mercury Cafe, 201 Octavia Street, S.F.",
+      "Mercury Cafe, 201 Octavia Street"
     ]
   },
   {
@@ -1440,7 +1445,8 @@
     "city": "San Francisco",
     "address": "246 Kearny",
     "aliases": [
-      "Rickhouse, 246 Kearny, S.F."
+      "Rickhouse, 246 Kearny, S.F.",
+      "Rickhouse, 246 Kearny"
     ]
   },
   {
@@ -1505,7 +1511,8 @@
     "city": "Richmond",
     "address": "1900 Stenmark Drive",
     "aliases": [
-      "Sailing Goat, 1900 Stenmark Drive, Richmond"
+      "Sailing Goat, 1900 Stenmark Drive, Richmond",
+      "Sailing Goat, 1900 Stenmark Drive"
     ]
   },
   {
@@ -1641,7 +1648,8 @@
     "city": "Oakland",
     "address": "825 Athens",
     "aliases": [
-      "Spire, 825 Athens, Oakland"
+      "Spire, 825 Athens, Oakland",
+      "Spire, 825 Athens"
     ]
   },
   {

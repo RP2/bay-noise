@@ -202,6 +202,51 @@ describe("buildVenuePage", () => {
     expect(extractMetaLine(noCity)).not.toContain("Oakland");
     expect(extractMetaLine(noCity)).toContain("123 Main St");
   });
+
+  it("JSON-LD Event has eventStatus and eventAttendanceMode", () => {
+    const ld = extractJsonLd(html) as { event: Array<Record<string, unknown>> };
+    const ev = ld.event[0];
+    expect(ev?.eventStatus).toBe("https://schema.org/EventScheduled");
+    expect(ev?.eventAttendanceMode).toBe("https://schema.org/OfflineEventAttendanceMode");
+  });
+
+  it("JSON-LD Event has offers when price is present", () => {
+    const ld = extractJsonLd(html) as { event: Array<{ offers?: Record<string, unknown> }> };
+    const ev = ld.event[0];
+    expect(ev?.offers).toBeDefined();
+    expect(ev?.offers?.["@type"]).toBe("Offer");
+    expect(ev?.offers?.price).toBe(15);
+    expect(ev?.offers?.priceCurrency).toBe("USD");
+  });
+
+  it("JSON-LD Event has description", () => {
+    const ld = extractJsonLd(html) as { event: Array<{ description: string }> };
+    expect(ld.event[0]?.description).toBeDefined();
+    expect(ld.event[0]?.description.length).toBeGreaterThan(0);
+    expect(ld.event[0]?.description).toContain("Bottom of the Hill");
+    expect(ld.event[0]?.description).toContain("Artist A");
+    expect(ld.event[0]?.description).toContain("$15");
+  });
+
+  it("JSON-LD Event has location (venue is its own location)", () => {
+    const ld = extractJsonLd(html) as { event: Array<{ location?: Record<string, unknown> }> };
+    expect(ld.event[0]?.location).toBeDefined();
+    expect(ld.event[0]?.location?.["@type"]).toBe("Place");
+    expect(ld.event[0]?.location?.name).toBe("Bottom of the Hill");
+  });
+
+  it("JSON-LD Event omits offers when price is null", () => {
+    const noPriceHtml = buildVenuePage({
+      name: "Free Venue",
+      slug: "free-venue",
+      city: null,
+      address: null,
+      shows: [{ ...VENUE_SHOWS[0], price: null }],
+      updated: "2026-08-26",
+    });
+    const ld = extractJsonLd(noPriceHtml) as { event: Array<Record<string, unknown>> };
+    expect(ld.event[0]?.offers).toBeUndefined();
+  });
 });
 
 describe("buildArtistPage", () => {
@@ -213,6 +258,7 @@ describe("buildArtistPage", () => {
     shows: ARTIST_SHOWS,
     updated: "2026-08-26",
   });
+  const artistHtml = html;
 
   it("title contains artist name", () => {
     expect(extractTitle(html)).toContain("Helado Negro");
@@ -272,6 +318,26 @@ describe("buildArtistPage", () => {
       "https://shows.wtf/venue/the-chapel/",
     );
   });
+
+  it("JSON-LD Event has eventStatus and eventAttendanceMode", () => {
+    const ld = extractJsonLd(artistHtml) as { event: Array<Record<string, unknown>> };
+    expect(ld.event[0]?.eventStatus).toBe("https://schema.org/EventScheduled");
+    expect(ld.event[0]?.eventAttendanceMode).toBe("https://schema.org/OfflineEventAttendanceMode");
+  });
+
+  it("JSON-LD Event has offers when price is present", () => {
+    const ld = extractJsonLd(artistHtml) as { event: Array<{ offers?: Record<string, unknown> }> };
+    expect(ld.event[0]?.offers).toBeDefined();
+    expect(ld.event[0]?.offers?.["@type"]).toBe("Offer");
+    expect(ld.event[0]?.offers?.price).toBe(15);
+  });
+
+  it("JSON-LD Event has performer (headliner and co-performers)", () => {
+    const ld = extractJsonLd(artistHtml) as { event: Array<{ performer: Array<{ name: string }> }> };
+    const names = ld.event[0]?.performer?.map((p) => p.name) ?? [];
+    expect(names).toContain("Helado Negro");
+    expect(names).toContain("Opener");
+  });
 });
 
 describe("buildCityPage", () => {
@@ -281,6 +347,7 @@ describe("buildCityPage", () => {
     shows: CITY_SHOWS,
     updated: "2026-08-26",
   });
+  const cityHtml = html;
 
   it("title contains city name", () => {
     expect(extractTitle(html)).toContain("Oakland");
@@ -327,6 +394,34 @@ describe("buildCityPage", () => {
     expect(ld[1]?.location.url).toBe(
       "https://shows.wtf/venue/bottom-of-the-hill/",
     );
+  });
+
+  it("JSON-LD Event has eventStatus and eventAttendanceMode", () => {
+    const ld = extractJsonLd(cityHtml) as Array<Record<string, unknown>>;
+    expect(ld[0]?.eventStatus).toBe("https://schema.org/EventScheduled");
+    expect(ld[0]?.eventAttendanceMode).toBe("https://schema.org/OfflineEventAttendanceMode");
+  });
+
+  it("JSON-LD Event has offers when price is present", () => {
+    const ld = extractJsonLd(cityHtml) as Array<{ offers?: Record<string, unknown> }>;
+    expect(ld[0]?.offers).toBeDefined();
+    expect(ld[0]?.offers?.["@type"]).toBe("Offer");
+    expect(ld[0]?.offers?.price).toBe(15);
+  });
+
+  it("JSON-LD Event has description", () => {
+    const ld = extractJsonLd(cityHtml) as Array<{ description: string }>;
+    expect(ld[0]?.description).toBeDefined();
+    expect(ld[0]?.description.length).toBeGreaterThan(0);
+    expect(ld[0]?.description).toContain("Artist A");
+    expect(ld[0]?.description).toContain("$15");
+  });
+
+  it("JSON-LD Event has performer", () => {
+    const ld = extractJsonLd(cityHtml) as Array<{ performer: Array<{ name: string }> }>;
+    const names = ld[0]?.performer?.map((p) => p.name) ?? [];
+    expect(names.length).toBeGreaterThan(0);
+    expect(names).toContain("Artist A");
   });
 });
 

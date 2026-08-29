@@ -245,6 +245,54 @@ function buildAddress(city: string | null, address: string | null): Record<strin
   return out;
 }
 
+const EVENT_SCHEDULED = "https://schema.org/EventScheduled";
+const OFFLINE_MODE = "https://schema.org/OfflineEventAttendanceMode";
+
+/**
+ * Parse a raw price string into a schema.org Offer.
+ * Returns undefined if no price data is available.
+ */
+function buildOffer(price: string | null): Record<string, unknown> | undefined {
+  if (!price) return undefined;
+  const lower = price.toLowerCase().trim();
+  if (lower === "free") return { "@type": "Offer", price: 0, priceCurrency: "USD", availability: "https://schema.org/InStock" };
+  const match = lower.match(/\$(\d+)/);
+  if (match) return { "@type": "Offer", price: Number(match[1]), priceCurrency: "USD", availability: "https://schema.org/InStock" };
+  // "by donation", "sliding scale", etc. — unknown price format; omit offer
+  return undefined;
+}
+
+/** Build a short event description from available show data. */
+function venueEventDescription(show: VenueShowEntry, venueName: string): string {
+  const parts: string[] = [];
+  const names = show.artists.map((a) => a.name);
+  if (names.length) parts.push(`Live show at ${venueName} featuring ${names.join(", ")}.`);
+  else parts.push(`Live show at ${venueName}.`);
+  const detail = joinNonNull([show.time, show.price, show.age], " · ");
+  if (detail) parts.push(detail);
+  return parts.join(" ");
+}
+
+function artistEventDescription(show: ArtistShowEntry, artistName: string): string {
+  const parts: string[] = [];
+  const others = show.artists.map((a) => a.name);
+  if (others.length) parts.push(`Live show at ${show.venueName} featuring ${artistName} with ${others.join(", ")}.`);
+  else parts.push(`Live show at ${show.venueName} featuring ${artistName}.`);
+  const detail = joinNonNull([show.time, show.price, show.age], " · ");
+  if (detail) parts.push(detail);
+  return parts.join(" ");
+}
+
+function cityEventDescription(show: CityShowEntry): string {
+  const parts: string[] = [];
+  const names = show.artists.map((a) => a.name);
+  if (names.length) parts.push(`Live show at ${show.venueName} featuring ${names.join(", ")}.`);
+  else parts.push(`Live show at ${show.venueName}.`);
+  const detail = joinNonNull([show.time, show.price, show.age], " · ");
+  if (detail) parts.push(detail);
+  return parts.join(" ");
+}
+
 function venueEventName(show: VenueShowEntry, venueName: string): string {
   const names = show.artists.map((a) => a.name);
   return names.length ? `${names.join(", ")} at ${venueName}` : `Show at ${venueName}`;
@@ -287,8 +335,21 @@ export function buildVenuePage(opts: {
     const ev: Record<string, unknown> = {
       "@type": "Event",
       name: venueEventName(s, opts.name),
+      description: venueEventDescription(s, opts.name),
       startDate: s.date,
+      eventStatus: EVENT_SCHEDULED,
+      eventAttendanceMode: OFFLINE_MODE,
     };
+    const offer = buildOffer(s.price);
+    if (offer) ev.offers = offer;
+    const venueLocation: Record<string, unknown> = {
+      "@type": "Place",
+      name: opts.name,
+      url: `${SITE_URL}/venue/${opts.slug}/`,
+    };
+    const venueAddr = buildAddress(opts.city, opts.address);
+    if (venueAddr) venueLocation.address = venueAddr;
+    ev.location = venueLocation;
     if (s.artists.length) {
       ev.performer = s.artists.map((a) => ({
         "@type": "MusicGroup",
@@ -343,12 +404,29 @@ export function buildArtistPage(opts: {
     };
     const addr = buildAddress(s.city, s.address);
     if (addr) location.address = addr;
-    return {
+    const ev: Record<string, unknown> = {
       "@type": "Event",
       name: artistEventName(s, opts.name),
+      description: artistEventDescription(s, opts.name),
       startDate: s.date,
+      eventStatus: EVENT_SCHEDULED,
+      eventAttendanceMode: OFFLINE_MODE,
       location,
     };
+    const offer = buildOffer(s.price);
+    if (offer) ev.offers = offer;
+    const performerNames = new Set<string>();
+    const performerList: Array<Record<string, string>> = [];
+    performerNames.add(opts.name.toLowerCase());
+    performerList.push({ "@type": "MusicGroup", name: opts.name, url: `${SITE_URL}/artist/${opts.slug}/` });
+    for (const a of s.artists) {
+      if (!performerNames.has(a.name.toLowerCase())) {
+        performerNames.add(a.name.toLowerCase());
+        performerList.push({ "@type": "MusicGroup", name: a.name, url: `${SITE_URL}/artist/${a.slug}/` });
+      }
+    }
+    if (performerList.length) ev.performer = performerList;
+    return ev;
   });
 
   return (
@@ -384,13 +462,26 @@ export function buildCityPage(opts: {
     };
     const addr = buildAddress(s.city, s.address);
     if (addr) location.address = addr;
-    return {
+    const ev: Record<string, unknown> = {
       "@context": "https://schema.org",
       "@type": "Event",
       name: cityEventName(s),
+      description: cityEventDescription(s),
       startDate: s.date,
+      eventStatus: EVENT_SCHEDULED,
+      eventAttendanceMode: OFFLINE_MODE,
       location,
     };
+    if (s.artists.length) {
+      ev.performer = s.artists.map((a) => ({
+        "@type": "MusicGroup",
+        name: a.name,
+        url: `${SITE_URL}/artist/${a.slug}/`,
+      }));
+    }
+    const offer = buildOffer(s.price);
+    if (offer) ev.offers = offer;
+    return ev;
   });
 
   return (

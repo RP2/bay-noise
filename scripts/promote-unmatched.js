@@ -18,11 +18,19 @@ async function main() {
   console.log(`Promoting ${unmatched.length} venue(s):\n`);
 
   for (const u of unmatched) {
+    const canonicalName = u.venueName.replace(/,\s*$/, "").trim();
+    // scrapedName = full foopee string with city ("Lower Bobs, 123 Main St, Oakland")
+    // venueName = what shows.json stores ("Lower Bobs, 123 Main St")
+    // Both must be aliases so the SEO pipeline can resolve the canonical name.
+    const aliases = [u.scrapedName];
+    if (u.venueName !== u.scrapedName) {
+      aliases.push(u.venueName);
+    }
     known.push({
-      name: u.venueName.replace(/,\s*$/, "").trim(),
+      name: canonicalName,
       city: u.city,
       address: u.address,
-      aliases: [u.scrapedName],
+      aliases,
     });
     console.log(`  + ${u.venueName.replace(/,\s*$/, "").trim()}`);
     if (u.city) console.log(`    city: ${u.city}`);
