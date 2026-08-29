@@ -135,7 +135,7 @@ function renderArtistsList(artists: ArtistRef[]): string {
   if (!artists.length) return "";
   const items = artists.map((a) => {
     const genres = a.genres.length
-      ? ` <span class="genres">(${escapeHtml(a.genres.join(", "))})</span>`
+      ? ` <span class="genres">${escapeHtml(a.genres.join(", "))}</span>`
       : "";
     return `<li><a href="/artist/${escapeHtml(a.slug)}/">${escapeHtml(a.name)}</a>${genres}</li>`;
   }).join("");

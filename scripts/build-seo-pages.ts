@@ -232,7 +232,7 @@ export function generateSeoPages(outputDir: string): void {
     description: `Browse all ${artistCount} Bay Area artists on Bay Noise. Find upcoming live shows by artist, with dates, venues, and tickets.`,
     entries: [...written].filter((s) => artistBySlug.has(s)).map((s) => {
       const a = artistBySlug.get(s)!;
-      return { name: a.name, slug: a.slug };
+      return { name: a.name, slug: a.slug, subtitle: a.genres[0] };
     }),
   });
   const artistIndexDir = join(outputDir, "artist");
