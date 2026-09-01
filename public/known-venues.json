@@ -689,7 +689,9 @@
     "city": "San Francisco",
     "address": null,
     "aliases": [
-      "Golden Gare Park, S.F."
+      "Golden Gare Park, S.F.",
+      "Band Shell, Golden Gate Park",
+      "Golden Gate Park, S.F."
     ]
   },
   {
@@ -875,7 +877,9 @@
     "address": "1339 N 1st Street",
     "aliases": [
       "Jade Cathey Resturant, 1339 N 1st Street, San Jose",
-      "Jade Cathey Resturant, 1339 N 1st Street"
+      "Jade Cathey Resturant, 1339 N 1st Street",
+      "Jade Cathey Resturant, 1339 North 1st Street, San Jose",
+      "Jade Cathey Resturant, 1339 N. 1st St., San Jose"
     ]
   },
   {

@@ -1,1 +1,128 @@
-[]
+[
+  {
+    "scrapedName": "155 South River Street, Santa Cruz",
+    "venueName": "155 South River Street",
+    "city": "Santa Cruz",
+    "address": null,
+    "extra": "",
+    "seen": "2026-09-01",
+    "count": 2
+  },
+  {
+    "scrapedName": "Everyday Skateshop, 10 Geary Street, S.F.",
+    "venueName": "Everyday Skateshop, 10 Geary Street",
+    "city": "San Francisco",
+    "address": "10 Geary Street",
+    "extra": "",
+    "seen": "2026-09-01",
+    "count": 4
+  },
+  {
+    "scrapedName": "Toot's Tavern, Crockett",
+    "venueName": "Toot's Tavern",
+    "city": "Crockett",
+    "address": null,
+    "extra": "",
+    "seen": "2026-09-01",
+    "count": 3
+  },
+  {
+    "scrapedName": "FML Studios, 2400 Filbert Street, Oakland",
+    "venueName": "FML Studios, 2400 Filbert Street",
+    "city": "Oakland",
+    "address": "2400 Filbert Street",
+    "extra": "",
+    "seen": "2026-09-01",
+    "count": 6
+  },
+  {
+    "scrapedName": "Hive, West Oakland",
+    "venueName": "Hive, West Oakland",
+    "city": null,
+    "address": null,
+    "extra": "",
+    "seen": "2026-09-01",
+    "count": 2
+  },
+  {
+    "scrapedName": "Open Gallery, 38 S. 2nd Street, San Jose",
+    "venueName": "Open Gallery, 38 S. 2nd Street",
+    "city": "San Jose",
+    "address": "38 S. 2nd Street",
+    "extra": "",
+    "seen": "2026-09-01",
+    "count": 4
+  },
+  {
+    "scrapedName": "Dolan's Den, 995 Piner Road, Santa Rosa",
+    "venueName": "Dolan's Den, 995 Piner Road",
+    "city": "Santa Rosa",
+    "address": "995 Piner Road",
+    "extra": "",
+    "seen": "2026-09-01",
+    "count": 1
+  },
+  {
+    "scrapedName": "Fold, 3359 26th Street, S.F.",
+    "venueName": "Fold, 3359 26th Street",
+    "city": "San Francisco",
+    "address": "3359 26th Street",
+    "extra": "",
+    "seen": "2026-09-01",
+    "count": 1
+  },
+  {
+    "scrapedName": "Benders, S.F.",
+    "venueName": "Benders",
+    "city": "San Francisco",
+    "address": null,
+    "extra": "",
+    "seen": "2026-09-01",
+    "count": 1
+  },
+  {
+    "scrapedName": "Levi's Plaza, 1125 Battery Street, S.F.",
+    "venueName": "Levi's Plaza, 1125 Battery Street",
+    "city": "San Francisco",
+    "address": "1125 Battery Street",
+    "extra": "",
+    "seen": "2026-09-01",
+    "count": 2
+  },
+  {
+    "scrapedName": "Memorial Park, 24176 Mission Blvd., Hayward",
+    "venueName": "Memorial Park, 24176 Mission Blvd.",
+    "city": "Hayward",
+    "address": "24176 Mission Blvd.",
+    "extra": "",
+    "seen": "2026-09-01",
+    "count": 3
+  },
+  {
+    "scrapedName": "UC Thteater, Berkeley",
+    "venueName": "UC Thteater",
+    "city": "Berkeley",
+    "address": null,
+    "extra": "",
+    "seen": "2026-09-01",
+    "count": 2
+  },
+  {
+    "scrapedName": "Faight, 473 Haight Street, S.F.",
+    "venueName": "Faight, 473 Haight Street",
+    "city": "San Francisco",
+    "address": "473 Haight Street",
+    "extra": "",
+    "seen": "2026-09-01",
+    "count": 1
+  },
+  {
+    "scrapedName": "Apple Jacks Bar, 8790 La Honda Road, La Honda",
+    "venueName": "Apple Jacks Bar, 8790 La Honda Road, La Honda",
+    "city": null,
+    "address": "8790 La Honda Road",
+    "extra": "",
+    "seen": "2026-09-01",
+    "count": 1
+  }
+]
