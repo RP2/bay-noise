@@ -14,8 +14,8 @@
     "city": "San Francisco",
     "address": "10 Geary Street",
     "extra": "",
-    "seen": "2026-09-01",
-    "count": 4
+    "seen": "2026-10-01",
+    "count": 7
   },
   {
     "scrapedName": "Toot's Tavern, Crockett",
@@ -23,8 +23,8 @@
     "city": "Crockett",
     "address": null,
     "extra": "",
-    "seen": "2026-09-01",
-    "count": 3
+    "seen": "2026-10-01",
+    "count": 5
   },
   {
     "scrapedName": "FML Studios, 2400 Filbert Street, Oakland",
@@ -32,8 +32,8 @@
     "city": "Oakland",
     "address": "2400 Filbert Street",
     "extra": "",
-    "seen": "2026-09-01",
-    "count": 6
+    "seen": "2026-10-01",
+    "count": 10
   },
   {
     "scrapedName": "Hive, West Oakland",
@@ -41,8 +41,8 @@
     "city": null,
     "address": null,
     "extra": "",
-    "seen": "2026-09-01",
-    "count": 2
+    "seen": "2026-10-01",
+    "count": 3
   },
   {
     "scrapedName": "Open Gallery, 38 S. 2nd Street, San Jose",
@@ -50,8 +50,8 @@
     "city": "San Jose",
     "address": "38 S. 2nd Street",
     "extra": "",
-    "seen": "2026-09-01",
-    "count": 4
+    "seen": "2026-10-01",
+    "count": 8
   },
   {
     "scrapedName": "Dolan's Den, 995 Piner Road, Santa Rosa",
@@ -59,8 +59,8 @@
     "city": "Santa Rosa",
     "address": "995 Piner Road",
     "extra": "",
-    "seen": "2026-09-01",
-    "count": 1
+    "seen": "2026-10-01",
+    "count": 3
   },
   {
     "scrapedName": "Fold, 3359 26th Street, S.F.",
@@ -95,8 +95,8 @@
     "city": "Hayward",
     "address": "24176 Mission Blvd.",
     "extra": "",
-    "seen": "2026-09-01",
-    "count": 3
+    "seen": "2026-10-01",
+    "count": 10
   },
   {
     "scrapedName": "UC Thteater, Berkeley",
@@ -104,8 +104,8 @@
     "city": "Berkeley",
     "address": null,
     "extra": "",
-    "seen": "2026-09-01",
-    "count": 2
+    "seen": "2026-10-01",
+    "count": 3
   },
   {
     "scrapedName": "Faight, 473 Haight Street, S.F.",
@@ -113,8 +113,8 @@
     "city": "San Francisco",
     "address": "473 Haight Street",
     "extra": "",
-    "seen": "2026-09-01",
-    "count": 1
+    "seen": "2026-10-01",
+    "count": 2
   },
   {
     "scrapedName": "Apple Jacks Bar, 8790 La Honda Road, La Honda",
@@ -122,7 +122,34 @@
     "city": null,
     "address": "8790 La Honda Road",
     "extra": "",
-    "seen": "2026-09-01",
+    "seen": "2026-10-01",
+    "count": 4
+  },
+  {
+    "scrapedName": "Junction, 3901 Montgomery Drive, Santa Rosa",
+    "venueName": "Junction, 3901 Montgomery Drive",
+    "city": "Santa Rosa",
+    "address": "3901 Montgomery Drive",
+    "extra": "",
+    "seen": "2026-10-01",
     "count": 1
+  },
+  {
+    "scrapedName": "Lucca Bar",
+    "venueName": "Lucca Bar",
+    "city": null,
+    "address": null,
+    "extra": "",
+    "seen": "2026-10-01",
+    "count": 1
+  },
+  {
+    "scrapedName": "19 Broadway, 17 Broadway Blvd., Fairfax",
+    "venueName": "19 Broadway, 17 Broadway Blvd., Fairfax",
+    "city": null,
+    "address": "17 Broadway Blvd.",
+    "extra": "",
+    "seen": "2026-10-01",
+    "count": 2
   }
 ]
