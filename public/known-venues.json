@@ -25,6 +25,24 @@
     ]
   },
   {
+    "name": "155 South River Street",
+    "city": "Santa Cruz",
+    "address": null,
+    "aliases": [
+      "155 South River Street, Santa Cruz",
+      "155 South River Street"
+    ]
+  },
+  {
+    "name": "19 Broadway",
+    "city": "Fairfax",
+    "address": "17 Broadway Blvd.",
+    "aliases": [
+      "19 Broadway, 17 Broadway Blvd., Fairfax",
+      "19 Broadway"
+    ]
+  },
+  {
     "name": "2708 Channing Way",
     "city": "Berkeley",
     "address": null,
@@ -121,6 +139,15 @@
     ]
   },
   {
+    "name": "Apple Jacks Bar",
+    "city": "La Honda",
+    "address": "8790 La Honda Road",
+    "aliases": [
+      "Apple Jacks Bar, 8790 La Honda Road, La Honda",
+      "Apple Jacks Bar"
+    ]
+  },
+  {
     "name": "Arena",
     "city": "Oakland",
     "address": "7000 Coliseum Way",
@@ -137,15 +164,6 @@
     "aliases": [
       "Arlene Francis Center, 99 6th Street, Santa Rosa",
       "Arlene Francis Center, Santa Rosa"
-    ]
-  },
-  {
-    "name": "at Open Gallery",
-    "city": "San Jose",
-    "address": "38 South Second Street",
-    "aliases": [
-      "at Open Gallery, 38 South Second Street, San Jose",
-      "at Open Gallery, 38 South Second Street"
     ]
   },
   {
@@ -192,6 +210,15 @@
       "Beauty Shop Above Tay Ho, 344 12th St., Oakland",
       "Beauty Supply Above Tay Ho, 344 12th St., Oakland",
       "Beauty Supply Shop Above Tay Ho, 344 12th Street, Oakland"
+    ]
+  },
+  {
+    "name": "Benders",
+    "city": "San Francisco",
+    "address": null,
+    "aliases": [
+      "Benders, S.F.",
+      "Benders"
     ]
   },
   {
@@ -509,6 +536,15 @@
     ]
   },
   {
+    "name": "Dolan's Den, 995 Piner Road",
+    "city": "Santa Rosa",
+    "address": "995 Piner Road",
+    "aliases": [
+      "Dolan's Den, 995 Piner Road, Santa Rosa",
+      "Dolan's Den, 995 Piner Road"
+    ]
+  },
+  {
     "name": "Down Home Music",
     "city": "El Cerrito",
     "address": "10341 San Pablo Avenue",
@@ -545,12 +581,30 @@
     ]
   },
   {
+    "name": "Everyday Skateshop, 10 Geary Street",
+    "city": "San Francisco",
+    "address": "10 Geary Street",
+    "aliases": [
+      "Everyday Skateshop, 10 Geary Street, S.F.",
+      "Everyday Skateshop, 10 Geary Street"
+    ]
+  },
+  {
     "name": "Faction Brewing",
     "city": "Alameda",
     "address": "2501 Monarch Street",
     "aliases": [
       "Faction Brewing, Alameda",
       "Faction Brewing, Alamea"
+    ]
+  },
+  {
+    "name": "Faight, 473 Haight Street",
+    "city": "San Francisco",
+    "address": "473 Haight Street",
+    "aliases": [
+      "Faight, 473 Haight Street, S.F.",
+      "Faight, 473 Haight Street"
     ]
   },
   {
@@ -612,6 +666,24 @@
     "aliases": [
       "First Congregational, 1229 Court St., Martinez",
       "First Congregational, 1229 Court St."
+    ]
+  },
+  {
+    "name": "FML Studios, 2400 Filbert Street",
+    "city": "Oakland",
+    "address": "2400 Filbert Street",
+    "aliases": [
+      "FML Studios, 2400 Filbert Street, Oakland",
+      "FML Studios, 2400 Filbert Street"
+    ]
+  },
+  {
+    "name": "Fold, 3359 26th Street",
+    "city": "San Francisco",
+    "address": "3359 26th Street",
+    "aliases": [
+      "Fold, 3359 26th Street, S.F.",
+      "Fold, 3359 26th Street"
     ]
   },
   {
@@ -806,6 +878,15 @@
     ]
   },
   {
+    "name": "Hive",
+    "city": "Oakland",
+    "address": null,
+    "aliases": [
+      "Hive, West Oakland",
+      "Hive"
+    ]
+  },
+  {
     "name": "Hopmonk Tavern (Novato)",
     "city": "Novato",
     "address": "230 Petaluma Avenue",
@@ -904,6 +985,15 @@
     ]
   },
   {
+    "name": "Junction, 3901 Montgomery Drive",
+    "city": "Santa Rosa",
+    "address": "3901 Montgomery Drive",
+    "aliases": [
+      "Junction, 3901 Montgomery Drive, Santa Rosa",
+      "Junction, 3901 Montgomery Drive"
+    ]
+  },
+  {
     "name": "Jury Room",
     "city": "Santa Cruz",
     "address": "525 Seabright Avenue",
@@ -975,6 +1065,15 @@
     ]
   },
   {
+    "name": "Levi's Plaza, 1125 Battery Street",
+    "city": "San Francisco",
+    "address": "1125 Battery Street",
+    "aliases": [
+      "Levi's Plaza, 1125 Battery Street, S.F.",
+      "Levi's Plaza, 1125 Battery Street"
+    ]
+  },
+  {
     "name": "Little Hill Lounge",
     "city": "El Cerrito",
     "address": "10753 San Pablo Ave",
@@ -1015,6 +1114,14 @@
     "aliases": [
       "Lower Bobs Skatepark, 1899 9th Street, Oakland",
       "Lower Bobs Skatepark, 1899 9th Street"
+    ]
+  },
+  {
+    "name": "Lucca Bar",
+    "city": null,
+    "address": null,
+    "aliases": [
+      "Lucca Bar"
     ]
   },
   {
@@ -1060,6 +1167,15 @@
     "aliases": [
       "Mayes Oyster House, 1233 Polk Street, S.F.",
       "Mayes Oyster House, 1233 Polk Street"
+    ]
+  },
+  {
+    "name": "Memorial Park, 24176 Mission Blvd.",
+    "city": "Hayward",
+    "address": "24176 Mission Blvd.",
+    "aliases": [
+      "Memorial Park, 24176 Mission Blvd., Hayward",
+      "Memorial Park, 24176 Mission Blvd."
     ]
   },
   {
@@ -1243,6 +1359,19 @@
     "address": "35 Broadway",
     "aliases": [
       "On Broadway, S.F."
+    ]
+  },
+  {
+    "name": "Open Gallery",
+    "city": "San Jose",
+    "address": "38 South Second Street",
+    "aliases": [
+      "at Open Gallery",
+      "at Open Gallery, 38 South Second Street, San Jose",
+      "at Open Gallery, 38 South Second Street",
+      "Open Gallery, 38 S. 2nd Street, San Jose",
+      "Open Gallery, 38 S. 2nd Street",
+      "Open Gallery"
     ]
   },
   {
@@ -1810,6 +1939,15 @@
     ]
   },
   {
+    "name": "Toot's Tavern",
+    "city": "Crockett",
+    "address": null,
+    "aliases": [
+      "Toot's Tavern, Crockett",
+      "Toot's Tavern"
+    ]
+  },
+  {
     "name": "Town Hall Plaza",
     "city": "San Anselmo",
     "address": "525 San Anselmo Avenue",
@@ -1824,6 +1962,8 @@
     "aliases": [
       "UC Theater, Berkeley",
       "UC Theater, Brkeley",
+      "UC Thteater, Berkeley",
+      "UC Thteater",
       "Greek Theater, UC Berkeley",
       "Greek Theater, UC Berkeley Campus",
       "Greek Theater, UC Campus, Berkeley"
