@@ -1,1 +1,128 @@
-[]
+[
+  {
+    "scrapedName": "Rancho Nicasio, 1 Old Rancheria Road, Nicasio",
+    "venueName": "Rancho Nicasio, 1 Old Rancheria Road, Nicasio",
+    "city": null,
+    "address": "1 Old Rancheria Road",
+    "extra": "",
+    "seen": "2026-11-01",
+    "count": 5
+  },
+  {
+    "scrapedName": "Mabuhauy Gardens, S.F.",
+    "venueName": "Mabuhauy Gardens",
+    "city": "San Francisco",
+    "address": null,
+    "extra": "",
+    "seen": "2026-11-01",
+    "count": 1
+  },
+  {
+    "scrapedName": "Roar Shack, 24 7th Street, S.F.",
+    "venueName": "Roar Shack, 24 7th Street",
+    "city": "San Francisco",
+    "address": "24 7th Street",
+    "extra": "",
+    "seen": "2026-11-01",
+    "count": 1
+  },
+  {
+    "scrapedName": "Hotel Utan, S.F.",
+    "venueName": "Hotel Utan",
+    "city": "San Francisco",
+    "address": null,
+    "extra": "",
+    "seen": "2026-11-01",
+    "count": 3
+  },
+  {
+    "scrapedName": "Boom Boom Room, S.F.",
+    "venueName": "Boom Boom Room",
+    "city": "San Francisco",
+    "address": null,
+    "extra": "",
+    "seen": "2026-11-01",
+    "count": 1
+  },
+  {
+    "scrapedName": "FML Studios, Oakland",
+    "venueName": "FML Studios",
+    "city": "Oakland",
+    "address": null,
+    "extra": "",
+    "seen": "2026-11-01",
+    "count": 1
+  },
+  {
+    "scrapedName": "3rd and Army Skatepark, S.F.",
+    "venueName": "3rd and Army Skatepark",
+    "city": "San Francisco",
+    "address": null,
+    "extra": "",
+    "seen": "2026-11-01",
+    "count": 2
+  },
+  {
+    "scrapedName": "Fox Theater, 2215 Broadwa, Redwood City",
+    "venueName": "Fox Theater, 2215 Broadwa, Redwood City",
+    "city": null,
+    "address": "2215 Broadwa",
+    "extra": "",
+    "seen": "2026-11-01",
+    "count": 1
+  },
+  {
+    "scrapedName": "Odd Fellows Hall, 342 Georgia Street, Vallejo",
+    "venueName": "Odd Fellows Hall, 342 Georgia Street",
+    "city": "Vallejo",
+    "address": "342 Georgia Street",
+    "extra": "",
+    "seen": "2026-11-01",
+    "count": 1
+  },
+  {
+    "scrapedName": "Ivy Room, Albanyu",
+    "venueName": "Ivy Room, Albanyu",
+    "city": null,
+    "address": null,
+    "extra": "",
+    "seen": "2026-11-01",
+    "count": 4
+  },
+  {
+    "scrapedName": "9 Lives, Oakland",
+    "venueName": "9 Lives",
+    "city": "Oakland",
+    "address": null,
+    "extra": "",
+    "seen": "2026-11-01",
+    "count": 1
+  },
+  {
+    "scrapedName": "Brodway Hall, 2323 Broadway, Oakland",
+    "venueName": "Brodway Hall, 2323 Broadway",
+    "city": "Oakland",
+    "address": "2323 Broadway",
+    "extra": "",
+    "seen": "2026-11-01",
+    "count": 1
+  },
+  {
+    "scrapedName": "California Ballroom, 1736 Franklin St., Oakland",
+    "venueName": "California Ballroom, 1736 Franklin St.",
+    "city": "Oakland",
+    "address": "1736 Franklin St.",
+    "extra": "",
+    "seen": "2026-11-01",
+    "count": 2
+  },
+  {
+    "scrapedName": "Ritz, San Josea",
+    "venueName": "Ritz, San Josea",
+    "city": null,
+    "address": null,
+    "extra": "",
+    "seen": "2026-11-01",
+    "count": 1
+  }
+]

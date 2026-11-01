@@ -209,7 +209,8 @@
     "aliases": [
       "Beauty Shop Above Tay Ho, 344 12th St., Oakland",
       "Beauty Supply Above Tay Ho, 344 12th St., Oakland",
-      "Beauty Supply Shop Above Tay Ho, 344 12th Street, Oakland"
+      "Beauty Supply Shop Above Tay Ho, 344 12th Street, Oakland",
+      "Beauty Supply Shop Above Tay Ho, 344 12th St., Oakland"
     ]
   },
   {
@@ -282,7 +283,8 @@
     "address": "178 Leland Avenue",
     "aliases": [
       "Bric-A-Brac, 178 Leland Avenue, S.F.",
-      "Bric-A-Brac, 178 Leland Avenue"
+      "Bric-A-Brac, 178 Leland Avenue",
+      "Bric-A-Brac, S.F."
     ]
   },
   {
@@ -382,7 +384,8 @@
     "address": "99 Grove St.",
     "aliases": [
       "Civic Auditorium, S.F.",
-      "Civic Audtorium, S.F."
+      "Civic Audtorium, S.F.",
+      "Civic Auditorium, San Jose"
     ]
   },
   {
@@ -756,7 +759,8 @@
     "aliases": [
       "Gilman Brewing Co., 912 Gilman Street, Berkeley",
       "Gilman Brewing Co., 912 Gilman Street",
-      "Gilman Brewing, 912 Gilman Street, Berkeley"
+      "Gilman Brewing, 912 Gilman Street, Berkeley",
+      "Gilman Brewery Company, 912 Gilman Street, Berkeley"
     ]
   },
   {
@@ -1140,7 +1144,9 @@
     "aliases": [
       "Mabuhay Gardens, S.F.",
       "Mabuhay Gardens, .F.",
-      "Mabuhay Gardens and on Broadway, S.F."
+      "Mabuhay Gardens and on Broadway, S.F.",
+      "On Broadway at Mabuhay Gardens, S.F.",
+      "at On Broadway at Mabuhay Gardens, S.F."
     ]
   },
   {
@@ -1261,7 +1267,8 @@
     "city": "Napa",
     "address": null,
     "aliases": [
-      "Music Hall, Napa"
+      "Music Hall, Napa",
+      "Music Hall, Felton"
     ]
   },
   {
@@ -1273,7 +1280,9 @@
       "Music Hall, 1030 Main St,, Napa",
       "Music Hall, Napa",
       "Napa Music Hall, 1030 Main St",
-      "Napa County Fair, 575 Third St., Napa"
+      "Napa County Fair, 575 Third St., Napa",
+      "Napa Music Hall, Napa",
+      "Club, Napa Music Hall, Napa"
     ]
   },
   {
@@ -1810,7 +1819,8 @@
       "Stay Gold Deli, Oakland",
       "Stay Gold Deli, Oaklad",
       "Stay Gold Deli, Okland",
-      "Stay Gold Deili, Oakland"
+      "Stay Gold Deili, Oakland",
+      "Stay Gold Deli, Oaklaand"
     ]
   },
   {
